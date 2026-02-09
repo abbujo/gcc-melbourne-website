@@ -4,9 +4,9 @@ import CTAButton from "../CTAButton.astro";
 
 <section class="hero-section" id="hero">
   <div class="gcc-container">
-    <div class="hero-grid">
-      <!-- Text Card -->
-      <div class="text-card fade-in-up">
+    <div class="hero-main-layout">
+      <!-- 1. TEXT CONTENT AREA -->
+      <div class="hero-text fade-in-up">
         <div class="badges">
           <span class="badge">Melbourne-Based</span>
           <span class="badge">Fully Insured</span>
@@ -40,8 +40,8 @@ import CTAButton from "../CTAButton.astro";
         </div>
       </div>
 
-      <!-- Image Card -->
-      <div class="image-card fade-in-up delay-100">
+      <!-- 2. IMAGE AREA -->
+      <div class="hero-image fade-in-up delay-100">
         <img
           src={`${import.meta.env.BASE_URL}/images/stock-images/hero.jpg`}
           alt="Professional commercial cleaning team in Melbourne"
@@ -52,77 +52,76 @@ import CTAButton from "../CTAButton.astro";
         />
         <div class="image-overlay"></div>
       </div>
-    </div>
 
-    <!-- Trust Factors Box -->
-    <div class="trust-box fade-in-up delay-200">
-      <div class="trust-grid">
-        <div class="trust-item">
-          <div class="icon-circle">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-              ></path>
-            </svg>
+      <!-- 3. TRUST FACTORS AREA -->
+      <div class="hero-trust fade-in-up delay-200">
+        <div class="trust-grid">
+          <!-- Trust Item 1 -->
+          <div class="trust-item">
+            <div class="icon-circle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                ></path>
+              </svg>
+            </div>
+            <div class="trust-text">
+              <strong>5-Star Rated</strong>
+              <span class="trust-sub">Based on 50+ reviews</span>
+            </div>
           </div>
-          <div class="trust-text">
-            <strong>5-Star Rated</strong>
-            <span>Based on 50+ reviews</span>
-          </div>
-        </div>
 
-        <div class="trust-divider"></div>
-
-        <div class="trust-item">
-          <div class="icon-circle">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
+          <!-- Trust Item 2 -->
+          <div class="trust-item">
+            <div class="icon-circle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="trust-text">
+              <strong>Same-Day Quotes</strong>
+              <span class="trust-sub">Fast & transparent pricing</span>
+            </div>
           </div>
-          <div class="trust-text">
-            <strong>Same-Day Quotes</strong>
-            <span>Fast & transparent pricing</span>
-          </div>
-        </div>
 
-        <div class="trust-divider"></div>
-
-        <div class="trust-item">
-          <div class="icon-circle">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M9 12.75L11.25 15 15 9.75M21 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.477 2 12 2s10 4.477 10 10z"
-              ></path>
-            </svg>
-          </div>
-          <div class="trust-text">
-            <strong>Satisfaction Guaranteed</strong>
-            <span>Or we re-clean for free</span>
+          <!-- Trust Item 3 -->
+          <div class="trust-item">
+            <div class="icon-circle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.477 2 12 2s10 4.477 10 10z"
+                ></path>
+              </svg>
+            </div>
+            <div class="trust-text">
+              <strong>Satisfaction Guaranteed</strong>
+              <span class="trust-sub">Or we re-clean for free</span>
+            </div>
           </div>
         </div>
       </div>
@@ -131,22 +130,32 @@ import CTAButton from "../CTAButton.astro";
 </section>
 
 <style>
+  /* =========================================
+     BASE & DESKTOP STYLES
+     Default state: Split View + Bottom Trust Box
+     ========================================= */
+
   .hero-section {
     padding: 3rem 0 5rem;
     background: linear-gradient(to bottom, #f0fdf4 0%, #ffffff 100%);
     overflow: hidden;
   }
 
-  .hero-grid {
+  /* Grid Layout System */
+  .hero-main-layout {
     display: grid;
+    /* Desktop: 2 columns, 2 rows */
     grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "text image"
+      "trust trust";
     gap: 2rem;
-    align-items: stretch; /* Ensures equal height */
-    margin-bottom: 2rem;
+    align-items: stretch;
   }
 
-  /* --- Text Card --- */
-  .text-card {
+  /* --- 1. Text Area --- */
+  .hero-text {
+    grid-area: text;
     background: white;
     padding: 3.5rem;
     border-radius: 2rem;
@@ -159,6 +168,97 @@ import CTAButton from "../CTAButton.astro";
     z-index: 2;
   }
 
+  /* --- 2. Image Area --- */
+  .hero-image {
+    grid-area: image;
+    position: relative;
+    border-radius: 2rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+    min-height: 500px;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s ease;
+  }
+
+  .hero-image:hover img {
+    transform: scale(1.03);
+  }
+
+  .image-overlay {
+    position: absolute;
+    inset: 0;
+    /* Desktop overlay is subtle */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
+    pointer-events: none;
+  }
+
+  /* --- 3. Trust Area --- */
+  .hero-trust {
+    grid-area: trust;
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+  }
+
+  .trust-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    justify-content: center;
+  }
+
+  /* Desktop Icons */
+  .icon-circle {
+    width: 3rem;
+    height: 3rem;
+    background: #f0fdf4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-green);
+    flex-shrink: 0;
+  }
+
+  .icon-circle svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .trust-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .trust-text strong {
+    color: var(--brand-dark);
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  .trust-sub {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: block; /* Visible on desktop */
+  }
+
+  /* --- Typography & Elements (Shared/Desktop) --- */
   .badges {
     display: flex;
     gap: 0.75rem;
@@ -193,7 +293,6 @@ import CTAButton from "../CTAButton.astro";
     position: relative;
   }
 
-  /* Underline effect for highlight */
   .highlight::after {
     content: "";
     position: absolute;
@@ -218,102 +317,193 @@ import CTAButton from "../CTAButton.astro";
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    margin-top: auto; /* Push to bottom if content is short */
+    margin-top: auto;
   }
 
-  /* --- Image Card --- */
-  .image-card {
-    position: relative;
-    border-radius: 2rem;
-    overflow: hidden;
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
-    min-height: 500px; /* Ensure substantial height */
-  }
+  /* =========================================
+     MOBILE STYLES (Max-width: 900px)
+     The "Immersive" Transformation
+     ========================================= */
+  @media (max-width: 900px) {
+    .hero-section {
+      padding: 1rem 0 3rem;
+    }
 
-  .image-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.7s ease;
-  }
+    /* 
+       Step 1: Grid Layout with Explicit Rows
+       Row 1: Main Content Space (Text)
+       Row 2: Trust Factors Space (Auto height)
+    */
+    .hero-main-layout {
+      position: relative; /* Anchor for absolute image */
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr auto; /* Explicit separation */
+      grid-template-areas: "stack"; /* All items occupy 'stack' */
+      gap: 0;
 
-  .image-card:hover img {
-    transform: scale(1.03);
-  }
+      /* Container Styling for the "Card" look */
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      min-height: 550px; /* Force height for immersion */
+      align-items: end; /* Push content to bottom */
+    }
 
-  .image-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
-    pointer-events: none;
-  }
+    /* 
+       Step 2: Layer the Image (Background) 
+       Now absolutely positioned to guarantee full coverage
+    */
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      border-radius: 0; /* Wrapper handles radius */
+      box-shadow: none;
+    }
 
-  /* --- Trust Factors Box --- */
-  .trust-box {
-    background: white;
-    border-radius: 1.5rem;
-    padding: 2rem;
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.03);
-  }
+    /* Stronger overlay for readability */
+    .image-overlay {
+      background: linear-gradient(
+        to top,
+        rgba(0, 20, 15, 0.95) 0%,
+        rgba(0, 20, 15, 0.6) 50%,
+        rgba(0, 0, 0, 0) 100%
+      );
+    }
 
-  .trust-grid {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+    /* 
+       Step 3: Layer the Text (Foreground) 
+       Sits at z-index 2 in TOP row.
+    */
+    .hero-text {
+      grid-column: 1;
+      grid-row: 1;
+      z-index: 2;
+      background: transparent; /* Remove white bg */
+      box-shadow: none;
+      border: none;
 
-  .trust-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex: 1;
-    justify-content: center;
-  }
+      /* Padding just around text */
+      padding: 2rem 1.5rem 1rem;
 
-  .icon-circle {
-    width: 3rem;
-    height: 3rem;
-    background: #f0fdf4;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--brand-green);
-    flex-shrink: 0;
-  }
+      /* Align content to bottom of its row */
+      align-self: end;
+      justify-content: flex-end;
+      color: white; /* Text turns white */
+    }
 
-  .icon-circle svg {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
+    /* Typography Adjustments for Dark Background */
+    .headline {
+      color: white;
+      font-size: 2rem; /* Mobile sizing */
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      margin-bottom: 0.5rem; /* Small spacing */
+    }
 
-  .trust-text {
-    display: flex;
-    flex-direction: column;
-  }
+    .highlight {
+      color: #6ee7b7; /* Lighter teal for contrast against dark */
+    }
 
-  .trust-text strong {
-    color: var(--brand-dark);
-    font-weight: 700;
-    font-size: 1.05rem;
-  }
+    .highlight::after {
+      display: none; /* Remove underline on mobile */
+    }
 
-  .trust-text span {
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    font-weight: 500;
-  }
+    .subheadline {
+      display: none; /* Removed as per user request */
+    }
 
-  .trust-divider {
-    width: 1px;
-    height: 3rem;
-    background: var(--border-soft);
-    margin: 0 1rem;
-  }
+    /* Glassmorphism Badges */
+    .badge {
+      display: none; /* Removed as per user request */
+    }
 
-  /* Animations */
+    .badges {
+      display: none; /* Removed as per user request */
+    }
+
+    /* Hide CTA on Mobile (per request) */
+    .cta-group {
+      display: none;
+    }
+
+    /* 
+       Step 4: Incorporate Trust Factors 
+       Sits at z-index 3 in BOTTOM row.
+    */
+    .hero-trust {
+      grid-column: 1;
+      grid-row: 2;
+      z-index: 3;
+
+      /* Full width, no margin hacks */
+      width: 100%;
+      margin: 0;
+      padding: 1rem 1.5rem 1.5rem;
+
+      /* Reset Box Styles */
+      background: linear-gradient(
+        to top,
+        rgba(0, 20, 15, 0.9),
+        rgba(0, 20, 15, 0)
+      ); /* Bottom fade for visibility */
+      box-shadow: none;
+      border: none;
+      border-radius: 0;
+
+      /* Add top border separator */
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .trust-grid {
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    /* Transform Logic: Box -> Pill with High Contrast */
+    .trust-item {
+      flex: 0 1 auto; /* Don't stretch */
+      background: rgba(0, 20, 15, 0.85); /* Much darker for readability */
+      padding: 0.5rem 0.9rem;
+      border-radius: 99px;
+      gap: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .trust-desc,
+    .trust-sub,
+    .trust-divider {
+      display: none;
+    }
+
+    .trust-text strong {
+      color: #a7f3d0; /* Soft green-white */
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Resize Icon Container */
+    .icon-circle {
+      width: auto;
+      height: auto;
+      background: transparent;
+      border-radius: 0;
+      color: #a7f3d0;
+    }
+
+    .icon-circle svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+</style>
+
+<!-- ANIMATIONS -->
+<style>
   .fade-in-up {
     animation: fadeInUp 0.8s ease-out forwards;
     opacity: 0;
@@ -331,48 +521,6 @@ import CTAButton from "../CTAButton.astro";
     to {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-
-  /* --- Responsive --- */
-  @media (max-width: 900px) {
-    .hero-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .text-card {
-      padding: 2.5rem 1.5rem;
-      text-align: center;
-      align-items: center;
-    }
-
-    .headline {
-      font-size: 2.5rem;
-    }
-
-    .image-card {
-      min-height: 300px;
-      order: -1; /* Image first on mobile */
-    }
-
-    .trust-grid {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1.5rem;
-    }
-
-    .trust-item {
-      justify-content: flex-start;
-      width: 100%;
-    }
-
-    .trust-divider {
-      display: none;
-    }
-
-    .badges {
-      justify-content: center;
     }
   }
 </style>
