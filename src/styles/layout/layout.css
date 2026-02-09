@@ -3,9 +3,15 @@
 /* Layout helpers */
 .gcc-container {
   width: 100%;
-  max-width: 72rem; /* ~1152px */
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .gcc-container {
+    padding: 0 2rem;
+  }
 }
 
 .gcc-section {

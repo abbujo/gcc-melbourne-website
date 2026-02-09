@@ -275,9 +275,20 @@ const benefits = [
         }
 
         .bento-image {
-            order: 2; /* Move image below features on mobile? Or keep top? usually image breaks text. Let's put image after header. */
-            min-height: 300px;
-            max-height: 400px;
+            order: 2; /* Move image below features on mobile */
+            min-height: 250px;
+            max-height: 350px;
+        }
+
+        .feature-card {
+            flex-direction: row;
+        }
+
+        @media (max-width: 450px) {
+            .feature-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
 
         .bento-header {
