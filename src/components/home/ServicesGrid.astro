@@ -1,0 +1,186 @@
+---
+const services = [
+    {
+        title: "Office Cleaning",
+        desc: "Maintain a pristine workspace with daily or weekly protocols.",
+        href: "/services/office-cleaning",
+        image: "/images/stock-images/office_cleaning_staff.jpeg",
+    },
+    {
+        title: "Medical Centres",
+        desc: "Hygienic, compliant cleaning for clinics and medical facilities.",
+        href: "/services/medical-centre-cleaning",
+        image: "/images/stock-images/medical_clean.jpeg",
+    },
+    {
+        title: "Industrial & Warehouse",
+        desc: "Safety-focused cleaning for factories and industrial sites.",
+        href: "/services/warehouse-cleaning",
+        image: "/images/stock-images/cleaner_industrial.jpeg",
+    },
+    {
+        title: "Window Cleaning",
+        desc: "Professional internal and external window cleaning.",
+        href: "/services/window-cleaning",
+        image: "/images/stock-images/glass_cleaning.jpeg",
+    },
+    {
+        title: "Steam & Carpet",
+        desc: "Deep cleaning for carpets, upholstery and hard floors.",
+        href: "/services/steam-cleaning",
+        image: "/images/stock-images/steam_cleaning.jpeg",
+    },
+    {
+        title: "Post-Construction",
+        desc: "Detailed final clean for new builds and renovations.",
+        href: "/services/construction-cleaning",
+        image: "/images/stock-images/cleaner_post_construction.jpeg",
+    },
+];
+---
+
+<section class="services-section" id="services2">
+    <div class="gcc-container">
+        <div class="header">
+            <h2 class="section-title">Specialised Cleaning Services</h2>
+            <p class="section-subtitle">
+                We cover every corner of your business with trained
+                professionals.
+            </p>
+        </div>
+
+        <div class="grid">
+            {
+                services.map((s) => (
+                    <a href={s.href} class="service-card group">
+                        <div class="image-box">
+                            <img
+                                src={s.image}
+                                alt={s.title}
+                                loading="lazy"
+                                decoding="async"
+                                width="400"
+                                height="300"
+                            />
+                            <div class="image-overlay" />
+                        </div>
+                        <div class="content">
+                            <h3>{s.title}</h3>
+                            <p>{s.desc}</p>
+                            <span class="link-text">
+                                View Service <span class="arrow">→</span>
+                            </span>
+                        </div>
+                    </a>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .services-section {
+        padding: 6rem 0;
+        background: #f8fafc;
+    }
+
+    .header {
+        text-align: center;
+        max-width: 40rem;
+        margin: 0 auto 4rem;
+    }
+
+    .section-title {
+        font-family: "Montserrat", sans-serif;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--brand-dark);
+        margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+        color: var(--text-muted);
+        font-size: 1.125rem;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+
+    .service-card {
+        display: flex;
+        flex-direction: column;
+        background: white;
+        border-radius: 1rem;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+    }
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        border-color: var(--brand-green);
+    }
+
+    .image-box {
+        position: relative;
+        height: 220px;
+        overflow: hidden;
+    }
+
+    .image-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .service-card:hover .image-box img {
+        transform: scale(1.05);
+    }
+
+    .content {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--brand-dark);
+    }
+
+    p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+    }
+
+    .link-text {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--brand-green);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .arrow {
+        transition: transform 0.2s ease;
+    }
+
+    .service-card:hover .arrow {
+        transform: translateX(4px);
+    }
+</style>

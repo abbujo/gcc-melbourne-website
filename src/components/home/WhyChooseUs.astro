@@ -1,0 +1,292 @@
+---
+const benefits = [
+    {
+        title: "Fully Insured",
+        desc: "Complete peace of mind with comprehensive public liability coverage.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" /></svg>`,
+    },
+    {
+        title: "Police Checked Staff",
+        desc: "Strict vetting process for every team member to ensure your security.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.413 1.605l-.25.133a2.25 2.25 0 00-1.243 2.07l-.078.786a.75.75 0 01-.747.676H8.25a.75.75 0 01-.747-.676l-.078-.786a2.25 2.25 0 00-1.243-2.07l-.25-.133c-.582-.298-.782-1.05-.413-1.604a1.107 1.107 0 00-.57-1.665l-.143-.047a2.25 2.25 0 01-1.162-.886l-.51-.766a1.125 1.125 0 01.217-1.49l1.068-.89a1.125 1.125 0 00.405-.864v-.568a2.25 2.25 0 013.6-1.8 4.485 4.485 0 018.1 0 2.25 2.25 0 013.6 1.8z" /></svg>`,
+    },
+    {
+        title: "Eco-Friendly Products",
+        desc: "Safe, non-toxic cleaning solutions for a healthier work environment.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" /></svg>`,
+    },
+    {
+        title: "Same-Day Response",
+        desc: "Fast communication and quick quotes. We value your time.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
+    },
+    {
+        title: "Custom Cleaning Plans",
+        desc: "Tailored checklists designed specifically for your premises needs.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" /></svg>`,
+    },
+    {
+        title: "Satisfaction Guaranteed",
+        desc: "Not happy? We re-clean for free. Simple as that.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.477 2 12 2s10 4.477 10 10z" /></svg>`,
+    },
+];
+---
+
+<section class="trust-bento-section" id="why-choose-us-final">
+    <div class="gcc-container">
+        <div class="bento-grid">
+            <!-- Header Text -->
+            <div class="bento-header">
+                <span class="eyebrow">The GCC Difference</span>
+                <h2 class="section-title">Why Partner With Us?</h2>
+                <p class="section-subtitle">
+                    We don't just clean; we care for your business environment.
+                    Reliable, transparent, and thorough.
+                </p>
+            </div>
+
+            <!-- Main Image (Left Column on Desktop) -->
+            <div class="bento-image">
+                <img
+                    src="/images/stock-images/cleaners-2.jpg"
+                    alt="Professional cleaning staff"
+                    loading="lazy"
+                />
+                <div class="overlay-gradient"></div>
+                <div class="float-badge">
+                    <span class="badge-icon">🏆</span>
+                    <div>
+                        <strong>10+ Years</strong>
+                        <span>Of Excellence</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Grid (Right Column on Desktop) -->
+            <div class="bento-features">
+                {
+                    benefits.map((item) => (
+                        <div class="feature-card">
+                            <div class="icon-box" set:html={item.icon} />
+                            <div class="content-box">
+                                <h3>{item.title}</h3>
+                                <p>{item.desc}</p>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .trust-bento-section {
+        padding: 6rem 0;
+        background-color: #ffffff;
+        overflow: hidden;
+    }
+
+    .bento-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.25fr; /* Image slightly narrower than features */
+        grid-template-rows: auto 1fr;
+        gap: 3rem;
+        align-items: start;
+    }
+
+    /* Header spans full width on mobile, right column on desktop could work too, but let's keep it clean */
+    .bento-header {
+        grid-column: 1 / -1;
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 1rem;
+    }
+
+    .eyebrow {
+        color: var(--brand-teal);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.875rem;
+        display: block;
+        margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        color: var(--brand-dark);
+        font-size: 2.75rem;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+        font-size: 1.125rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+    }
+
+    /* --- Left Column: Image --- */
+    .bento-image {
+        position: relative;
+        border-radius: 2rem;
+        overflow: hidden;
+        height: 100%;
+        min-height: 500px;
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+    }
+
+    .bento-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.7s ease;
+    }
+
+    .bento-image:hover img {
+        transform: scale(1.03);
+    }
+
+    .overlay-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+        pointer-events: none;
+    }
+
+    .float-badge {
+        position: absolute;
+        bottom: 2rem;
+        left: 2rem;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+        padding: 1rem 1.5rem;
+        border-radius: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .badge-icon {
+        font-size: 2rem;
+    }
+
+    .float-badge div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .float-badge strong {
+        color: var(--brand-dark);
+        font-weight: 800;
+        font-size: 1.1rem;
+        line-height: 1.2;
+    }
+
+    .float-badge span {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    /* --- Right Column: Features --- */
+    .bento-features {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .feature-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        border: 1px solid rgba(0, 0, 0, 0.03);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        display: flex;
+        flex-direction: column; /* Icon top, text bottom usually better for grid, but user asked for "Next to it" */
+        gap: 1rem;
+        transition: all 0.2s ease;
+    }
+
+    /* Modify layout for desktop to be side-by-side as requested? 
+       "emoji and the text is below it... have the text next to it" 
+       So Icon Left | Text Right.
+    */
+    .feature-card {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        border-color: rgba(0, 137, 123, 0.1);
+    }
+
+    .icon-box {
+        width: 3rem;
+        height: 3rem;
+        background: #f0fdf4;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--brand-green);
+        flex-shrink: 0;
+    }
+
+    .icon-box :global(svg) {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .content-box {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content-box h3 {
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--brand-dark);
+        margin-bottom: 0.25rem;
+    }
+
+    .content-box p {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        line-height: 1.4;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .bento-grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 2rem;
+        }
+
+        .bento-image {
+            order: 2; /* Move image below features on mobile? Or keep top? usually image breaks text. Let's put image after header. */
+            min-height: 300px;
+            max-height: 400px;
+        }
+
+        .bento-header {
+            order: 1;
+        }
+
+        .bento-features {
+            order: 3;
+            grid-template-columns: 1fr; /* Stack cards on mobile */
+        }
+    }
+</style>

@@ -1,20 +1,23 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
-import HomeHero from "../components/home/Hero.astro";
-import ServiceSnapshots from "../components/home/ServiceSnapshots.astro";
-import HowItWorks from "../components/home/HowItWorks.astro";
-import AreasWeServe from "../components/home/AreasWeServe.astro";
+import Hero from "../components/home/Hero.astro";
+import ServicesGrid from "../components/home/ServicesGrid.astro";
+import WhyChooseUs from "../components/home/WhyChooseUs.astro";
+import Testimonials from "../components/home/Testimonials.astro";
+import FAQ from "../components/home/FAQ.astro";
 import StrongCTA from "../components/home/StrongCTA.astro";
 ---
 
 <Layout
-  title="GCC Melbourne | Commercial Cleaning"
-  description="Professional commercial cleaning services in Melbourne. Get a quick quote today."
+  title="GCC Melbourne | Commercial Cleaning Services"
+  description="Premium commercial cleaning in Melbourne. Office, medical, and warehouse cleaning services. Fully insured and police checked. Get a free quote."
 >
-  <HomeHero />
-  <ServiceSnapshots />
-  <HowItWorks />
-  <AreasWeServe />
-  <StrongCTA />
+  <main>
+    <Hero />
+    <ServicesGrid />
+    <WhyChooseUs />
+    <Testimonials />
+    <FAQ />
+    <StrongCTA />
+  </main>
 </Layout>

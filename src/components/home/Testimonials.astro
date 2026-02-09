@@ -1,0 +1,205 @@
+---
+const reviews = [
+    {
+        name: "Sarah Jenkins",
+        role: "Office Manager, Nexus Corp",
+        text: "GCC Melbourne transformed our office. The team is punctual, thorough, and the communication is excellent. We've never had a cleaner workspace.",
+        initial: "S",
+    },
+    {
+        name: "David Chen",
+        role: "Director, Medical One",
+        text: "In a medical environment, hygiene is non-negotiable. GCC's attention to detail and adherence to compliance standards gives us complete peace of mind.",
+        initial: "D",
+    },
+    {
+        name: "Michael Ross",
+        role: "Operations Lead, Logistics AU",
+        text: "We have a large warehouse that gets dusty quickly. The GCC team handles the industrial cleaning effortlessly. Highly recommended for commercial sites.",
+        initial: "M",
+    },
+];
+---
+
+<section class="testimonials-section" id="testimonials">
+    <div class="gcc-container">
+        <div class="header">
+            <span class="eyebrow">Client Success Stories</span>
+            <h2 class="section-title">Trusted by Melbourne Businesses</h2>
+            <p class="subtitle">
+                Join 50+ satisfied commercial clients who rate us 5 stars.
+            </p>
+        </div>
+
+        <div class="modern-grid">
+            {
+                reviews.map((r) => (
+                    <div class="modern-card">
+                        <div class="modern-top">
+                            <div class="modern-avatar">{r.initial}</div>
+                            <div class="modern-meta">
+                                <strong>{r.name}</strong>
+                                <span>{r.role}</span>
+                            </div>
+                        </div>
+                        <p class="modern-text">"{r.text}"</p>
+                        <div class="modern-stars">★★★★★</div>
+                    </div>
+                ))
+            }
+        </div>
+
+        <div class="trust-badges">
+            <div class="badge-item">
+                <span class="check">✓</span> 5-Star Google Rating
+            </div>
+            <div class="badge-item">
+                <span class="check">✓</span> 100% Satisfaction Guarantee
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .testimonials-section {
+        padding: 6rem 0;
+        position: relative;
+        background: #f8fafc;
+    }
+
+    .header {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 3rem;
+    }
+
+    .eyebrow {
+        color: var(--brand-teal);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.875rem;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+        font-family: "Montserrat", sans-serif;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--brand-dark);
+        margin-bottom: 0.75rem;
+        line-height: 1.1;
+    }
+
+    .subtitle {
+        color: var(--text-muted);
+        font-size: 1.125rem;
+        line-height: 1.6;
+    }
+
+    /* --- Grid Layout --- */
+    .modern-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .modern-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        border: 1px solid #f1f5f9;
+        border-top: 4px solid var(--brand-green);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modern-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
+    }
+
+    .modern-top {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .modern-avatar {
+        width: 3rem;
+        height: 3rem;
+        background: #f0fdf4;
+        color: var(--brand-green);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.25rem;
+    }
+
+    .modern-meta {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modern-meta strong {
+        display: block;
+        color: var(--brand-dark);
+        font-weight: 700;
+        font-size: 1rem;
+    }
+
+    .modern-meta span {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+    }
+
+    .modern-text {
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        flex-grow: 1; /* Pushes stars to bottom */
+    }
+
+    .modern-stars {
+        color: #fbbf24; /* Amber/Gold */
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+    }
+
+    .trust-badges {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .badge-item {
+        font-weight: 600;
+        color: var(--brand-dark);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .check {
+        color: var(--brand-green);
+        font-weight: 900;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .modern-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+    }
+</style>

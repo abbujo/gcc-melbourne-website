@@ -1,0 +1,139 @@
+---
+const faqs = [
+    {
+        question: "What areas of Melbourne do you service?",
+        answer: "We service the entire Melbourne Metropolitan area, including the CBD, inner suburbs, and outer industrial zones. From Werribee to Dandenong, we have teams ready to assist.",
+    },
+    {
+        question: "Are your cleaning staff insured and police checked?",
+        answer: "Absolutely. Every member of our team undergoes a strict police background check and is fully covered by our comprehensive public liability insurance policy.",
+    },
+    {
+        question: "Do you bring your own cleaning supplies and equipment?",
+        answer: "Yes, we provide all necessary commercial-grade equipment and eco-friendly cleaning agents. You don't need to supply anything unless you have specific preferences.",
+    },
+    {
+        question: "Can you clean after hours to avoid disrupting our work?",
+        answer: "Yes, we offer flexible scheduling including early mornings, late evenings, and weekends to ensuring your operations continue without interruption.",
+    },
+];
+---
+
+<section class="faq-section" id="faq1">
+    <div class="gcc-container">
+        <div class="header">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">
+                Everything you need to know about our commercial cleaning
+                services.
+            </p>
+        </div>
+
+        <div class="faq-grid">
+            {
+                faqs.map((f) => (
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            {f.question}
+                            <span class="icon">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>{f.answer}</p>
+                        </div>
+                    </details>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .faq-section {
+        padding: 6rem 0;
+        background: #ffffff;
+    }
+
+    .header {
+        text-align: center;
+        max-width: 40rem;
+        margin: 0 auto 4rem;
+    }
+
+    .section-title {
+        font-family: "Montserrat", sans-serif;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--brand-dark);
+        margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+        color: var(--text-muted);
+        font-size: 1.125rem;
+    }
+
+    .faq-grid {
+        max-width: 48rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .faq-item {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-soft);
+        border-radius: 1rem;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .faq-item[open] {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        border-color: var(--brand-teal);
+    }
+
+    .faq-question {
+        padding: 1.25rem 1.5rem;
+        font-weight: 700;
+        color: var(--brand-dark);
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none; /* Hide default marker */
+    }
+
+    .faq-question::-webkit-details-marker {
+        display: none;
+    }
+
+    .icon {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: var(--brand-green);
+        transition: transform 0.2s ease;
+    }
+
+    details[open] .icon {
+        transform: rotate(45deg);
+    }
+
+    .faq-answer {
+        padding: 0 1.5rem 1.5rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+        animation: slideDown 0.2s ease-out;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
