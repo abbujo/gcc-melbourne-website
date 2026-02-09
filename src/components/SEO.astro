@@ -1,0 +1,46 @@
+---
+type Props = {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+};
+
+const title = Astro.props.title ?? "GCC Melbourne | Commercial Cleaning";
+const description =
+  Astro.props.description ?? "Commercial cleaning services in Melbourne, VIC.";
+const canonical =
+  Astro.props.canonical ?? ("https://www.gccmelbourne.com.au" + Astro.url.pathname);
+const ogImage = Astro.props.ogImage ?? "https://www.gccmelbourne.com.au/og.jpg";
+
+const jsonLdLocalBusiness = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "GCC Melbourne",
+  url: "https://www.gccmelbourne.com.au",
+  areaServed: "Melbourne, VIC",
+  telephone: "+61 4 8142 2769",
+  image: ogImage,
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Melbourne",
+    addressRegion: "VIC",
+    addressCountry: "AU",
+  },
+};
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+
+<meta name="twitter:card" content="summary_large_image" />
+
+<script type="application/ld+json">{JSON.stringify(jsonLdLocalBusiness)}</script>

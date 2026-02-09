@@ -1,0 +1,19 @@
+---
+import CTAButton from "../CTAButton.astro";
+---
+
+<section class="gcc-section">
+  <div class="gcc-container">
+    <div class="gcc-cta-dark" style="border-radius: var(--radius-2xl); padding: 2rem;">
+      <h2 class="text-2xl font-bold" style="margin:0;">Get a quote today</h2>
+      <p style="margin:.5rem 0 0;">
+        Tell us your site size, frequency, and preferred schedule — we’ll reply with a clear scope.
+      </p>
+
+      <div style="margin-top: 1.25rem; display:flex; flex-wrap:wrap; gap:.75rem;">
+        <CTAButton href="/contact" label="Get a Quote" variant="primary" icon="quote" />
+        <CTAButton href="tel:+61481422769" label="Call Us" variant="outline" icon="phone" tone="dark" />
+      </div>
+    </div>
+  </div>
+</section>

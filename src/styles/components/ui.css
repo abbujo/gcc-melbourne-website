@@ -1,0 +1,111 @@
+/* src/styles/components/ui.css */
+
+/* Buttons */
+.gcc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  border-radius: var(--radius-xl);
+  padding: 0.85rem 1.1rem;
+  text-decoration: none;
+  transition: transform 0.06s ease, background-color 0.15s ease,
+    border-color 0.15s ease, color 0.15s ease;
+}
+
+.gcc-btn:active {
+  transform: translateY(1px);
+}
+
+/* Primary: green + white text */
+.gcc-btn-primary {
+  background: var(--brand-green);
+  color: var(--bg-main);
+}
+
+.gcc-btn-primary:hover {
+  background: var(--brand-green-hover);
+}
+
+/* Outline */
+.gcc-btn-outline {
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  color: var(--text-main);
+}
+
+.gcc-btn-outline:hover {
+  border-color: color-mix(in srgb, var(--brand-teal) 35%, var(--border-soft));
+  color: var(--brand-teal);
+}
+
+/* Outline button on dark backgrounds */
+.gcc-btn-on-dark.gcc-btn-outline {
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #ffffff;
+}
+
+.gcc-btn-on-dark.gcc-btn-outline:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Icons inside buttons */
+.gcc-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+.gcc-icon path {
+  fill: currentColor;
+}
+
+/* Links */
+.gcc-link {
+  color: var(--brand-teal);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.gcc-link:hover {
+  color: var(--brand-teal-hover);
+}
+
+/* Chips */
+.gcc-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  background: var(--bg-main);
+}
+
+/* Cards */
+.gcc-card {
+  background: var(--bg-main);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-2xl);
+  padding: 1.5rem;
+}
+
+.gcc-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.06s ease, border-color 0.15s ease;
+}
+
+.gcc-card-link:hover {
+  border-color: color-mix(in srgb, var(--brand-teal) 35%, var(--border-soft));
+}
+
+.gcc-card-link:active {
+  transform: translateY(1px);
+}

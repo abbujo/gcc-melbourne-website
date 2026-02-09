@@ -1,0 +1,345 @@
+/* =========================================================
+   Header (Fixed)
+   - Always visible (better UX for marketing sites)
+   - Drawer opens below header
+   - No layout shift
+   ========================================================= */
+
+/* Fixed header */
+.gcc-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+
+    /* Soft surface using your palette */
+    background: var(--bg-surface);
+
+    /* Gentle separation */
+    border-bottom: 1px solid var(--border-soft);
+
+    /* Subtle elevation */
+    box-shadow:
+        0 1px 0 rgba(0, 0, 0, 0.04),
+        0 4px 12px rgba(0, 0, 0, 0.03);
+
+    /* Slight color polish */
+    backdrop-filter: saturate(1.05);
+}
+
+
+/* Inner spacing (top & bottom breathing room) */
+.gcc-header-inner {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+}
+
+/* =========================
+   Desktop Navigation
+   ========================= */
+
+.gcc-nav a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    position: relative;
+    padding: 0.25rem 0;
+    transition: color 0.15s ease;
+}
+
+.gcc-nav a:hover {
+    color: var(--brand-teal);
+}
+
+/* Active link */
+.gcc-nav a[aria-current="page"] {
+    color: var(--brand-teal);
+}
+
+.gcc-nav a[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    background: var(--brand-teal);
+    border-radius: 2px;
+}
+
+/* =========================
+   Mobile Hamburger
+   ========================= */
+
+.gcc-hamburger {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 28px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.gcc-hamburger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--text-main);
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Toggle checkbox (hidden) */
+#gcc-menu-toggle {
+    display: none;
+}
+
+/* Animate hamburger → X */
+#gcc-menu-toggle:checked+label span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+#gcc-menu-toggle:checked+label span:nth-child(2) {
+    opacity: 0;
+}
+
+#gcc-menu-toggle:checked+label span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* =========================
+   Mobile Drawer (Off-canvas)
+   - Opens BELOW fixed header
+   - Fills remaining viewport height
+   ========================= */
+
+/* Overlay (starts below header) */
+.gcc-drawer-overlay {
+    position: fixed;
+    top: var(--gcc-header-h);
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 40;
+}
+
+/* Drawer panel */
+.gcc-drawer {
+    position: fixed;
+    top: var(--gcc-header-h);
+    left: 0;
+
+    /* Fallback + correct modern viewport */
+    height: calc(100vh - var(--gcc-header-h));
+    height: calc(100dvh - var(--gcc-header-h));
+
+    width: 280px;
+    background: var(--bg-main);
+    border-right: 1px solid var(--border-soft);
+    padding: 1.25rem;
+
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 50;
+
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* Open states */
+#gcc-menu-toggle:checked~.gcc-drawer-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#gcc-menu-toggle:checked~.gcc-drawer {
+    transform: translateX(0);
+}
+
+/* Drawer nav links */
+.gcc-drawer nav a {
+    display: block;
+    padding: 0.85rem 0;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.gcc-drawer nav a:hover {
+    color: var(--brand-teal);
+}
+
+/* =========================
+   Desktop Dropdown Menus
+   ========================= */
+
+.gcc-dropdown {
+    position: relative;
+}
+
+.gcc-dropdown-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.gcc-dropdown-trigger:hover {
+    color: var(--brand-teal);
+}
+
+.gcc-caret {
+    font-size: 0.75rem;
+    margin-top: 1px;
+}
+
+/* Dropdown panel */
+.gcc-dropdown-menu {
+    position: absolute;
+    top: calc(100%);
+    left: 0;
+    min-width: 220px;
+    background: var(--bg-main);
+    border-top: none;
+    border: 1px solid var(--border-soft);
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    padding: 0.5rem 0;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 60;
+}
+
+/* Show on hover OR focus */
+.gcc-dropdown:hover .gcc-dropdown-menu,
+.gcc-dropdown:focus-within .gcc-dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Dropdown links */
+.gcc-dropdown-menu a {
+    display: block;
+    padding: 0.65rem 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
+.gcc-dropdown-menu a:hover {
+    background: var(--bg-surface);
+    color: var(--brand-teal);
+}
+
+/* =========================
+   Mobile Drawer Dropdowns (polished)
+   ========================= */
+
+.gcc-drawer-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Normal drawer links */
+.gcc-drawer-link {
+    display: block;
+    padding: 0.9rem 0;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.gcc-drawer-link:hover {
+    color: var(--brand-teal);
+}
+
+/* Accordion container */
+.gcc-mobile-dd {
+    border-bottom: 1px solid var(--border-soft);
+}
+
+/* Remove default marker */
+.gcc-mobile-dd summary {
+    list-style: none;
+}
+
+.gcc-mobile-dd summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Trigger row */
+.gcc-mobile-dd-trigger {
+    cursor: pointer;
+    padding: 1rem 0;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.gcc-mobile-dd-trigger:hover {
+    color: var(--brand-teal);
+}
+
+/* BIG dropdown caret */
+.gcc-mobile-dd-caret {
+    font-size: 1.25rem;
+    /* ⬅ bigger */
+    font-weight: 900;
+    line-height: 1;
+    margin-left: 0.5rem;
+    transition: transform 0.2s ease, color 0.15s ease;
+    color: var(--text-muted);
+}
+
+/* Rotate + color when open */
+.gcc-mobile-dd[open] .gcc-mobile-dd-caret {
+    transform: rotate(180deg);
+    color: var(--brand-teal);
+}
+
+/* Dropdown panel */
+.gcc-mobile-dd-panel {
+    margin: 0.4rem 0 0.9rem;
+    padding: 0.5rem 0 0.5rem 0.75rem;
+
+    background: var(--bg-surface);
+    /* soft surface */
+    border-left: 3px solid var(--brand-teal);
+    /* brand accent */
+    border-radius: 0 0.75rem 0.75rem 0;
+}
+
+/* Panel links */
+.gcc-mobile-dd-panel a {
+    display: block;
+    padding: 0.65rem 0;
+    font-weight: 650;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--text-main);
+}
+
+.gcc-mobile-dd-panel a:hover {
+    color: var(--brand-teal);
+}

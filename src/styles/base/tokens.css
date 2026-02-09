@@ -1,0 +1,47 @@
+/* src/styles/base/tokens.css */
+
+:root {
+  /* Brand (your tuned values) */
+  --brand-green: #2e7d32;
+  --brand-teal: #006d75;
+  --brand-dark: #1f2933;
+
+  /* States */
+  --brand-green-hover: color-mix(in srgb, var(--brand-green) 88%, #000);
+  --brand-teal-hover: #006b80;
+
+  /* Neutrals */
+  --bg-main: #ffffff;
+  --bg-surface: #f8fafc;
+  --border-soft: #e2e8f0;
+
+  /* Text */
+  --text-main: var(--brand-dark);
+  --text-muted: #475569;
+
+  /* Radius */
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+
+  /* Font stack (default) */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  /* Sticky header height for drawer offset (tweak if needed) */
+  --gcc-header-h: 92px;
+}
+
+@media (min-width: 420px) {
+  :root {
+    --gcc-header-h: 96px;
+  }
+}
+
+/* Font toggle (set on <html data-font="inter|montserrat">) */
+html[data-font="inter"] {
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+html[data-font="montserrat"] {
+  --font-sans: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}

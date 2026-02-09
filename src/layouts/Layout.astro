@@ -1,0 +1,47 @@
+---
+import "../styles/global.css";
+import SEO from "../components/SEO.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const {
+  title = "GCC Melbourne | Commercial Cleaning",
+  description = "Commercial cleaning services in Melbourne, VIC.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-font="montserrat">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <SEO title={title} description={description} />
+    <slot name="head" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=Montserrat:wght@400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+
+    <!-- Mobile sticky bottom CTAs -->
+    <div class="gcc-mobile-cta" aria-label="Quick actions">
+      <div class="gcc-mobile-cta-inner">
+        <a
+          class="gcc-btn gcc-btn-outline gcc-mobile-cta-btn"
+          href="tel:+61481422769"
+        >
+          Call Us
+        </a>
+        <a class="gcc-btn gcc-btn-primary gcc-mobile-cta-btn" href="/contact">
+          Get a Quote
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

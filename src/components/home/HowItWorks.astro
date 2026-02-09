@@ -1,0 +1,77 @@
+<section class="how">
+  <div class="container">
+    <h2>How it works</h2>
+    <p class="sub">Simple, professional, and repeatable.</p>
+
+    <div class="steps">
+      <div>
+        <strong>1</strong>
+        <h3>Request a quote</h3>
+        <p>Tell us your site, frequency, and schedule.</p>
+      </div>
+      <div>
+        <strong>2</strong>
+        <h3>Clear scope</h3>
+        <p>We confirm inclusions and checklist.</p>
+      </div>
+      <div>
+        <strong>3</strong>
+        <h3>Clean & check</h3>
+        <p>Trained staff with quality checks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .how {
+    padding: 3rem 0;
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .steps {
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .steps div {
+    background: var(--bg-main);
+    border: 1px solid var(--border-soft);
+    border-radius: 1.25rem;
+    padding: 1.2rem;
+  }
+
+  .steps strong {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    text-align: center;
+    line-height: 32px;
+    font-weight: 900;
+    color: var(--brand-teal);
+  }
+
+  .steps h3 {
+    margin-top: 0.6rem;
+    font-size: 1rem;
+  }
+
+  .steps p {
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 900px) {
+    .steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

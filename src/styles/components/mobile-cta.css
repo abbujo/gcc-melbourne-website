@@ -1,0 +1,49 @@
+/* =========================================================
+   Mobile Sticky Bottom CTA Bar (no JS)
+   - Shows only on mobile
+   - Stays pinned to bottom
+   - Uses existing gcc button styles
+   ========================================================= */
+
+.gcc-mobile-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+
+  /* Plain surface background (no gradient) */
+  background: var(--bg-surface);
+
+  /* Clear separation from content */
+  border-top: 1px solid var(--border-soft);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+
+  /* iOS safe area */
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+
+/* Inner layout */
+.gcc-mobile-cta-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+/* Buttons fill available width */
+.gcc-mobile-cta-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 0.9rem 1rem;
+}
+
+/* Hide on desktop */
+@media (min-width: 768px) {
+  .gcc-mobile-cta {
+    display: none;
+  }
+}

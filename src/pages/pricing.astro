@@ -1,0 +1,95 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import CTAButton from "../components/CTAButton.astro";
+
+const services = await getCollection("services");
+
+// Optional sort: priced services first, then alphabetically
+services.sort((a, b) => {
+  const ap = a.data.startingFrom ?? Number.POSITIVE_INFINITY;
+  const bp = b.data.startingFrom ?? Number.POSITIVE_INFINITY;
+  if (ap !== bp) return ap - bp;
+  return (a.data.heroTitle ?? a.data.title).localeCompare(b.data.heroTitle ?? b.data.title);
+});
+
+function formatPrice(s: (typeof services)[number]) {
+  // If user provided custom label, use it
+  if (s.data.startingFromLabel) return s.data.startingFromLabel;
+
+  // If numeric price exists, format it
+  if (typeof s.data.startingFrom === "number") {
+    const unit = s.data.priceUnit ? ` / ${s.data.priceUnit}` : "";
+    return `Starting from $${s.data.startingFrom}${unit}`;
+  }
+
+  // Default
+  return "Starting from —";
+}
+---
+
+<Layout
+  title="Pricing | GCC Melbourne"
+  description="Transparent starting prices for our commercial cleaning services across Melbourne."
+>
+  <main class="gcc-section">
+    <div class="gcc-container">
+      <header class="max-w-3xl">
+        <h1 class="text-4xl font-bold tracking-tight md:text-5xl">Pricing</h1>
+        <p class="mt-3 text-lg gcc-muted">
+          Indicative starting prices. Final pricing depends on site size, access, frequency, and scope.
+        </p>
+      </header>
+
+      <section class="mt-10 grid gap-4 md:grid-cols-3">
+        {services.map((s) => (
+          <article class="gcc-card">
+            <div class="text-sm font-semibold" style="color: var(--brand-teal);">
+              {formatPrice(s)}
+            </div>
+
+            <h2 class="mt-2 text-xl font-bold">
+              {s.data.heroTitle ?? s.data.title}
+            </h2>
+
+            <p class="mt-2 text-sm gcc-muted">
+              {s.data.description}
+            </p>
+
+            {(s.data.frequencyHint || s.data.minHours) ? (
+              <div class="mt-4 flex flex-wrap gap-2">
+                {s.data.frequencyHint ? <span class="gcc-chip">{s.data.frequencyHint}</span> : null}
+                {typeof s.data.minHours === "number" ? <span class="gcc-chip">Min {s.data.minHours} hrs</span> : null}
+              </div>
+            ) : null}
+
+            {s.data.highlights?.length ? (
+              <ul class="mt-4 space-y-2 text-sm">
+                {s.data.highlights.slice(0, 4).map((h) => (
+                  <li class="gcc-muted">✓ {h}</li>
+                ))}
+              </ul>
+            ) : null}
+
+            <div class="mt-6 flex flex-wrap gap-3">
+              <CTAButton href={`/services/${s.slug}`} label="View details" variant="outline" icon="quote" />
+              <CTAButton href="/contact" label="Get a Quote" variant="primary" icon="quote" />
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <section class="gcc-cta-dark mt-14 rounded-3xl p-8 md:p-10">
+        <h2 class="text-2xl font-bold">Want an accurate quote?</h2>
+        <p class="mt-2">
+          Share your suburb, site type, and preferred schedule — we’ll respond with a clear scope and price.
+        </p>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <CTAButton href="/contact" label="Get a Quote" variant="primary" icon="quote" />
+          <CTAButton href="tel:+61481422769" label="Call Us" variant="outline" icon="phone" tone="dark" />
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>

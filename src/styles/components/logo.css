@@ -1,0 +1,88 @@
+/* src/styles/components/logo.css */
+
+/* Logo lockup */
+.gcc-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.gcc-logo-mark {
+  height: 60px;
+  width: auto;
+  display: block;
+}
+
+/* Fixed width wordmark so all three lines align */
+.gcc-wordmark {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  line-height: 1.05;
+}
+
+/* Justify trick for single-word lines */
+.gcc-wordmark .line1,
+.gcc-wordmark .line2,
+.gcc-wordmark .line3 {
+  width: 100%;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: justify;
+  text-align-last: justify;
+}
+
+.gcc-wordmark .line1::after,
+.gcc-wordmark .line2::after,
+.gcc-wordmark .line3::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+
+/* GREEN — thick + big */
+.gcc-wordmark .line1 {
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: 0.25em;
+  color: var(--brand-green);
+}
+
+/* COMMERCIAL — thinner */
+.gcc-wordmark .line2 {
+  font-weight: 800;
+  font-size: 0.76rem;
+  letter-spacing: 0.2em;
+  color: var(--brand-teal);
+}
+
+/* CLEANING — strong but secondary */
+.gcc-wordmark .line3 {
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.27em;
+  color: var(--brand-dark);
+}
+
+/* Mobile sizing */
+@media (max-width: 420px) {
+  .gcc-wordmark {
+    width: 185px;
+  }
+
+  .gcc-wordmark .line1 {
+    font-size: 1.45rem;
+    letter-spacing: 0.40em;
+  }
+
+  .gcc-wordmark .line2 {
+    font-size: 0.93rem;
+    letter-spacing: 0.10em;
+  }
+
+  .gcc-wordmark .line3 {
+    font-size: 1.04rem;
+  }
+}

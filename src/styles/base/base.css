@@ -1,0 +1,105 @@
+/* src/styles/base/base.css */
+
+/* -------------------------------------------------
+   Global page width (single source of truth)
+   ------------------------------------------------- */
+:root {
+  --page-max: 72rem;      /* 1152px (matches your gcc-container) */
+  --page-pad: 1.5rem;     /* 24px side padding */
+}
+
+/* -------------------------------------------------
+   Base document
+   ------------------------------------------------- */
+html,
+body {
+  height: 100%;
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+}
+
+/* Accessibility utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* -------------------------------------------------
+   Sticky header offset + mobile CTA offset
+   ------------------------------------------------- */
+body {
+  padding-top: var(--gcc-header-h);
+  padding-bottom: 84px; /* mobile bottom CTA bar height */
+}
+
+/* Remove bottom padding on desktop */
+@media (min-width: 768px) {
+  body {
+    padding-bottom: 0;
+  }
+}
+
+/* -------------------------------------------------
+   Uniform layout rules (the important part)
+   ------------------------------------------------- */
+
+/* 1) A global wrapper you can use anywhere */
+.page-wrap {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--page-pad);
+  padding-right: var(--page-pad);
+}
+
+/* 2) Safety net: keep common page content aligned
+   - If components are missing gcc-container, this still prevents edge-to-edge feel */
+main {
+  width: 100%;
+}
+
+/* This makes typical sections not feel "full bleed" unless you intentionally make them */
+main > section,
+main > article,
+main > header,
+main > footer,
+main > div {
+  width: 100%;
+}
+
+/* Optional: if you want EVERYTHING inside main to have consistent width automatically,
+   uncomment this block. It's stronger, but can affect full-bleed sections. */
+
+/*
+main > section,
+main > article {
+  max-width: var(--page-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--page-pad);
+  padding-right: var(--page-pad);
+}
+*/
+
+/* 3) Keep media from causing horizontal overflow */
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 4) Prevent accidental horizontal scrolling */
+body {
+  overflow-x: hidden;
+}

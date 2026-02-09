@@ -1,0 +1,41 @@
+/* src/styles/layout/layout.css */
+
+/* Layout helpers */
+.gcc-container {
+  width: 100%;
+  max-width: 72rem; /* ~1152px */
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.gcc-section {
+  padding: 3rem 0;
+}
+
+/* Surfaces */
+.gcc-surface {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+/* Light hero surface */
+.gcc-hero-light {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-soft);
+}
+
+/* Dark CTA surface */
+.gcc-cta-dark {
+  background: var(--brand-dark);
+  color: #fff;
+}
+
+.gcc-cta-dark p {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* Text helper */
+.gcc-muted {
+  color: var(--text-muted);
+}

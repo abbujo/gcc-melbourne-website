@@ -1,0 +1,149 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { titleFromSlug } from "../../lib/text";
+import CTAButton from "../../components/CTAButton.astro";
+
+
+type AreaEntry = CollectionEntry<"areas">;
+type ServiceEntry = CollectionEntry<"services">;
+
+export async function getStaticPaths() {
+  const areas = await getCollection("areas");
+  return areas.map((entry: AreaEntry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: AreaEntry };
+const { suburb, title, description, nearby, services } = entry.data;
+
+const { Content } = await entry.render();
+
+const allServices = await getCollection("services");
+const serviceMap = new Map<string, ServiceEntry>(allServices.map((s) => [s.slug, s]));
+
+const servicesForThisArea = (services ?? [])
+  .map((slug) => serviceMap.get(slug))
+  .filter((s): s is ServiceEntry => s !== undefined);
+
+const canonical = `https://www.gccmelbourne.com.au/areas/${entry.slug}`;
+
+const areaJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  name: suburb,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: suburb,
+    addressRegion: "VIC",
+    addressCountry: "AU",
+  },
+};
+---
+
+<Layout title={`${title} | GCC Melbourne`} description={description}>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonical} />
+    <script type="application/ld+json">{JSON.stringify(areaJsonLd)}</script>
+  </Fragment>
+
+  <main class="gcc-section">
+    <div class="gcc-container">
+      <!-- HERO -->
+<section class="gcc-hero-light rounded-3xl p-8 md:p-10">
+  <p class="text-sm font-semibold tracking-wide" style="color: var(--brand-teal);">
+    GCC Melbourne
+  </p>
+
+  <h1 class="mt-2 text-4xl font-bold tracking-tight md:text-5xl">
+    {title}
+  </h1>
+
+  <p class="mt-4 max-w-3xl text-lg gcc-muted">
+    {description}
+  </p>
+
+  <div class="mt-6 flex flex-wrap gap-3">
+    <CTAButton
+      href="/contact"
+      label="Get a Quote"
+      variant="primary"
+      icon="quote"
+    />
+    <CTAButton
+      href="tel:+61481422769"
+      label="Call Us"
+      variant="outline"
+      icon="phone"
+    />
+  </div>
+
+  <div class="mt-6 flex flex-wrap gap-2">
+    <span class="gcc-chip">Insured</span>
+    <span class="gcc-chip">Checklist-based</span>
+    <span class="gcc-chip">Quality checks</span>
+    <span class="gcc-chip">After-hours available</span>
+  </div>
+</section>
+
+
+      <!-- AREA MARKDOWN BODY -->
+      <article class="prose prose-slate mt-10 max-w-none">
+        <Content />
+      </article>
+
+      <!-- SERVICES IN THIS AREA -->
+      <section class="mt-14">
+        <h2 class="text-2xl font-bold">Services we provide in {suburb}</h2>
+        <p class="mt-2 gcc-muted">Choose a service below to view scope, inclusions, and FAQs.</p>
+
+        <div class="mt-6 grid gap-4 md:grid-cols-3">
+          {servicesForThisArea.map((s) => (
+            <a href={`/services/${s.slug}`} class="gcc-card gcc-card-link">
+              <div class="text-sm font-semibold" style="color: var(--brand-teal);">
+                GCC Melbourne
+              </div>
+
+              <div class="mt-2 text-xl font-bold">
+                {s.data.heroTitle ?? s.data.title ?? titleFromSlug(s.slug)}
+              </div>
+
+              <p class="mt-2 text-sm gcc-muted">{s.data.description}</p>
+
+              <div class="mt-5">
+                <span class="gcc-link font-semibold">View details →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <!-- NEARBY AREAS -->
+      {nearby?.length ? (
+        <section class="mt-14">
+          <h2 class="text-2xl font-bold">Nearby areas we service</h2>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {nearby.map((n: string) => (
+              <span class="gcc-chip">{n}</span>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      <!-- FINAL CTA -->
+      <section class="mt-14 rounded-3xl p-8 md:p-10" style="background: var(--brand-dark); color: #fff;">
+        <h2 class="text-2xl font-bold">Looking for commercial cleaning in {suburb}?</h2>
+        <p class="mt-2" style="color: rgba(255,255,255,.82);">
+          Tell us about your site and preferred schedule — we’ll respond with a clear scope.
+        </p>
+
+<div class="mt-6 flex flex-wrap gap-3">
+  <CTAButton href="/contact" label="Get a Quote" variant="primary" icon="quote" />
+<CTAButton href="tel:+61481422769" label="Call Us" variant="outline" icon="phone" tone="dark" />
+</div>
+      </section>
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,102 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout
+  title="Services | GCC Melbourne"
+  description="Explore professional commercial cleaning services offered across Melbourne."
+>
+  <main class="gcc-section">
+    <div class="gcc-container">
+      <!-- Page header -->
+      <header class="max-w-3xl">
+        <h1 class="text-4xl font-bold tracking-tight md:text-5xl">
+          Our Services
+        </h1>
+        <p class="mt-3 text-lg gcc-muted">
+          Professional commercial cleaning solutions tailored to your facility.
+        </p>
+      </header>
+
+      <!-- Services grid -->
+      <section class="mt-10 grid gap-4 md:grid-cols-3">
+        <a href="/services/office-cleaning" class="gcc-card gcc-card-link">
+          <div class="text-sm font-semibold" style="color: var(--brand-teal);">
+            Commercial Cleaning
+          </div>
+
+          <div class="mt-2 text-xl font-bold">Office Cleaning</div>
+
+          <p class="mt-2 text-sm gcc-muted">
+            Reliable ongoing office cleaning with structured checklists and
+            quality control.
+          </p>
+
+          <div class="mt-5">
+            <span class="gcc-link font-semibold"> View service → </span>
+          </div>
+        </a>
+
+        <a
+          href="/services/medical-centre-cleaning"
+          class="gcc-card gcc-card-link"
+        >
+          <div class="text-sm font-semibold" style="color: var(--brand-teal);">
+            Healthcare Cleaning
+          </div>
+
+          <div class="mt-2 text-xl font-bold">Medical Centre Cleaning</div>
+
+          <p class="mt-2 text-sm gcc-muted">
+            Detail-focused cleaning aligned with hygiene and compliance
+            requirements.
+          </p>
+
+          <div class="mt-5">
+            <span class="gcc-link font-semibold"> View service → </span>
+          </div>
+        </a>
+
+        <a href="/services/warehouse-cleaning" class="gcc-card gcc-card-link">
+          <div class="text-sm font-semibold" style="color: var(--brand-teal);">
+            Industrial Cleaning
+          </div>
+
+          <div class="mt-2 text-xl font-bold">Warehouse Cleaning</div>
+
+          <p class="mt-2 text-sm gcc-muted">
+            Large-area cleaning with a safety-first process and clear scope of
+            work.
+          </p>
+
+          <div class="mt-5">
+            <span class="gcc-link font-semibold"> View service → </span>
+          </div>
+        </a>
+      </section>
+
+      <!-- CTA -->
+      <section
+        class="mt-14 rounded-3xl p-8 md:p-10"
+        style="background: var(--bg-surface); border: 1px solid var(--border-soft);"
+      >
+        <div class="grid gap-6 md:grid-cols-2 md:items-center">
+          <div>
+            <h2 class="text-2xl font-bold">Not sure which service you need?</h2>
+            <p class="mt-2 gcc-muted">
+              Tell us about your site and schedule. We’ll recommend the right
+              cleaning solution.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-3 md:justify-end">
+            <a href="/contact" class="gcc-btn gcc-btn-primary"> Get a Quote </a>
+            <a href="tel:+61481422769" class="gcc-btn gcc-btn-outline">
+              Call Us
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>

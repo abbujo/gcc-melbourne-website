@@ -1,0 +1,79 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import CTAButton from "../../components/CTAButton.astro";
+const areas = await getCollection("areas");
+areas.sort((a, b) => a.data.suburb.localeCompare(b.data.suburb));
+---
+
+<Layout
+  title="Areas We Serve | GCC Melbourne"
+  description="Commercial cleaning service areas across Melbourne."
+>
+  <main class="gcc-section">
+    <div class="gcc-container">
+      <header class="max-w-3xl">
+        <h1 class="text-4xl font-bold tracking-tight md:text-5xl">
+          Areas We Serve
+        </h1>
+        <p class="mt-3 text-lg gcc-muted">
+          Choose your area to see available services, scope, and request a
+          quote.
+        </p>
+      </header>
+
+      <section class="mt-10 grid gap-4 md:grid-cols-3">
+        {
+          areas.map((a) => (
+            <a href={`/areas/${a.slug}`} class="gcc-card gcc-card-link">
+              <div
+                class="text-sm font-semibold"
+                style="color: var(--brand-teal);"
+              >
+                Melbourne, VIC
+              </div>
+
+              <div class="mt-2 text-xl font-bold">{a.data.suburb}</div>
+
+              <p class="mt-2 text-sm gcc-muted">{a.data.description}</p>
+
+              <div class="mt-5">
+                <span class="gcc-link font-semibold">View services →</span>
+              </div>
+            </a>
+          ))
+        }
+      </section>
+
+      <section
+        class="mt-14 rounded-3xl p-8"
+        style="background: var(--bg-surface); border: 1px solid var(--border-soft);"
+      >
+        <div class="grid gap-6 md:grid-cols-2 md:items-center">
+          <div>
+            <h2 class="text-2xl font-bold">Don’t see your suburb?</h2>
+            <p class="mt-2 gcc-muted">
+              We service many areas across Melbourne. Send us your location and
+              site type and we’ll confirm availability.
+            </p>
+          </div>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <CTAButton
+              href="/contact"
+              label="Get a Quote"
+              variant="primary"
+              icon="quote"
+            />
+            <CTAButton
+              href="tel:+61481422769"
+              label="Call Us"
+              variant="outline"
+              icon="phone"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>

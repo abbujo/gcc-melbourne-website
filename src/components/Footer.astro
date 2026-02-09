@@ -1,0 +1,59 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-16 border-t" style="border-color: var(--border-soft); background: var(--bg-main);">
+  <div class="mx-auto grid max-w-6xl gap-10 px-6 py-12 md:grid-cols-3">
+
+    <!-- Brand -->
+    <div>
+      <div class="text-lg font-bold">GCC Melbourne</div>
+      <p class="mt-2 text-sm gcc-muted">
+        Professional commercial cleaning services in Melbourne, VIC.
+      </p>
+      <p class="mt-4 text-sm gcc-muted">
+        ABN: <span class="font-medium">[add later]</span>
+      </p>
+    </div>
+
+    <!-- Pages -->
+    <div>
+      <div class="font-semibold">Pages</div>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li><a class="gcc-link" href="/services">Services</a></li>
+        <li><a class="gcc-link" href="/about">About</a></li>
+        <li><a class="gcc-link" href="/areas">Areas</a></li>
+        <li><a class="gcc-link" href="/contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Service Area -->
+    <div>
+      <div class="font-semibold">Service Area</div>
+
+      <div class="mt-3 flex flex-wrap gap-2">
+        <span class="gcc-chip">Melbourne CBD</span>
+        <span class="gcc-chip">Southbank</span>
+        <span class="gcc-chip">Docklands</span>
+        <span class="gcc-chip">Richmond</span>
+        <span class="gcc-chip">South Yarra</span>
+        <span class="gcc-chip">Carlton</span>
+      </div>
+
+      <p class="mt-4 text-sm gcc-muted">
+        Email:
+        <a class="gcc-link" href="mailto:info@gccmelbourne.com.au">
+          info@gccmelbourne.com.au
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t" style="border-color: var(--border-soft);">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 text-sm gcc-muted">
+      <p>© {year} GCC Melbourne. All rights reserved.</p>
+      <a class="gcc-link" href="/privacy-policy">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
