@@ -268,36 +268,90 @@ const benefits = [
 
     /* Responsive */
     @media (max-width: 900px) {
+        .trust-bento-section {
+            padding: 3rem 0;
+        }
+
         .bento-grid {
-            grid-template-columns: 1fr;
-            grid-template-rows: auto auto auto;
-            gap: 2rem;
-        }
-
-        .bento-image {
-            order: 2; /* Move image below features on mobile */
-            min-height: 250px;
-            max-height: 350px;
-        }
-
-        .feature-card {
-            flex-direction: row;
-        }
-
-        @media (max-width: 450px) {
-            .feature-card {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+            display: flex; /* Stack vertically */
+            flex-direction: column;
+            gap: 3rem;
         }
 
         .bento-header {
-            order: 1;
+            text-align: left; /* Align left usually looks better on mobile? Or keep center? Keeping center to match previous sections. */
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem; /* Match Hero/Services */
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+        }
+
+        .bento-image {
+            min-height: 250px;
+            max-height: 300px;
+            border-radius: 1.5rem;
+            order: 2; /* Image in middle */
         }
 
         .bento-features {
             order: 3;
-            grid-template-columns: 1fr; /* Stack cards on mobile */
+            grid-template-columns: 1fr; /* Single column stack */
+            gap: 1rem;
+        }
+
+        /* 
+           Specific Request: 
+           "Icon and Title side-by-side, Description below" 
+        */
+        .feature-card {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: auto auto;
+            column-gap: 1rem;
+            row-gap: 0.5rem;
+            align-items: center;
+            padding: 1.25rem;
+        }
+
+        .icon-box {
+            grid-row: 1;
+            grid-column: 1;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .icon-box :global(svg) {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        /* Unwrap the text box to place Title and P separately in the grid */
+        .content-box {
+            display: contents;
+        }
+
+        .content-box h3 {
+            grid-row: 1;
+            grid-column: 2;
+            margin: 0;
+            font-size: 1.1rem;
+            align-self: center;
+        }
+
+        .content-box p {
+            grid-row: 2;
+            grid-column: 1 / -1; /* Spans full width below */
+            margin: 0;
+            padding-top: 0.25rem; /* Slight breather */
+            font-size: 0.9rem;
         }
     }
 </style>
