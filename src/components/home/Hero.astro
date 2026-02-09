@@ -41,14 +41,16 @@ import CTAButton from "../CTAButton.astro";
       </div>
 
       <!-- 2. IMAGE AREA -->
-      <div class="hero-image fade-in-up delay-100">
+      <div class="hero-image">
         <img
-          src={`${import.meta.env.BASE_URL}/images/stock-images/hero.jpg`}
+          src={`${import.meta.env.BASE_URL}/images/stock-images/hero.webp`}
           alt="Professional commercial cleaning team in Melbourne"
           width="800"
           height="600"
           loading="eager"
           decoding="async"
+          fetchpriority="high"
+          sizes="(max-width: 900px) 100vw, 800px"
         />
         <div class="image-overlay"></div>
       </div>

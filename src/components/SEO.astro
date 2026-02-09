@@ -1,26 +1,34 @@
 ---
-type Props = {
+interface Props {
   title?: string;
   description?: string;
   canonical?: string;
   ogImage?: string;
-};
+}
 
-const title = Astro.props.title ?? "GCC Melbourne | Commercial Cleaning";
-const description =
-  Astro.props.description ?? "Commercial cleaning services in Melbourne, VIC.";
-const canonical =
-  Astro.props.canonical ?? ("https://www.gccmelbourne.com.au" + Astro.url.pathname);
-const ogImage = Astro.props.ogImage ?? "https://www.gccmelbourne.com.au/og.jpg";
+const {
+  title = "GCC Melbourne | Commercial Cleaning",
+  description = "Commercial cleaning services in Melbourne, VIC.",
+} = Astro.props;
+
+const siteBase = Astro.site
+  ? Astro.site.origin
+  : "https://www.gccmelbourne.com.au";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || siteBase);
+
+const titleProp = Astro.props.title ?? title;
+const descriptionProp = Astro.props.description ?? description;
+const canonicalProp = Astro.props.canonical ?? canonicalURL.href;
+const ogImageProp = Astro.props.ogImage ?? new URL("og.jpg", canonicalURL).href;
 
 const jsonLdLocalBusiness = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "GCC Melbourne",
-  url: "https://www.gccmelbourne.com.au",
+  url: canonicalURL.href,
   areaServed: "Melbourne, VIC",
   telephone: "+61 4 8142 2769",
-  image: ogImage,
+  image: ogImageProp,
   priceRange: "$$",
   address: {
     "@type": "PostalAddress",
@@ -31,16 +39,19 @@ const jsonLdLocalBusiness = {
 };
 ---
 
-<title>{title}</title>
-<meta name="description" content={description} />
-<link rel="canonical" href={canonical} />
+<title>{titleProp}</title>
+<meta name="description" content={descriptionProp} />
+<link rel="canonical" href={canonicalProp} />
 
 <meta property="og:type" content="website" />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:url" content={canonical} />
-<meta property="og:image" content={ogImage} />
+<meta property="og:title" content={titleProp} />
+<meta property="og:description" content={descriptionProp} />
+<meta property="og:url" content={canonicalProp} />
+<meta property="og:image" content={ogImageProp} />
 
 <meta name="twitter:card" content="summary_large_image" />
 
-<script type="application/ld+json">{JSON.stringify(jsonLdLocalBusiness)}</script>
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(jsonLdLocalBusiness)}
+/>
