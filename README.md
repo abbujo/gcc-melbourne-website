@@ -1,3 +1,18 @@
+# GCC Melbourne — Commercial Cleaning Website
+
+This is the official website for **GCC Melbourne**, built using **Astro** with component-based architecture, custom global CSS, and SEO-first structure.
+
+---
+
+## 🚀 Tech Stack
+
+- **Astro**
+- **Tailwind (utility usage only)**
+- **Custom global CSS system**
+- **Component-based layout**
+- **SEO-friendly structure**
+- **Mobile-first responsive design**
+
 # Astro Starter Kit: Minimal
 
 ```sh
