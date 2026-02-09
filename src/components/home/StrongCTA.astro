@@ -14,7 +14,10 @@
                     invisible.
                 </p>
                 <div class="btn-group">
-                    <a href="/contact" class="btn-split">Book a Site Visit</a>
+                    <a
+                        href={`${import.meta.env.BASE_URL}/contact`}
+                        class="btn-split">Book a Site Visit</a
+                    >
                     <a href="tel:+61481422769" class="btn-split-outline"
                         >Call 0481 422 769</a
                     >
@@ -22,7 +25,7 @@
             </div>
             <div class="split-image">
                 <img
-                    src="/images/stock-images/man-van.jpg"
+                    src={`${import.meta.env.BASE_URL}/images/stock-images/cleaners_infront_of_company_van.png`}
                     alt="Office vacuuming"
                     loading="lazy"
                 />

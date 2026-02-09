@@ -4,6 +4,8 @@ import CTAButton from "./CTAButton.astro";
 const phoneE164 = "+61481422769";
 const pathname = Astro.url.pathname;
 
+const base = import.meta.env.BASE_URL;
+
 const isActive = (href: string) =>
   pathname === href || pathname.startsWith(href + "/");
 ---
@@ -12,12 +14,12 @@ const isActive = (href: string) =>
   <div class="gcc-container gcc-header-inner">
     <div class="flex items-center justify-between gap-6">
       <!-- Logo -->
-      <a href="/" class="gcc-logo">
+      <a href={base || "/"} class="gcc-logo">
         <img
-          src="/images/gcc-logo.png"
-          alt=""
-          width="44"
-          height="44"
+          src={`${base}/images/gcc-logo.png`}
+          alt="GCC Melbourne Logo"
+          width="180"
+          height="60"
           class="gcc-logo-mark"
           loading="eager"
         />
@@ -36,53 +38,57 @@ const isActive = (href: string) =>
         <!-- Services dropdown -->
         <div class="gcc-dropdown">
           <a
-            href="/services"
+            href={`${base}/services`}
             class="gcc-dropdown-trigger"
-            aria-current={isActive("/services") ? "page" : undefined}
+            aria-current={isActive(`${base}/services`) ? "page" : undefined}
           >
             Services <span class="gcc-caret">▾</span>
           </a>
 
           <div class="gcc-dropdown-menu">
-            <a href="/services/office-cleaning">Office Cleaning</a>
-            <a href="/services/medical-centre-cleaning"
+            <a href={`${base}/services/office-cleaning`}>Office Cleaning</a>
+            <a href={`${base}/services/medical-centre-cleaning`}
               >Medical Centre Cleaning</a
             >
-            <a href="/services/warehouse-cleaning">Warehouse Cleaning</a>
+            <a href={`${base}/services/warehouse-cleaning`}
+              >Warehouse Cleaning</a
+            >
           </div>
         </div>
 
         <!-- Areas dropdown -->
         <div class="gcc-dropdown">
           <a
-            href="/areas"
+            href={`${base}/areas`}
             class="gcc-dropdown-trigger"
-            aria-current={isActive("/areas") ? "page" : undefined}
+            aria-current={isActive(`${base}/areas`) ? "page" : undefined}
           >
             Areas <span class="gcc-caret">▾</span>
           </a>
 
           <div class="gcc-dropdown-menu">
-            <a href="/areas/melbourne-cbd">Melbourne CBD</a>
-            <a href="/areas/southbank">Southbank</a>
-            <a href="/areas/richmond">Richmond</a>
-            <a href="/areas/south-yarra">South Yarra</a>
+            <a href={`${base}/areas/melbourne-cbd`}>Melbourne CBD</a>
+            <a href={`${base}/areas/southbank`}>Southbank</a>
+            <a href={`${base}/areas/richmond`}>Richmond</a>
+            <a href={`${base}/areas/south-yarra`}>South Yarra</a>
           </div>
         </div>
 
-        <a href="/about" aria-current={isActive("/about") ? "page" : undefined}
-          >About</a
+        <a
+          href={`${base}/about`}
+          aria-current={isActive(`${base}/about`) ? "page" : undefined}>About</a
         >
         <a
-          href="/pricing"
-          aria-current={isActive("/pricing") ? "page" : undefined}>Pricing</a
+          href={`${base}/pricing`}
+          aria-current={isActive(`${base}/pricing`) ? "page" : undefined}
+          >Pricing</a
         >
       </nav>
 
       <!-- Desktop CTAs -->
       <div class="hidden md:flex items-center gap-3">
         <CTAButton
-          href="/contact"
+          href={`${base}/contact`}
           label="Get a Quote"
           variant="primary"
           icon="quote"
@@ -122,12 +128,14 @@ const isActive = (href: string) =>
                 Services <span class="gcc-mobile-dd-caret">▾</span>
               </summary>
               <div class="gcc-mobile-dd-panel">
-                <a href="/services">All Services</a>
-                <a href="/services/office-cleaning">Office Cleaning</a>
-                <a href="/services/medical-centre-cleaning"
+                <a href={`${base}/services`}>All Services</a>
+                <a href={`${base}/services/office-cleaning`}>Office Cleaning</a>
+                <a href={`${base}/services/medical-centre-cleaning`}
                   >Medical Centre Cleaning</a
                 >
-                <a href="/services/warehouse-cleaning">Warehouse Cleaning</a>
+                <a href={`${base}/services/warehouse-cleaning`}
+                  >Warehouse Cleaning</a
+                >
               </div>
             </details>
 
@@ -137,18 +145,18 @@ const isActive = (href: string) =>
                 Areas <span class="gcc-mobile-dd-caret">▾</span>
               </summary>
               <div class="gcc-mobile-dd-panel">
-                <a href="/areas">All Areas</a>
-                <a href="/areas/melbourne-cbd">Melbourne CBD</a>
-                <a href="/areas/southbank">Southbank</a>
-                <a href="/areas/richmond">Richmond</a>
-                <a href="/areas/south-yarra">South Yarra</a>
+                <a href={`${base}/areas`}>All Areas</a>
+                <a href={`${base}/areas/melbourne-cbd`}>Melbourne CBD</a>
+                <a href={`${base}/areas/southbank`}>Southbank</a>
+                <a href={`${base}/areas/richmond`}>Richmond</a>
+                <a href={`${base}/areas/south-yarra`}>South Yarra</a>
               </div>
             </details>
 
             <!-- Normal links -->
-            <a class="gcc-drawer-link" href="/about">About</a>
-            <a class="gcc-drawer-link" href="/pricing">Pricing</a>
-            <a class="gcc-drawer-link" href="/contact">Contact</a>
+            <a class="gcc-drawer-link" href={`${base}/about`}>About</a>
+            <a class="gcc-drawer-link" href={`${base}/pricing`}>Pricing</a>
+            <a class="gcc-drawer-link" href={`${base}/contact`}>Contact</a>
           </nav>
         </aside>
       </div>

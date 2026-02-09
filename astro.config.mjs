@@ -4,7 +4,8 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://www.gccmelbourne.com.au",
+  site: "https://abbujo.github.io",
+  base: "/gcc-melbourne-website",
   output: "static",
   integrations: [sitemap()],
   vite: {
