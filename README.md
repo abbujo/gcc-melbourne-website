@@ -29,8 +29,29 @@ Inside of your Astro project, you'll see the following folders and files:
 /
 ├── public/
 ├── src/
-│   └── pages/
-│       └── index.astro
+│    ├── components/
+│    │ ├── Header.astro
+│    │ ├── Footer.astro
+│    │ ├── CTAButton.astro
+│    │
+│    ├── layouts/
+│    │ └── Layout.astro
+│    │
+│    ├── pages/
+│    │ ├── index.astro
+│    │ ├── services/
+│    │ ├── areas/
+│    │ └── pricing.astro
+│    │
+│    ├── styles/
+│    │ ├── base/
+│    │ │ └── base.css
+│    │ ├── components/
+│    │ │ ├── header.css
+│    │ │ └── buttons.css
+│    │ └── global.css
+│    │
+│    └── assets/
 └── package.json
 ```
 
