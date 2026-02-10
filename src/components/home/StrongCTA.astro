@@ -1,5 +1,5 @@
 ---
-
+import SmartImage from "../SmartImage.astro";
 ---
 
 <section class="cta-section" id="cta-split">
@@ -24,8 +24,8 @@
                 </div>
             </div>
             <div class="split-image">
-                <img
-                    src={`${import.meta.env.BASE_URL}/images/stock-images/man-van.webp`}
+                <SmartImage
+                    name="side_hero"
                     alt="Office vacuuming"
                     loading="lazy"
                 />

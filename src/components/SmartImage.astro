@@ -1,0 +1,61 @@
+---
+import {
+    parseImageKindFromName,
+    buildDefaultSrc,
+    buildSrcSet,
+    buildSizes,
+    type ImageKind,
+} from "../lib/imageVariants";
+
+interface Props {
+    name: string;
+    alt: string;
+    class?: string;
+    loading?: "lazy" | "eager";
+    fetchpriority?: "high" | "auto" | "low";
+    decoding?: "async" | "sync" | "auto";
+    sizes?: string;
+    width?: number;
+    height?: number;
+}
+
+const {
+    name,
+    alt,
+    class: className,
+    loading,
+    fetchpriority,
+    decoding = "async",
+    sizes,
+    width,
+    height,
+} = Astro.props;
+
+const kind = parseImageKindFromName(name);
+const src = buildDefaultSrc(name);
+const srcset = buildSrcSet(name);
+const defaultSizes = buildSizes(kind);
+
+// Hero specific defaults if not overridden
+const computedLoading = loading ?? (kind === "hero" ? "eager" : "lazy");
+const computedFetchPriority =
+    fetchpriority ?? (kind === "hero" ? "high" : "auto");
+
+// Safety check for missing name
+if (!name) {
+    console.warn('SmartImage: "name" prop is missing.');
+}
+---
+
+<img
+    src={src}
+    srcset={srcset}
+    sizes={sizes ?? defaultSizes}
+    alt={alt}
+    class={className}
+    loading={computedLoading}
+    fetchpriority={computedFetchPriority}
+    decoding={decoding}
+    width={width}
+    height={height}
+/>

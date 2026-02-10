@@ -1,5 +1,6 @@
 ---
 import CTAButton from "./CTAButton.astro";
+import SmartImage from "./SmartImage.astro";
 
 const phoneE164 = "+61481422769";
 const pathname = Astro.url.pathname;
@@ -15,11 +16,11 @@ const isActive = (href: string) =>
     <div class="flex items-center justify-between gap-6">
       <!-- Logo -->
       <a href={base || "/"} class="gcc-logo">
-        <img
-          src={`${base}/images/gcc-logo.webp`}
+        <SmartImage
+          name="site_logo"
           alt="GCC Melbourne Logo"
-          width="180"
-          height="60"
+          width={180}
+          height={60}
           class="gcc-logo-mark"
           loading="eager"
         />

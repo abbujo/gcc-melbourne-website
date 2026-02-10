@@ -1,46 +1,47 @@
 ---
+import SmartImage from "../SmartImage.astro";
 const services = [
     {
         title: "Office Cleaning",
         desc: "Maintain a pristine workspace with daily or weekly protocols.",
         href: `${import.meta.env.BASE_URL}/services/office-cleaning`,
-        image: `${import.meta.env.BASE_URL}/images/stock-images/office_cleaning_staff.webp`,
+        imageName: "office_cleaning_card",
     },
     {
         title: "Medical Centres",
         desc: "Hygienic, compliant cleaning for clinics and medical facilities.",
         href: `${import.meta.env.BASE_URL}/services/medical-centre-cleaning`,
-        image: `${import.meta.env.BASE_URL}/images/stock-images/medical_clean.webp`,
+        imageName: "clinic_cleaning_card",
     },
     {
         title: "Industrial & Warehouse",
         desc: "Safety-focused cleaning for factories and industrial sites.",
         href: `${import.meta.env.BASE_URL}/services/warehouse-cleaning`,
-        image: `${import.meta.env.BASE_URL}/images/stock-images/cleaner_industrial.webp`,
+        imageName: "warehouse_cleaning_card",
     },
     {
         title: "Window Cleaning",
         desc: "Professional internal and external window cleaning.",
         href: `${import.meta.env.BASE_URL}/services/window-cleaning`,
-        image: `${import.meta.env.BASE_URL}/images/stock-images/glass_cleaning.webp`,
+        imageName: "window_cleaning_card",
     },
     {
         title: "Steam & Carpet",
         desc: "Deep cleaning for carpets, upholstery and hard floors.",
         href: `${import.meta.env.BASE_URL}/services/steam-cleaning`,
-        image: `${import.meta.env.BASE_URL}/images/stock-images/steam_cleaning.webp`,
+        imageName: "carpet_cleaning_card",
     },
     {
         title: "Post-Construction",
         desc: "Detailed final clean for new builds and renovations.",
         href: `${import.meta.env.BASE_URL}/services/construction-cleaning`,
-        image: `${import.meta.env.BASE_URL}/images/stock-images/cleaner_post_construction.webp`,
+        imageName: "builders_clean_card",
     },
     {
         title: "Pressure Washing",
         desc: "Deep cleaning for driveways, paths and hard floors.",
         href: `${import.meta.env.BASE_URL}/services/pressure-washing`,
-        image: `${import.meta.env.BASE_URL}/images/stock-images/cleaner_pressure_washing.webp`,
+        imageName: "pressure_washing_card",
     },
 ];
 ---
@@ -63,12 +64,12 @@ const services = [
                         
                         <!-- Image Container -->
                         <div class="image-box">
-                            <img
-                                src={s.image}
+                            <SmartImage
+                                name={s.imageName}
                                 alt={s.title}
                                 loading="lazy"
-                                width="400"
-                                height="300"
+                                width={400}
+                                height={300}
                             />
                             <!-- Overlay for hover effect -->
                             <div class="overlay"></div>

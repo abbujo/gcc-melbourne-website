@@ -18,6 +18,8 @@ const {
   title = "GCC Melbourne | Commercial Cleaning",
   description = "Commercial cleaning services in Melbourne, VIC.",
   preloadImage,
+  preloadImageSrcSet,
+  preloadImageSizes,
 } = Astro.props;
 ---
 
@@ -45,6 +47,8 @@ const {
           rel="preload"
           as="image"
           href={preloadImage}
+          imagesrcset={preloadImageSrcSet}
+          imagesizes={preloadImageSizes}
           fetchpriority="high"
         />
       )
