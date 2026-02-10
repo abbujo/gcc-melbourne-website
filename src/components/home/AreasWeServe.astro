@@ -1,82 +1,183 @@
 ---
 const melbImg =
-  "https://images.pexels.com/photos/34785507/pexels-photo-34785507.jpeg?cs=srgb&dl=pexels-kylevermeulen-34785507.jpg&fm=jpg";
+  "https://images.unsplash.com/photo-1514395462725-fb4566210144?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+
+import SmartImage from "../SmartImage.astro";
 
 const areas = [
   "Melbourne CBD",
-  "Southbank",
-  "Docklands",
+  "South Melbourne",
   "Richmond",
-  "South Yarra",
-  "Carlton",
-  "Brunswick",
+  "Docklands",
   "St Kilda",
+  "Port Melbourne",
+  "Southbank",
+  "Carlton",
+  "Fitzroy",
+  "Collingwood",
+  "Prahran",
+  "Toorak",
 ];
 ---
 
-<section class="gcc-section">
+<section class="areas-section">
   <div class="gcc-container">
-    <div class="areas">
-      <div class="areas__media">
-        <img src={melbImg} alt="Melbourne city skyline" loading="lazy" decoding="async" />
-      </div>
-
-      <div class="areas__copy">
-        <h2 class="areas__title">Areas we serve</h2>
-        <p class="areas__sub">
-          We support commercial sites across Melbourne. Explore your suburb page for local details and services.
+    <div class="split-layout">
+      <!-- Left Column: Content -->
+      <div class="content-col">
+        <h2 class="section-title">Areas We Serve</h2>
+        <p class="section-desc">
+          We provide commercial cleaning services across Melbourne CBD, South
+          Melbourne, Richmond, Docklands, St Kilda, Port Melbourne, and
+          surrounding suburbs.
         </p>
 
-        <div class="areas__chips">
-          {areas.map((a) => (
-            <span class="gcc-chip">{a}</span>
-          ))}
+        <div class="suburb-list">
+          {
+            areas.map((area) => (
+              <a
+                href={`${import.meta.env.BASE_URL}/areas/${area.toLowerCase().replace(/\s+/g, "-")}`}
+                class="suburb-link"
+              >
+                {area}
+              </a>
+            ))
+          }
         </div>
+      </div>
 
-        <div class="areas__links">
-          <a class="gcc-link" href="/areas">Browse all areas →</a>
-        </div>
+      <!-- Right Column: Image -->
+      <div class="image-col">
+        <SmartImage
+          name="areas_melbourne"
+          alt="Melbourne skyline"
+          loading="lazy"
+          width={800}
+          height={600}
+          sizes="(max-width: 900px) 100vw, 50vw"
+        />
+        <div class="gradient-overlay"></div>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .areas{
-    display:grid;
-    grid-template-columns: .9fr 1.1fr;
-    gap: 1.5rem;
-    align-items: stretch;
+  .areas-section {
+    padding: 2rem 0; /* Compact padding */
+    background-color: #f8fafc;
+    overflow: hidden;
   }
 
-  .areas__media{
-    border-radius: var(--radius-2xl);
-    overflow:hidden;
-    border: 1px solid var(--border-soft);
-    background: var(--bg-main);
+  .split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
   }
-  .areas__media img{
-    width:100%;
-    height:100%;
-    min-height: 320px;
+
+  /* --- Left Column --- */
+  .section-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--brand-dark);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 90%;
+  }
+
+  .suburb-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .suburb-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 99px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--brand-dark);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  }
+
+  .suburb-link:hover {
+    background: var(--brand-green);
+    color: white;
+    border-color: var(--brand-green);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  /* --- Right Column --- */
+  .image-col {
+    position: relative;
+    border-radius: 2rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+    aspect-ratio: 4/3;
+  }
+
+  .image-col img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    display:block;
+    display: block;
+    transition: transform 0.7s ease;
   }
 
-  .areas__copy{
-    border: 1px solid var(--border-soft);
-    background: var(--bg-main);
-    border-radius: var(--radius-2xl);
-    padding: 1.5rem;
+  .image-col:hover img {
+    transform: scale(1.05);
   }
 
-  .areas__title{ margin:0; font-size: 1.8rem; font-weight: 900; }
-  .areas__sub{ margin:.45rem 0 0; color: var(--text-muted); }
-  .areas__chips{ margin-top: 1rem; display:flex; flex-wrap:wrap; gap: .5rem; }
-  .areas__links{ margin-top: 1rem; }
+  .gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+    pointer-events: none;
+  }
 
-  @media (max-width: 900px){
-    .areas{ grid-template-columns: 1fr; }
-    .areas__media img{ min-height: 240px; }
+  /* --- Mobile --- */
+  @media (max-width: 900px) {
+    .areas-section {
+      padding: 3rem 0;
+    }
+
+    .split-layout {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .image-col {
+      order: -1; /* Image first on mobile? Or keep logical flow (content first)? 
+                    Requests says "Left column: list, Right column: image, stacked on mobile."
+                    Usually "Left" becomes "Top" in stack unless reordered. 
+                    Let's keep natural order: Content then Image.
+                 */
+      order: 0;
+      aspect-ratio: 16/9;
+      border-radius: 1.5rem;
+    }
+
+    .section-desc {
+      max-width: 100%;
+    }
   }
 </style>

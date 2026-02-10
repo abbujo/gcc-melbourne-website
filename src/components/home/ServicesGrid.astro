@@ -1,45 +1,40 @@
 ---
 import SmartImage from "../SmartImage.astro";
+import CTAButton from "../CTAButton.astro";
 const services = [
     {
         title: "Office Cleaning",
-        desc: "Maintain a pristine workspace with daily or weekly protocols.",
+        desc: "Professional office cleaning for Melbourne workplaces. Flexible schedules with clear checklists and consistent results.",
         href: `${import.meta.env.BASE_URL}/services/office-cleaning`,
         imageName: "office_cleaning_card",
     },
     {
-        title: "Medical Centres",
-        desc: "Hygienic, compliant cleaning for clinics and medical facilities.",
-        href: `${import.meta.env.BASE_URL}/services/medical-centre-cleaning`,
-        imageName: "clinic_cleaning_card",
+        title: "End of Lease Cleaning",
+        desc: "Detailed end-of-lease cleaning for business relocations, property managers, and lease handovers.",
+        href: `${import.meta.env.BASE_URL}/services/end-of-lease-cleaning`,
+        imageName: "end_of_lease_card",
     },
     {
-        title: "Industrial & Warehouse",
-        desc: "Safety-focused cleaning for factories and industrial sites.",
-        href: `${import.meta.env.BASE_URL}/services/warehouse-cleaning`,
-        imageName: "warehouse_cleaning_card",
+        title: "Builders Cleaning",
+        desc: "Final cleans for new builds, renovations, and fit-outs — inspection-ready from day one.",
+        href: `${import.meta.env.BASE_URL}/services/builders-cleaning`,
+        imageName: "builders_clean_card",
+    },
+    {
+        title: "Carpet & Steam Cleaning",
+        desc: "Deep steam cleaning for carpets, upholstery, and hard floors in commercial spaces.",
+        href: `${import.meta.env.BASE_URL}/services/carpet-steam-cleaning`,
+        imageName: "carpet_cleaning_card",
     },
     {
         title: "Window Cleaning",
-        desc: "Professional internal and external window cleaning.",
+        desc: "Internal and external window cleaning for offices, retail, and commercial buildings.",
         href: `${import.meta.env.BASE_URL}/services/window-cleaning`,
         imageName: "window_cleaning_card",
     },
     {
-        title: "Steam & Carpet",
-        desc: "Deep cleaning for carpets, upholstery and hard floors.",
-        href: `${import.meta.env.BASE_URL}/services/steam-cleaning`,
-        imageName: "carpet_cleaning_card",
-    },
-    {
-        title: "Post-Construction",
-        desc: "Detailed final clean for new builds and renovations.",
-        href: `${import.meta.env.BASE_URL}/services/construction-cleaning`,
-        imageName: "builders_clean_card",
-    },
-    {
         title: "Pressure Washing",
-        desc: "Deep cleaning for driveways, paths and hard floors.",
+        desc: "High-pressure cleaning for exteriors, car parks, walkways, and hard surfaces.",
         href: `${import.meta.env.BASE_URL}/services/pressure-washing`,
         imageName: "pressure_washing_card",
     },
@@ -50,16 +45,15 @@ const services = [
     <div class="gcc-container">
         <!-- HEADER -->
         <div class="header">
-            <h2 class="section-title">Specialised Cleaning Services</h2>
+            <h2 class="section-title">Specialised Commercial Cleaning Services</h2>
             <p class="section-subtitle">
-                We cover every corner of your business with trained
-                professionals.
+                Our commercial cleaning services in Melbourne include office cleaning, builders cleaning, end-of-lease cleaning, carpet and steam cleaning, window cleaning, and pressure washing.
             </p>
         </div>
 
         <div class="grid">
             {
-                services.map((s) => (
+                services.slice(0, 6).map((s) => (
                     <a href={s.href} class="service-card group">
                         
                         <!-- Image Container -->
@@ -95,13 +89,22 @@ const services = [
                 ))
             }
         </div>
+
+        <div class="view-all-container">
+            <CTAButton
+                href={`${import.meta.env.BASE_URL}/services`}
+                label="View All Services"
+                variant="outline"
+                class="view-all-btn"
+            />
+        </div>
     </div>
 </section>
 
 <style>
     .services-section {
-        padding: 5rem 0;
-        background: #f8fafc;
+        padding: 2rem 0; /* Compact padding */
+        background: #ffffff;
     }
 
     .header {
@@ -131,6 +134,13 @@ const services = [
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .view-all-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 3rem;
     }
 
     /* =========================================
@@ -169,7 +179,7 @@ const services = [
         background: #f1f5f9;
     }
 
-    .image-box img {
+    .image-box :global(img) {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -177,7 +187,7 @@ const services = [
     }
 
     /* Zoom Effect */
-    .service-card:hover .image-box img {
+    .service-card:hover .image-box :global(img) {
         transform: scale(1.08); /* Gentle cinematic zoom */
     }
 
@@ -329,8 +339,11 @@ const services = [
             flex-shrink: 0;
         }
         
-        .image-box img {
+        .image-box :global(img) {
             border-radius: 6px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .overlay { display: none; }

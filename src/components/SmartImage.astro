@@ -39,7 +39,8 @@ const defaultSizes = buildSizes(kind);
 // Hero specific defaults if not overridden
 const computedLoading = loading ?? (kind === "hero" ? "eager" : "lazy");
 const computedFetchPriority =
-    fetchpriority ?? (kind === "hero" ? "high" : "auto");
+    fetchpriority ??
+    (kind === "hero" && computedLoading === "eager" ? "high" : "auto");
 
 // Safety check for missing name
 if (!name) {

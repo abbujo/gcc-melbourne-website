@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import CTAButton from "../../components/CTAButton.astro";
 const areas = await getCollection("areas");
+const base = import.meta.env.BASE_URL;
 areas.sort((a, b) => a.data.suburb.localeCompare(b.data.suburb));
 ---
 
@@ -25,7 +26,7 @@ areas.sort((a, b) => a.data.suburb.localeCompare(b.data.suburb));
       <section class="mt-10 grid gap-4 md:grid-cols-3">
         {
           areas.map((a) => (
-            <a href={`/areas/${a.slug}`} class="gcc-card gcc-card-link">
+            <a href={`${base}/areas/${a.slug}`} class="gcc-card gcc-card-link">
               <div
                 class="text-sm font-semibold"
                 style="color: var(--brand-teal);"
@@ -60,13 +61,13 @@ areas.sort((a, b) => a.data.suburb.localeCompare(b.data.suburb));
 
           <div class="mt-6 flex flex-wrap gap-3">
             <CTAButton
-              href="/contact"
+              href={`${base}/contact`}
               label="Get a Quote"
               variant="primary"
               icon="quote"
             />
             <CTAButton
-              href="tel:+61481422769"
+              href="tel:+61422780703"
               label="Call Us"
               variant="outline"
               icon="phone"

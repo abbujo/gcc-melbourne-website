@@ -6,12 +6,33 @@ import WhyChooseUs from "../components/home/WhyChooseUs.astro";
 import Testimonials from "../components/home/Testimonials.astro";
 import FAQ from "../components/home/FAQ.astro";
 import StrongCTA from "../components/home/StrongCTA.astro";
+import MiniAbout from "../components/home/MiniAbout.astro";
+import AreasWeServe from "../components/home/AreasWeServe.astro";
 import { buildDefaultSrc, buildSrcSet, buildSizes } from "../lib/imageVariants";
 
 const heroName = "main_hero";
 const heroSrc = buildDefaultSrc(heroName);
 const heroSrcSet = buildSrcSet(heroName);
 const heroSizes = buildSizes("hero");
+
+// Extract FAQ items for Schema (must match the displayed FAQ component content ideally, or defined here to pass to both)
+const faqItems = [
+  {
+    question: "Do you provide commercial cleaning services in Melbourne?",
+    answer:
+      "Yes, we provide comprehensive commercial cleaning services across Melbourne CBD and surrounding suburbs.",
+  },
+  {
+    question: "Are your cleaners insured and police checked?",
+    answer:
+      "Yes, all our staff are police checked and we are fully insured for public liability.",
+  },
+  {
+    question: "Can I get a custom cleaning schedule?",
+    answer:
+      "Absolutely. We tailor our cleaning plans to suit your business hours and specific requirements.",
+  },
+];
 ---
 
 <Layout
@@ -20,10 +41,13 @@ const heroSizes = buildSizes("hero");
   preloadImage={heroSrc}
   preloadImageSrcSet={heroSrcSet}
   preloadImageSizes={heroSizes}
+  faqItems={faqItems}
 >
   <main>
     <Hero />
+    <MiniAbout />
     <ServicesGrid />
+    <AreasWeServe />
     <WhyChooseUs />
     <Testimonials />
     <FAQ />

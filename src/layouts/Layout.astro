@@ -14,12 +14,15 @@ import "@fontsource/montserrat/700.css";
 import "@fontsource/montserrat/800.css";
 import "@fontsource/montserrat/900.css";
 
+import LocalBusinessSchema from "../components/SEO/LocalBusinessSchema.astro";
+
 const {
   title = "GCC Melbourne | Commercial Cleaning",
   description = "Commercial cleaning services in Melbourne, VIC.",
   preloadImage,
   preloadImageSrcSet,
   preloadImageSizes,
+  faqItems, // New prop for Schema
 } = Astro.props;
 ---
 
@@ -39,6 +42,7 @@ const {
       href={`${import.meta.env.BASE_URL}/favicon.ico`}
     />
     <SEO title={title} description={description} />
+    <LocalBusinessSchema faqItems={faqItems} />
     <slot name="head" />
     <!-- Fonts are now imported via @fontsource in component script -->
     {
@@ -64,11 +68,14 @@ const {
       <div class="gcc-mobile-cta-inner">
         <a
           class="gcc-btn gcc-btn-outline gcc-mobile-cta-btn"
-          href="tel:+61481422769"
+          href="tel:+61422780703"
         >
           Call Us
         </a>
-        <a class="gcc-btn gcc-btn-primary gcc-mobile-cta-btn" href="/contact">
+        <a
+          class="gcc-btn gcc-btn-primary gcc-mobile-cta-btn"
+          href={`${import.meta.env.BASE_URL}/contact`}
+        >
           Get a Quote
         </a>
       </div>

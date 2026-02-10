@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { titleFromSlug } from "../../lib/text";
 import CTAButton from "../../components/CTAButton.astro";
+const base = import.meta.env.BASE_URL;
 
 
 type AreaEntry = CollectionEntry<"areas">;
@@ -67,13 +68,13 @@ const areaJsonLd = {
 
   <div class="mt-6 flex flex-wrap gap-3">
     <CTAButton
-      href="/contact"
+      href={`${base}/contact`}
       label="Get a Quote"
       variant="primary"
       icon="quote"
     />
     <CTAButton
-      href="tel:+61481422769"
+      href="tel:+61422780703"
       label="Call Us"
       variant="outline"
       icon="phone"
@@ -101,7 +102,7 @@ const areaJsonLd = {
 
         <div class="mt-6 grid gap-4 md:grid-cols-3">
           {servicesForThisArea.map((s) => (
-            <a href={`/services/${s.slug}`} class="gcc-card gcc-card-link">
+            <a href={`${base}/services/${s.slug}`} class="gcc-card gcc-card-link">
               <div class="text-sm font-semibold" style="color: var(--brand-teal);">
                 GCC Melbourne
               </div>
@@ -140,8 +141,8 @@ const areaJsonLd = {
         </p>
 
 <div class="mt-6 flex flex-wrap gap-3">
-  <CTAButton href="/contact" label="Get a Quote" variant="primary" icon="quote" />
-<CTAButton href="tel:+61481422769" label="Call Us" variant="outline" icon="phone" tone="dark" />
+  <CTAButton href={`${base}/contact`} label="Get a Quote" variant="primary" icon="quote" />
+<CTAButton href="tel:+61422780703" label="Call Us" variant="outline" icon="phone" tone="dark" />
 </div>
       </section>
     </div>

@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import CTAButton from "../../components/CTAButton.astro";
+const base = import.meta.env.BASE_URL;
 
 type ServiceEntry = CollectionEntry<"services">;
 type AreaEntry = CollectionEntry<"areas">;
@@ -34,7 +35,7 @@ const serviceJsonLd = {
     "@type": "LocalBusiness",
     name: "GCC Melbourne",
     url: "https://www.gccmelbourne.com.au",
-    telephone: "+61 4 8142 2769",
+    telephone: "+61422780703",
     areaServed: "Melbourne, VIC",
   },
   areaServed: areas?.length ? areas : ["Melbourne, VIC"],
@@ -83,13 +84,13 @@ const { Content } = await entry.render();
 
   <div class="mt-6 flex flex-wrap gap-3">
     <CTAButton
-      href="/contact"
+      href={`${base}/contact`}
       label="Get a Quote"
       variant="primary"
       icon="quote"
     />
     <CTAButton
-      href="tel:+61481422769"
+      href="tel:+61422780703"
       label="Call Us"
       variant="outline"
       icon="phone"
@@ -137,7 +138,7 @@ const { Content } = await entry.render();
         <div class="mt-6 grid gap-4 md:grid-cols-3">
           {areasForThisService.map((a) => (
             <a
-              href={`/areas/${a.slug}`}
+              href={`${base}/areas/${a.slug}`}
               class="rounded-2xl border border-slate-200 p-6 hover:border-slate-300"
             >
               <div class="font-semibold">{a.data.suburb}</div>
@@ -155,8 +156,8 @@ const { Content } = await entry.render();
         Tell us your site size, frequency, and preferred schedule — we’ll reply with a clear scope.
       </p>
 <div class="mt-6 flex flex-wrap gap-3">
-  <CTAButton href="/contact" label="Get a Quote" variant="primary" icon="quote" />
-<CTAButton href="tel:+61481422769" label="Call Us" variant="outline" icon="phone" tone="dark" />
+  <CTAButton href={`${base}/contact`} label="Get a Quote" variant="primary" icon="quote" />
+<CTAButton href="tel:+61422780703" label="Call Us" variant="outline" icon="phone" tone="dark" />
 </div>
     </section>
   </main>
