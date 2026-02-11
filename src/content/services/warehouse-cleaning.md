@@ -1,35 +1,44 @@
 ---
-title: Warehouse Cleaning
-description: Warehouse and industrial cleaning in Melbourne with clear scope, safety-first approach, and predictable results.
-heroTitle: Warehouse Cleaning in Melbourne
-heroSubtitle: Large-space cleaning with clear scope and reliable scheduling.
-startingFrom: 150
+title: "Warehouse Cleaning Melbourne"
+description: "Professional warehouse cleaning in Melbourne. We remove dust, scrub floors, and ensure OH&S compliance for your industrial space. Reliable and fully insured."
+heroTitle: "Industrial Cleaning That Gets Results"
+heroSubtitle: "Keep your warehouse safe, compliant, and operational with our specialized industrial cleaning services."
+serviceType: "WarehouseCleaning"
+areas: ["Dandenong", "Truganina", "Laverton", "Campbellfield", "Epping", "Braeside"]
+startingFrom: 250
+startingFromLabel: "Per visit (min charge)"
 priceUnit: "visit"
-minHours: 2
-frequencyHint: "Weekly / Fortnightly"
+minHours: 4
+frequencyHint: "Weekly / Monthly"
 highlights:
-  - "Checklist-based cleaning"
-  - "Police-checked staff"
-  - "After-hours available"
-  - "Quality inspections"
-areas:
-  - Melbourne
-  - Port Melbourne
-  - West Melbourne
+  - "Machine Floor Scrubbing"
+  - "High-Dusting & Spiderweb Removal"
+  - "Amenities & Lunchroom Cleaning"
+  - "Safety Line Marking Cleaning"
+  - "Pallet Racking Dusting"
+  - "Car Park Sweeping"
 faqs:
-  - q: Can you clean on weekends?
-    a: Yes. Weekend and after-hours schedules are available.
-  - q: Do you handle large floor areas?
-    a: Yes. We scope the site and choose the right tools/process for the surface and area size.
+  - q: "Do you have industrial scrubbers?"
+    a: "Yes, we use commercial-grade ride-on and walk-behind scrubbers suitable for large concrete floors."
+  - q: "Can you clean high ceilings?"
+    a: "We can arrange high dusting for beams, lights, and pipes to remove built-up dust and cobwebs, improving air quality and safety."
+  - q: "Do you carry White Cards?"
+    a: "Yes, our team members cleaning active construction or industrial sites hold valid White Cards where required."
+  - q: "Is pricing based on square meters?"
+    a: "Typically, yes. We can provide a fixed price after a quick site visit to assess the floor area and condition."
 ---
 
-## What’s included
-- Floor cleaning (as scoped)  
-- Bins and waste areas  
-- Break rooms & amenities  
-- Dust and cobweb removal (as scoped)
+### Clean Foundations for Safe Operations
 
-## Our process
-1. Walkthrough and scope  
-2. Schedule + safety notes  
-3. Cleaning + quality checks  
+Warehouses and industrial spaces accumulate dust and grime quickly, which can become a serious OH&S hazard if left unchecked. Slippery floors, dust build-up on lighting, and cluttered walkways not only look unprofessional but can also increase the risk of accidents.
+
+GCC Melbourne specializes in robust cleaning solutions for industrial environments. We don't just sweep; we deep clean to ensure your facility meets safety standards and provides a healthy environment for your staff.
+
+### Specialized Equipment for Large Spaces
+
+A mop and bucket won't cut it in a 2,000sqm warehouse. We bring the right tools for the job:
+-   **Industrial Floor Scrubbers:** To lift oil, grease, and tire marks from concrete floors.
+-   **High-Reach Poles & Vacuums:** To safely remove dust from overhead pipes and beams.
+-   **Pressure Washers:** For external areas, loading docks, and machinery.
+
+Whether you need a one-off deep clean before a lease end or regular maintenance to keep dust levels down, we have the experience and equipment to handle it efficiently.

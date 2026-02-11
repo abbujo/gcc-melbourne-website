@@ -1,0 +1,3 @@
+# Cloudflare Pages Redirects
+# Redirect apex to www
+https://gccmelbourne.com.au/* https://www.gccmelbourne.com.au/:splat 301

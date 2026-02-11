@@ -1,14 +1,12 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
-import { titleFromSlug } from "../../lib/text";
 import CTAButton from "../../components/CTAButton.astro";
-const base = import.meta.env.BASE_URL;
 
-
+// --- Types ---
 type AreaEntry = CollectionEntry<"areas">;
-type ServiceEntry = CollectionEntry<"services">;
 
+// --- Static Paths ---
 export async function getStaticPaths() {
   const areas = await getCollection("areas");
   return areas.map((entry: AreaEntry) => ({
@@ -17,134 +15,424 @@ export async function getStaticPaths() {
   }));
 }
 
+// --- Props & Data ---
 const { entry } = Astro.props as { entry: AreaEntry };
-const { suburb, title, description, nearby, services } = entry.data;
+const {
+  suburb,
+  title,
+  description,
+  heroImage,
+  heroImageAlt,
+  trustItems = [],
+  pricingStartingFrom,
+  pricingNote,
+  reassurancePoints = [],
+  servicesInArea = [],
+  inclusionsHighlights = [],
+  processSteps = [],
+  qualityAssurancePoints = [],
+  nearby = [],
+  seoTitle,
+  seoDescription,
+  ogImage,
+} = entry.data;
 
 const { Content } = await entry.render();
 
-const allServices = await getCollection("services");
-const serviceMap = new Map<string, ServiceEntry>(allServices.map((s) => [s.slug, s]));
-
-const servicesForThisArea = (services ?? [])
-  .map((slug) => serviceMap.get(slug))
-  .filter((s): s is ServiceEntry => s !== undefined);
-
+// SEO Fallbacks
+const pageTitle = seoTitle || `${title} | GCC Melbourne`;
+const pageDescription = seoDescription || description;
 const canonical = `https://www.gccmelbourne.com.au/areas/${entry.slug}`;
+const shareImage = ogImage || heroImage || "/images/default-og.jpg";
 
-const areaJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Place",
-  name: suburb,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: suburb,
-    addressRegion: "VIC",
-    addressCountry: "AU",
-  },
-};
+// Icon Assets (Inline for performance/simplicity)
+const CheckIcon = `<svg class="w-5 h-5 text-[var(--brand-teal)] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`;
+const ShieldIcon = `<svg class="w-6 h-6 text-[var(--brand-teal)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`;
 ---
 
-<Layout title={`${title} | GCC Melbourne`} description={description}>
+<Layout title={pageTitle} description={pageDescription}>
   <Fragment slot="head">
     <link rel="canonical" href={canonical} />
-    <script type="application/ld+json">{JSON.stringify(areaJsonLd)}</script>
+    <meta property="og:image" content={shareImage} />
   </Fragment>
 
-  <main class="gcc-section">
-    <div class="gcc-container">
-      <!-- HERO -->
-<section class="gcc-hero-light rounded-3xl p-8 md:p-10">
-  <p class="text-sm font-semibold tracking-wide" style="color: var(--brand-teal);">
-    GCC Melbourne
-  </p>
+  <main>
+    <!-- 1. HERO -->
+    <section class="relative bg-slate-50 border-b border-slate-200">
+      <div
+        class="gcc-container py-12 md:py-20 lg:py-24 grid md:grid-cols-2 gap-10 items-center"
+      >
+        <div>
+          <span
+            class="text-sm font-bold tracking-wider uppercase text-[var(--brand-teal)]"
+          >
+            Commercial Cleaning {suburb}
+          </span>
+          <h1
+            class="mt-4 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.1]"
+          >
+            {title}
+          </h1>
+          <p
+            class="mt-6 text-lg md:text-xl text-slate-600 leading-relaxed max-w-lg"
+          >
+            {description}
+          </p>
 
-  <h1 class="mt-2 text-4xl font-bold tracking-tight md:text-5xl">
-    {title}
-  </h1>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <CTAButton
+              href="/contact"
+              label="Get a Quote"
+              variant="primary"
+              icon="quote"
+            />
+            <CTAButton
+              href="tel:+61422780703"
+              label="Call Us: 0422 780 703"
+              variant="outline"
+              icon="phone"
+            />
+          </div>
 
-  <p class="mt-4 max-w-3xl text-lg gcc-muted">
-    {description}
-  </p>
-
-  <div class="mt-6 flex flex-wrap gap-3">
-    <CTAButton
-      href={`${base}/contact`}
-      label="Get a Quote"
-      variant="primary"
-      icon="quote"
-    />
-    <CTAButton
-      href="tel:+61422780703"
-      label="Call Us"
-      variant="outline"
-      icon="phone"
-    />
-  </div>
-
-  <div class="mt-6 flex flex-wrap gap-2">
-    <span class="gcc-chip">Insured</span>
-    <span class="gcc-chip">Checklist-based</span>
-    <span class="gcc-chip">Quality checks</span>
-    <span class="gcc-chip">After-hours available</span>
-  </div>
-</section>
-
-
-      <!-- AREA MARKDOWN BODY -->
-      <article class="prose prose-slate mt-10 max-w-none">
-        <Content />
-      </article>
-
-      <!-- SERVICES IN THIS AREA -->
-      <section class="mt-14">
-        <h2 class="text-2xl font-bold">Services we provide in {suburb}</h2>
-        <p class="mt-2 gcc-muted">Choose a service below to view scope, inclusions, and FAQs.</p>
-
-        <div class="mt-6 grid gap-4 md:grid-cols-3">
-          {servicesForThisArea.map((s) => (
-            <a href={`${base}/services/${s.slug}`} class="gcc-card gcc-card-link">
-              <div class="text-sm font-semibold" style="color: var(--brand-teal);">
-                GCC Melbourne
-              </div>
-
-              <div class="mt-2 text-xl font-bold">
-                {s.data.heroTitle ?? s.data.title ?? titleFromSlug(s.slug)}
-              </div>
-
-              <p class="mt-2 text-sm gcc-muted">{s.data.description}</p>
-
-              <div class="mt-5">
-                <span class="gcc-link font-semibold">View details →</span>
-              </div>
-            </a>
-          ))}
+          <!-- Trust Indicator (Small) -->
+          <div
+            class="mt-6 flex items-center gap-2 text-sm font-medium text-slate-700"
+          >
+            <div class="flex text-yellow-400">★★★★★</div>
+            <span>Trusted by Melbourne businesses</span>
+          </div>
         </div>
-      </section>
 
-      <!-- NEARBY AREAS -->
-      {nearby?.length ? (
-        <section class="mt-14">
-          <h2 class="text-2xl font-bold">Nearby areas we service</h2>
-          <div class="mt-4 flex flex-wrap gap-2">
-            {nearby.map((n: string) => (
-              <span class="gcc-chip">{n}</span>
-            ))}
+        <!-- Hero Image -->
+        <div
+          class="relative aspect-[4/3] md:aspect-square lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl bg-slate-200"
+        >
+          {
+            heroImage ? (
+              <img
+                src={heroImage}
+                alt={heroImageAlt || title}
+                class="w-full h-full object-cover"
+              />
+            ) : (
+              <div class="w-full h-full flex items-center justify-center text-slate-400 bg-slate-100">
+                <span class="text-lg font-medium">Map/Image Placeholder</span>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. TRUST STRIP -->
+    <section class="border-b border-slate-100 bg-white py-6">
+      <div class="gcc-container">
+        <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 md:gap-x-12">
+          {
+            trustItems.map((item) => (
+              <div class="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                <Fragment set:html={ShieldIcon} />
+                <span>{item}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. NARRATIVE INTRO -->
+    <section class="gcc-section bg-white">
+      <div class="gcc-container">
+        <article
+          class="prose prose-lg prose-slate max-w-3xl mx-auto text-center md:text-left"
+        >
+          <Content />
+        </article>
+      </div>
+    </section>
+
+    <!-- 4. VISIBLE PRICING BLOCK -->
+    <section class="gcc-section bg-slate-50">
+      <div class="gcc-container max-w-4xl">
+        <div
+          class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 md:p-10 flex flex-col md:flex-row items-center gap-8"
+        >
+          <div class="flex-1 text-center md:text-left">
+            <h2 class="text-2xl font-bold text-slate-900">
+              Transparent Pricing for {suburb}
+            </h2>
+            <p class="mt-2 text-slate-600">
+              No hidden fees. Just clear, honest rates for premium service.
+            </p>
+            <div class="mt-4 flex flex-col gap-2">
+              {
+                reassurancePoints.map((point) => (
+                  <div class="flex items-center gap-2 text-sm text-slate-700 justify-center md:justify-start">
+                    <Fragment set:html={CheckIcon} />
+                    <span>{point}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <div
+            class="w-full md:w-auto bg-[var(--brand-dark)] text-white p-6 rounded-xl text-center min-w-[250px]"
+          >
+            {
+              pricingStartingFrom && (
+                <div class="text-sm font-medium opacity-90 uppercase tracking-wide">
+                  Starting from
+                </div>
+              )
+            }
+            <div class="text-4xl font-extrabold mt-1">
+              {
+                typeof pricingStartingFrom === "number"
+                  ? `$${pricingStartingFrom}`
+                  : pricingStartingFrom
+              }
+            </div>
+            {
+              pricingNote && (
+                <div class="text-sm opacity-80 mt-1">{pricingNote}</div>
+              )
+            }
+            <div class="mt-4">
+              <CTAButton
+                href="/contact"
+                label="Get Custom Quote"
+                variant="outline"
+                tone="dark"
+                class="w-full justify-center"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. SERVICES GRID -->
+    {
+      servicesInArea.length > 0 && (
+        <section class="gcc-section bg-white">
+          <div class="gcc-container">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+              <h2 class="text-3xl font-bold tracking-tight text-slate-900">
+                Cleaning Services in {suburb}
+              </h2>
+              <p class="mt-4 text-lg text-slate-600">
+                Tailored cleaning solutions for your specific industry.
+              </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {servicesInArea.map((service) => (
+                <a
+                  href={service.href}
+                  class="group block p-6 bg-slate-50 rounded-xl border border-slate-100 hover:border-[var(--brand-teal)] hover:shadow-md transition-all"
+                >
+                  <h3 class="text-xl font-bold text-slate-900 group-hover:text-[var(--brand-teal)] transition-colors">
+                    {service.title} →
+                  </h3>
+                  <p class="mt-3 text-slate-600 leading-relaxed">
+                    {service.summary}
+                  </p>
+                </a>
+              ))}
+            </div>
           </div>
         </section>
-      ) : null}
+      )
+    }
 
-      <!-- FINAL CTA -->
-      <section class="mt-14 rounded-3xl p-8 md:p-10" style="background: var(--brand-dark); color: #fff;">
-        <h2 class="text-2xl font-bold">Looking for commercial cleaning in {suburb}?</h2>
-        <p class="mt-2" style="color: rgba(255,255,255,.82);">
-          Tell us about your site and preferred schedule — we’ll respond with a clear scope.
+    <!-- 6. WHAT'S INCLUDED (HIGHLIGHTS) -->
+    <section class="gcc-section bg-[var(--brand-teal)] text-white">
+      <div class="gcc-container">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl font-bold tracking-tight">
+              What’s included in our service?
+            </h2>
+            <p class="mt-4 text-lg opacity-90">
+              We don't cut corners. Our standard service includes the details
+              others miss.
+            </p>
+
+            <div class="mt-8 grid sm:grid-cols-2 gap-4">
+              {
+                inclusionsHighlights.map((item) => (
+                  <div class="flex items-start gap-3">
+                    <span class="bg-white/20 p-1 rounded-full mt-0.5">
+                      <svg
+                        class="w-4 h-4 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="3"
+                      >
+                        <path d="M5 13l4 4L19 7" />
+                      </svg>
+                    </span>
+                    <span class="font-medium">{item}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+          <div class="hidden md:block">
+            <!-- Decorative visuals/pattern could go here -->
+            <div class="bg-white/10 rounded-2xl p-8 border border-white/20">
+              <div class="text-xl font-bold mb-4">The GCC Standard</div>
+              <p class="opacity-80">
+                Every clean is verified against a digital checklist. If it’s not
+                right, we return and fix it immediately.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. HOW IT WORKS -->
+    <section class="gcc-section bg-white">
+      <div class="gcc-container">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="text-3xl font-bold text-slate-900">
+            How it works in {suburb}
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 relative">
+          {/* Connecting Line (Desktop) */}
+          <div
+            class="hidden md:block absolute top-8 left-0 w-full h-0.5 bg-slate-100 -z-10 transform scale-x-90"
+          >
+          </div>
+
+          {
+            processSteps.map((step, index) => (
+              <div class="relative bg-white pt-4">
+                <div class="w-16 h-16 rounded-2xl bg-blue-50 text-[var(--brand-teal)] flex items-center justify-center text-2xl font-bold mb-6 shadow-sm border border-blue-100 mx-auto md:mx-0">
+                  {index + 1}
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 text-center md:text-left">
+                  {step.title}
+                </h3>
+                <p class="mt-3 text-slate-600 leading-relaxed text-center md:text-left">
+                  {step.description}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. QUALITY ASSURANCE -->
+    <section class="gcc-section bg-slate-900 text-white">
+      <div class="gcc-container grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <div
+            class="inline-block px-3 py-1 bg-green-500/20 text-green-400 text-xs font-bold uppercase tracking-wider rounded-full mb-4"
+          >
+            Reliability
+          </div>
+          <h2 class="text-3xl font-bold mb-6">
+            We don't just say we clean.<br />We prove it.
+          </h2>
+          <p class="text-slate-300 text-lg mb-8">
+            Operational consistency is what separates us from the rest. We use
+            technology and active supervision to ensure your site is ready for
+            business every morning.
+          </p>
+
+          <div class="space-y-4">
+            {
+              qualityAssurancePoints.map((point) => (
+                <div class="flex items-center gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                  <span class="text-green-400">
+                    <svg
+                      class="w-6 h-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="font-medium text-slate-200">{point}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div
+          class="relative h-full min-h-[400px] bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden flex items-center justify-center"
+        >
+          <div class="text-center p-8">
+            <div class="text-slate-500 mb-2">System Placeholder</div>
+            <div class="text-2xl font-bold text-slate-400">Digital Logbook</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. NEARBY AREAS -->
+    <section class="gcc-section bg-slate-50 border-t border-slate-200">
+      <div class="gcc-container text-center">
+        <h2 class="text-2xl font-bold text-slate-900 mb-8">
+          Also servicing businesses near {suburb}
+        </h2>
+        <div class="flex flex-wrap justify-center gap-3">
+          {
+            nearby.map((area) => (
+              <span class="inline-block px-4 py-2 bg-white border border-slate-200 rounded-full text-slate-600 text-sm font-medium shadow-sm">
+                {area}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. FINAL CTA -->
+    <section class="py-20 bg-[var(--brand-dark)] text-white text-center">
+      <div class="gcc-container max-w-3xl">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">
+          Ready to upgrade your cleaning service?
+        </h2>
+        <p class="text-xl text-slate-300 mb-10">
+          Get a free, transparent proposal for your {suburb} business. No lock-in
+          contracts, just great service.
         </p>
-
-<div class="mt-6 flex flex-wrap gap-3">
-  <CTAButton href={`${base}/contact`} label="Get a Quote" variant="primary" icon="quote" />
-<CTAButton href="tel:+61422780703" label="Call Us" variant="outline" icon="phone" tone="dark" />
-</div>
-      </section>
-    </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <CTAButton
+            href="/contact"
+            label="Get a Quote"
+            variant="primary"
+            icon="quote"
+            class="w-full sm:w-auto text-lg py-3 px-8"
+          />
+          <CTAButton
+            href="tel:+61422780703"
+            label="Call Now"
+            variant="outline"
+            tone="dark"
+            icon="phone"
+            class="w-full sm:w-auto text-lg py-3 px-8"
+          />
+        </div>
+        <p class="mt-6 text-sm opacity-60">
+          Fast response time. 100% obligation free.
+        </p>
+      </div>
+    </section>
   </main>
 </Layout>

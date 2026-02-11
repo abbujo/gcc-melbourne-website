@@ -1,0 +1,129 @@
+---
+interface Props {
+    inclusions: string[];
+}
+
+const { inclusions } = Astro.props;
+---
+
+{
+    inclusions && inclusions.length > 0 && (
+        <section class="inclusions-section">
+            <div class="gcc-container">
+                <div class="split-layout">
+                    <div class="text-side">
+                        <h2>What's Included</h2>
+                        <p class="sub">
+                            Comprehensive cleaning checklist covered in every
+                            visit.
+                        </p>
+                    </div>
+
+                    <ul class="inclusion-list">
+                        {inclusions.map((item) => (
+                            <li>
+                                <span class="check-icon">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="3"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M4.5 12.75l6 6 9-13.5"
+                                        />
+                                    </svg>
+                                </span>
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </section>
+    )
+}
+
+<style>
+    .inclusions-section {
+        padding: 5rem 0;
+        background: white;
+    }
+
+    .split-layout {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 3rem;
+    }
+
+    h2 {
+        font-family: "Montserrat", sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--brand-dark);
+        margin-bottom: 1rem;
+    }
+
+    .sub {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    .inclusion-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.25rem;
+        padding: 0;
+        list-style: none;
+    }
+
+    li {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        font-size: 1rem;
+        color: var(--brand-dark);
+        background: #f8fafc;
+        padding: 1rem 1.25rem;
+        border-radius: 1rem;
+        border: 1px solid var(--border-soft);
+        transition: transform 0.2s;
+    }
+
+    li:hover {
+        transform: translateY(-2px);
+        border-color: var(--brand-teal);
+    }
+
+    .check-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.5rem;
+        height: 1.5rem;
+        background: #dcfce7;
+        color: var(--brand-green);
+        border-radius: 50%;
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+    }
+
+    .check-icon svg {
+        width: 0.875rem;
+        height: 0.875rem;
+    }
+
+    @media (max-width: 900px) {
+        .split-layout {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        .inclusions-section {
+            padding: 3rem 0;
+        }
+    }
+</style>

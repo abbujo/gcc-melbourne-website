@@ -1,4 +1,6 @@
 ---
+import { absoluteUrl, canonicalOrigin, withBase } from "../../lib/site";
+
 interface Props {
     faqItems?: { question: string; answer: string }[];
 }
@@ -9,9 +11,14 @@ const businessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Green Commercial Cleaning Melbourne",
-    image: ["https://gccmelbourne.com.au/images/og-image.jpg"],
-    "@id": "https://gccmelbourne.com.au",
-    url: "https://gccmelbourne.com.au",
+    image: [absoluteUrl("/images/og-image.jpg")], // Ensure this path is correct relative to public/ or absoluteUrl handles it
+
+    // Use canonicalOrigin for ID to refer to the business identity consistently
+    "@id": canonicalOrigin,
+
+    // Use the actual URL (with base path if needed)
+    url: absoluteUrl("/"),
+
     telephone: "+61422780703",
     priceRange: "$$",
     address: {

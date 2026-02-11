@@ -1,0 +1,103 @@
+---
+import "../styles/global.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/800.css";
+import "@fontsource/inter/900.css";
+import "@fontsource/montserrat/400.css";
+import "@fontsource/montserrat/500.css";
+import "@fontsource/montserrat/700.css";
+import "@fontsource/montserrat/800.css";
+import "@fontsource/montserrat/900.css";
+
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import LocalBusinessSchema from "../components/SEO/LocalBusinessSchema.astro";
+import { canonicalUrl, absoluteUrl, noIndex, withBase } from "../lib/site";
+
+interface Props {
+    title?: string;
+    description?: string;
+    ogImagePath?: string;
+    preloadImage?: string;
+    preloadImageSrcSet?: string;
+    preloadImageSizes?: string;
+    faqItems?: { question: string; answer: string }[];
+}
+
+const {
+    title = "GCC Melbourne | Commercial Cleaning",
+    description = "Commercial cleaning services in Melbourne, VIC.",
+    ogImagePath = "/og.jpg",
+    preloadImage,
+    preloadImageSrcSet,
+    preloadImageSizes,
+    faqItems,
+} = Astro.props;
+
+const canonical = canonicalUrl(Astro.url.pathname);
+const ogImage = absoluteUrl(ogImagePath);
+---
+
+<!doctype html>
+<html lang="en" data-font="montserrat">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+        <link rel="icon" type="image/x-icon" href={withBase("/favicon.ico")} />
+
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={ogImage} />
+        <meta name="twitter:card" content="summary_large_image" />
+
+        {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+        <LocalBusinessSchema faqItems={faqItems} />
+        <slot name="head" />
+
+        {
+            preloadImage && (
+                <link
+                    rel="preload"
+                    as="image"
+                    href={preloadImage}
+                    imagesrcset={preloadImageSrcSet}
+                    imagesizes={preloadImageSizes}
+                    fetchpriority="high"
+                />
+            )
+        }
+    </head>
+    <body>
+        <Header />
+        <slot />
+        <Footer />
+
+        <!-- Mobile sticky bottom CTAs -->
+        <div class="gcc-mobile-cta" aria-label="Quick actions">
+            <div class="gcc-mobile-cta-inner">
+                <a
+                    class="gcc-btn gcc-btn-outline gcc-mobile-cta-btn"
+                    href="tel:+61422780703"
+                >
+                    Call Us
+                </a>
+                <a
+                    class="gcc-btn gcc-btn-primary gcc-mobile-cta-btn"
+                    href={withBase("/contact")}
+                >
+                    Get a Quote
+                </a>
+            </div>
+        </div>
+    </body>
+</html>

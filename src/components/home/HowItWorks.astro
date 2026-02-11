@@ -1,77 +1,203 @@
-<section class="how">
+<section class="how-it-works">
   <div class="gcc-container">
-    <h2>How it works</h2>
-    <p class="sub">Simple, professional, and repeatable.</p>
+    <div class="text-center mb-12">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">Professional service in 3 simple steps.</p>
+    </div>
 
-    <div class="steps">
-      <div>
-        <strong>1</strong>
-        <h3>Request a quote</h3>
-        <p>Tell us your site, frequency, and schedule.</p>
+    <div class="steps-container">
+      <!-- Connection Line (Desktop) -->
+      <div class="connector-line"></div>
+
+      <!-- Step 1 -->
+      <div class="step-card">
+        <div class="step-icon">
+          <span class="step-number">1</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+            ></path>
+          </svg>
+        </div>
+        <h3>Request Quote</h3>
+        <p>Contact us with your site details and frequency needs.</p>
       </div>
-      <div>
-        <strong>2</strong>
-        <h3>Clear scope</h3>
-        <p>We confirm inclusions and checklist.</p>
+
+      <!-- Step 2 -->
+      <div class="step-card">
+        <div class="step-icon">
+          <span class="step-number">2</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 12.75L11.25 15 15 9.75M21 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.477 2 12 2s10 4.477 10 10z"
+            ></path>
+          </svg>
+        </div>
+        <h3>Tailored Scope</h3>
+        <p>We visit (if needed) and agree on a custom checklist.</p>
       </div>
-      <div>
-        <strong>3</strong>
-        <h3>Clean & check</h3>
-        <p>Trained staff with quality checks.</p>
+
+      <!-- Step 3 -->
+      <div class="step-card">
+        <div class="step-icon">
+          <span class="step-number">3</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"
+            ></path>
+          </svg>
+        </div>
+        <h3>Clean & Check</h3>
+        <p>Consistent service with regular quality audits.</p>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .how {
-    padding: 3rem 0;
-    background: var(--bg-surface);
-    border-top: 1px solid var(--border-soft);
-    border-bottom: 1px solid var(--border-soft);
+  .how-it-works {
+    padding: 5rem 0;
+    background: #f8fafc; /* Subtle contrast background */
+    overflow: hidden;
   }
 
-  .steps {
-    margin-top: 1.5rem;
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(3, 1fr);
+  .section-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin-bottom: 0.5rem;
   }
 
-  .steps div {
-    background: var(--bg-main);
-    border: 1px solid var(--border-soft);
-    border-radius: 1.25rem;
-    padding: 1.2rem;
-  }
-
-  .steps strong {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-soft);
-    text-align: center;
-    line-height: 32px;
-    font-weight: 900;
-    color: var(--brand-teal);
-  }
-
-  .steps h3 {
-    margin-top: 0.6rem;
-    font-size: 1rem;
-  }
-
-  .steps p {
-    margin-top: 0.3rem;
-    font-size: 0.9rem;
+  .section-sub {
+    font-size: 1.1rem;
     color: var(--text-muted);
   }
 
-  @media (max-width: 900px) {
-    .steps {
+  .steps-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    position: relative;
+    max-width: 1000px;
+    margin: 3rem auto 0;
+  }
+
+  /* Connector Line */
+  .connector-line {
+    position: absolute;
+    top: 2.5rem; /* Aligns with icon center */
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: linear-gradient(to right, #e2e8f0, var(--brand-teal), #e2e8f0);
+    z-index: 1;
+  }
+
+  .step-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-card:hover .step-icon {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--brand-teal);
+  }
+
+  .step-icon {
+    width: 5rem;
+    height: 5rem;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--border-soft);
+    position: relative;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+
+  .step-icon svg {
+    width: 2rem;
+    height: 2rem;
+    color: var(--brand-dark);
+  }
+
+  .step-number {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 1.75rem;
+    height: 1.75rem;
+    background: var(--brand-teal);
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .steps-container {
       grid-template-columns: 1fr;
+      gap: 3rem;
     }
+
+    .connector-line {
+      display: none; /* Hide horizontal line on mobile */
+    }
+
+    /* Optional: Vertical line for mobile? 
+       For simplicity and "calmness", stacking without lines is often better on mobile. */
   }
 </style>

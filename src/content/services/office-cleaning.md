@@ -1,44 +1,44 @@
 ---
-title: Office Cleaning
-description: Reliable office cleaning in Melbourne with checklists, trained staff, and quality checks.
-heroTitle: Office Cleaning in Melbourne
-heroSubtitle: Consistent cleaning, clear scope, and quality checks — tailored to your office.
-startingFrom: 150
-priceUnit: "visit"
-minHours: 2
-frequencyHint: "Weekly / Fortnightly"
+title: "Office Cleaning Melbourne"
+description: "Professional office cleaning services in Melbourne. We ensure a hygienic, productive workspace with our reliable, insured commercial cleaning team. Get a free quote."
+heroTitle: "Premium Office Cleaning in Melbourne"
+heroSubtitle: "Create a spotless, productive environment for your team with Melbourne's most reliable commercial cleaners."
+serviceType: "OfficeCleaning"
+areas: ["Melbourne CBD", "South Melbourne", "Richmond", "St Kilda", "Docklands", "Southbank"]
+startingFrom: 55
+startingFromLabel: "Per hour (min 3 hours)"
+priceUnit: "hour"
+minHours: 3
+frequencyHint: "Daily / Weekly / Fortnightly"
 highlights:
-  - "Checklist-based cleaning"
-  - "Police-checked staff"
-  - "After-hours available"
-  - "Quality inspections"
-areas:
-  - Melbourne CBD
-  - Southbank
-  - Docklands
-  - Richmond
+  - "Desks & Workstations Sanitized"
+  - "Kitchens & Breakrooms Deep Cleaned"
+  - "Bathrooms Scrubbed & Restocked"
+  - "Bin Emptying & Liner Replacement"
+  - "Floor Vacuuming & Mopping"
+  - "Touchpoint Disinfection"
 faqs:
-  - q: Do you provide after-hours office cleaning?
-    a: Yes. We can schedule cleaning early mornings, evenings, or weekends to suit your office.
-  - q: Do you bring equipment and supplies?
-    a: Yes. We can provide all equipment and consumables, or work with your preferred supplies.
-  - q: How do you ensure consistent quality?
-    a: We use checklists, regular inspections, and feedback loops to maintain consistent standards.
+  - q: "Do you clean after hours?"
+    a: "Yes, we offer flexible scheduling including early mornings, evenings, and weekends to minimize disruption to your business operations."
+  - q: "Are consumables included?"
+    a: "We can supply toilet paper, hand towels, and soap upon request. We'll manage the inventory so you never run out."
+  - q: "Is there a lock-in contract?"
+    a: "No, we don't believe in locking you in. We rely on our high quality of service to keep you as a happy customer."
+  - q: "What security checks do you perform?"
+    a: "All our cleaners are police-checked and fully insured. We also have strict key management protocols in place for your peace of mind."
 ---
 
-## What’s included
-- Workstations, desks & touchpoints wipe-down  
-- Kitchens & break areas  
-- Bathrooms & consumable checks  
-- Floors vacuum/mop  
-- Bins emptied & liners replaced  
+### A Clean Office is a Productive Office
 
-## Who it’s for
-- Offices, co-working spaces, corporate suites
-- Small to medium businesses
-- Teams wanting reliable scheduled cleaning
+Your office environment speaks volumes about your business. A clean, organized workspace not only impresses clients but also boosts employee morale and productivity. At GCC Melbourne, we understand that every office is unique, which is why we offer tailored cleaning solutions to match your specific needs.
 
-## Our process
-1. Quick site walkthrough & scope confirmation  
-2. Cleaning scheduled to suit your hours  
-3. Quality checks and ongoing improvements  
+We don't just do a "quick wipe over." Our team follows a detailed checklist to ensure every corner of your office—from the reception desk to the boardroom and the kitchen—is consistently maintained to the highest standard.
+
+### Consistent Quality, Every Visit
+
+We know that consistency is the biggest pain point with commercial cleaners. That's why we use:
+-   **Digital Checklists:** To ensure no task is missed.
+-   **Regular Inspections:** Our supervisors conduct random audit checks.
+-   **Communication Logbooks:** For easy feedback and requests.
+
+Whether you need a daily touch-up or a comprehensive weekly clean, we are the partner you can trust to show up on time and do the job right.

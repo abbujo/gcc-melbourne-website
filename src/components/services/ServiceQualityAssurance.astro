@@ -1,0 +1,183 @@
+---
+
+---
+
+<section class="qa-section">
+    <div class="gcc-container">
+        <div class="header text-center mb-12">
+            <h2 class="title">Our Quality Promise</h2>
+            <p class="subtitle">
+                Consistency isn't accidental. It's engineered.
+            </p>
+        </div>
+
+        <div class="qa-grid">
+            <!-- Item 1 -->
+            <div class="qa-card">
+                <div class="icon-wrap">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
+                        ></path>
+                    </svg>
+                </div>
+                <h3>Digital Checklists</h3>
+                <p>
+                    Every cleaner uses our app to tick off tasks in real-time.
+                </p>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="qa-card">
+                <div class="icon-wrap">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                        ></path>
+                    </svg>
+                </div>
+                <h3>Supervisor Audits</h3>
+                <p>Regular inspections by area managers to ensure standards.</p>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="qa-card">
+                <div class="icon-wrap">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
+                        ></path>
+                    </svg>
+                </div>
+                <h3>Communication Logs</h3>
+                <p>Site communication books for easy feedback and requests.</p>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="qa-card">
+                <div class="icon-wrap">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9 12.75L11.25 15 15 9.75M21 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.477 2 12 2s10 4.477 10 10z"
+                        ></path>
+                    </svg>
+                </div>
+                <h3>Consistency Controls</h3>
+                <p>
+                    Fixed staff allocation so you know who is in your building.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .qa-section {
+        padding: 5rem 0;
+        background: white;
+    }
+
+    .title {
+        font-family: "Montserrat", sans-serif;
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: var(--brand-dark);
+        margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+    }
+
+    .qa-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 2rem;
+    }
+
+    .qa-card {
+        background: #f8fafc;
+        padding: 2rem;
+        border-radius: 1.5rem;
+        border: 1px solid var(--border-soft);
+        transition: transform 0.2s;
+    }
+
+    .qa-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+        border-color: var(--brand-teal);
+    }
+
+    .icon-wrap {
+        width: 3.5rem;
+        height: 3.5rem;
+        background: white;
+        color: var(--brand-teal);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .icon-wrap svg {
+        width: 1.75rem;
+        height: 1.75rem;
+    }
+
+    h3 {
+        font-family: "Montserrat", sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--brand-dark);
+        margin-bottom: 0.75rem;
+    }
+
+    p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .qa-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+    }
+</style>

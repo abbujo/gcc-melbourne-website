@@ -77,3 +77,26 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+---
+
+## ✅ QA Checklist (Environment & SEO)
+
+- [ ] **Development (`npm run dev`)**
+  - [ ] Canonical URL shows `http://localhost:4321/gcc-melbourne-website`
+  - [ ] Page source includes `<meta name="robots" content="noindex, nofollow" />`
+  - [ ] `robots.txt` at `/gcc-melbourne-website/robots.txt` shows `Disallow: /`
+  - [ ] Internal links prefix `/gcc-melbourne-website`
+
+- [ ] **Staging (GitHub Pages)**
+  - [ ] Canonical URL shows `https://abbujo.github.io/gcc-melbourne-website`
+  - [ ] Page source includes `<meta name="robots" content="noindex, nofollow" />`
+  - [ ] `robots.txt` shows `Disallow: /`
+  - [ ] `og:image` is absolute (e.g. `https://abbujo.github.io/gcc-melbourne-website/og.jpg`)
+
+- [ ] **Production (Cloudflare)**
+  - [ ] Canonical URL shows `https://www.gccmelbourne.com.au/`
+  - [ ] **NO** `noindex` meta tag present
+  - [ ] `robots.txt` shows `Allow: /` and links to sitemap
+  - [ ] JSON-LD Schema `@id` is `https://www.gccmelbourne.com.au`
+  - [ ] Redirects (apex -> www) are active via `_redirects`

@@ -3,19 +3,20 @@ import CTAButton from "./CTAButton.astro";
 import SmartImage from "./SmartImage.astro";
 
 const phoneE164 = "+61422780703";
-const pathname = Astro.url.pathname;
+const { pathname } = Astro.url;
+import { withBase } from "../lib/site";
 
-const base = import.meta.env.BASE_URL;
-
-const isActive = (href: string) =>
-  pathname === href || pathname.startsWith(href + "/");
+const isActive = (href: string) => {
+  const fullHref = withBase(href);
+  return pathname === fullHref || pathname.startsWith(fullHref + "/");
+};
 ---
 
 <header class="gcc-header">
   <div class="gcc-container gcc-header-inner">
     <div class="flex items-center justify-between gap-6">
       <!-- Logo -->
-      <a href={base || "/"} class="gcc-logo">
+      <a href={withBase("/")} class="gcc-logo">
         <SmartImage
           name="site_logo"
           alt="GCC Melbourne Logo"
@@ -39,60 +40,62 @@ const isActive = (href: string) =>
         <!-- Services dropdown -->
         <div class="gcc-dropdown">
           <a
-            href={`${base}/services`}
+            href={withBase("/services")}
             class="gcc-dropdown-trigger"
-            aria-current={isActive(`${base}/services`) ? "page" : undefined}
+            aria-current={isActive("/services") ? "page" : undefined}
           >
             Services <span class="gcc-caret">▾</span>
           </a>
 
           <div class="gcc-dropdown-menu">
-            <a href={`${base}/services/office-cleaning`}>Office Cleaning</a>
-            <a href={`${base}/services/builders-cleaning`}>Builders Cleaning</a>
-            <a href={`${base}/services/end-of-lease-cleaning`}
+            <a href={withBase("/services/office-cleaning")}>Office Cleaning</a>
+            <a href={withBase("/services/builders-cleaning")}
+              >Builders Cleaning</a
+            >
+            <a href={withBase("/services/end-of-lease-cleaning")}
               >End of Lease Cleaning</a
             >
-            <a href={`${base}/services/carpet-steam-cleaning`}
+            <a href={withBase("/services/carpet-steam-cleaning")}
               >Carpet & Steam Cleaning</a
             >
-            <a href={`${base}/services/window-cleaning`}>Window Cleaning</a>
-            <a href={`${base}/services/pressure-washing`}>Pressure Washing</a>
+            <a href={withBase("/services/window-cleaning")}>Window Cleaning</a>
+            <a href={withBase("/services/pressure-washing")}>Pressure Washing</a
+            >
           </div>
         </div>
 
         <!-- Areas dropdown -->
         <div class="gcc-dropdown">
           <a
-            href={`${base}/areas`}
+            href={withBase("/areas")}
             class="gcc-dropdown-trigger"
-            aria-current={isActive(`${base}/areas`) ? "page" : undefined}
+            aria-current={isActive("/areas") ? "page" : undefined}
           >
             Areas <span class="gcc-caret">▾</span>
           </a>
 
           <div class="gcc-dropdown-menu">
-            <a href={`${base}/areas/melbourne-cbd`}>Melbourne CBD</a>
-            <a href={`${base}/areas/southbank`}>Southbank</a>
-            <a href={`${base}/areas/richmond`}>Richmond</a>
-            <a href={`${base}/areas/south-yarra`}>South Yarra</a>
+            <a href={withBase("/areas/melbourne-cbd")}>Melbourne CBD</a>
+            <a href={withBase("/areas/southbank")}>Southbank</a>
+            <a href={withBase("/areas/richmond")}>Richmond</a>
+            <a href={withBase("/areas/south-yarra")}>South Yarra</a>
           </div>
         </div>
 
         <a
-          href={`${base}/about`}
-          aria-current={isActive(`${base}/about`) ? "page" : undefined}>About</a
+          href={withBase("/about")}
+          aria-current={isActive("/about") ? "page" : undefined}>About</a
         >
         <a
-          href={`${base}/pricing`}
-          aria-current={isActive(`${base}/pricing`) ? "page" : undefined}
-          >Pricing</a
+          href={withBase("/pricing")}
+          aria-current={isActive("/pricing") ? "page" : undefined}>Pricing</a
         >
       </nav>
 
       <!-- Desktop CTAs -->
       <div class="hidden md:flex items-center gap-3">
         <CTAButton
-          href={`${base}/contact`}
+          href={withBase("/contact")}
           label="Get a Quote"
           variant="primary"
           icon="quote"
@@ -132,19 +135,23 @@ const isActive = (href: string) =>
                 Services <span class="gcc-mobile-dd-caret">▾</span>
               </summary>
               <div class="gcc-mobile-dd-panel">
-                <a href={`${base}/services`}>All Services</a>
-                <a href={`${base}/services/office-cleaning`}>Office Cleaning</a>
-                <a href={`${base}/services/builders-cleaning`}
+                <a href={withBase("/services")}>All Services</a>
+                <a href={withBase("/services/office-cleaning")}
+                  >Office Cleaning</a
+                >
+                <a href={withBase("/services/builders-cleaning")}
                   >Builders Cleaning</a
                 >
-                <a href={`${base}/services/end-of-lease-cleaning`}
+                <a href={withBase("/services/end-of-lease-cleaning")}
                   >End of Lease Cleaning</a
                 >
-                <a href={`${base}/services/carpet-steam-cleaning`}
+                <a href={withBase("/services/carpet-steam-cleaning")}
                   >Carpet & Steam Cleaning</a
                 >
-                <a href={`${base}/services/window-cleaning`}>Window Cleaning</a>
-                <a href={`${base}/services/pressure-washing`}
+                <a href={withBase("/services/window-cleaning")}
+                  >Window Cleaning</a
+                >
+                <a href={withBase("/services/pressure-washing")}
                   >Pressure Washing</a
                 >
               </div>
@@ -156,18 +163,18 @@ const isActive = (href: string) =>
                 Areas <span class="gcc-mobile-dd-caret">▾</span>
               </summary>
               <div class="gcc-mobile-dd-panel">
-                <a href={`${base}/areas`}>All Areas</a>
-                <a href={`${base}/areas/melbourne-cbd`}>Melbourne CBD</a>
-                <a href={`${base}/areas/southbank`}>Southbank</a>
-                <a href={`${base}/areas/richmond`}>Richmond</a>
-                <a href={`${base}/areas/south-yarra`}>South Yarra</a>
+                <a href={withBase("/areas")}>All Areas</a>
+                <a href={withBase("/areas/melbourne-cbd")}>Melbourne CBD</a>
+                <a href={withBase("/areas/southbank")}>Southbank</a>
+                <a href={withBase("/areas/richmond")}>Richmond</a>
+                <a href={withBase("/areas/south-yarra")}>South Yarra</a>
               </div>
             </details>
 
             <!-- Normal links -->
-            <a class="gcc-drawer-link" href={`${base}/about`}>About</a>
-            <a class="gcc-drawer-link" href={`${base}/pricing`}>Pricing</a>
-            <a class="gcc-drawer-link" href={`${base}/contact`}>Contact</a>
+            <a class="gcc-drawer-link" href={withBase("/about")}>About</a>
+            <a class="gcc-drawer-link" href={withBase("/pricing")}>Pricing</a>
+            <a class="gcc-drawer-link" href={withBase("/contact")}>Contact</a>
           </nav>
         </aside>
       </div>

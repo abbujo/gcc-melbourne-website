@@ -4,11 +4,15 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://abbujo.github.io",
-  base: "/gcc-melbourne-website",
+  site: process.env.PUBLIC_SITE_URL || "https://abbujo.github.io",
+  base: process.env.PUBLIC_BASE_PATH || "/gcc-melbourne-website",
   output: "static",
-  integrations: [sitemap()],
+  integrations: [
+    process.env.PUBLIC_NO_INDEX === "false" ? sitemap() : null,
+  ].filter(Boolean),
   vite: {
     plugins: [tailwindcss()],
   },
 });
+
+

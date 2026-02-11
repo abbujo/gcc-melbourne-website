@@ -1,0 +1,227 @@
+---
+import CTAButton from "../CTAButton.astro";
+
+interface Props {
+    startingFrom?: number;
+    startingFromLabel?: string;
+    priceUnit?: "visit" | "hour" | "week" | "month";
+    minHours?: number;
+}
+
+const { startingFrom, startingFromLabel, priceUnit, minHours } = Astro.props;
+
+// If no pricing data is provided, we can either hide this section or show a generic "Get a Quote" block.
+// But the design requires a dedicated pricing/quote section. Use specific if avail, else generic.
+const hasPricing = startingFrom !== undefined;
+---
+
+<section class="pricing-section">
+    <div class="gcc-container">
+        <div class="pricing-card">
+            <div class="text-content">
+                <h2 class="title">Transparent Value</h2>
+                <p class="desc">
+                    We believe in honest rates with no lock-in contracts.
+                    {
+                        minHours
+                            ? `Note: ${minHours}h minimum applies for ad-hoc services.`
+                            : ""
+                    }
+                </p>
+
+                <ul class="features">
+                    <li>
+                        <span class="icon">✓</span> Free On-Site Quote (No Obligation)
+                    </li>
+                    <li>
+                        <span class="icon">✓</span> Cancel Anytime (No Contracts)
+                    </li>
+                    <li>
+                        <span class="icon">✓</span> 100% Satisfaction Guarantee
+                    </li>
+                </ul>
+            </div>
+
+            <div class="action-box">
+                {
+                    hasPricing ? (
+                        <div class="price-display">
+                            <span class="label">Starting from</span>
+                            <div class="amount">
+                                <span class="currency">$</span>
+                                {startingFrom}
+                                {priceUnit && (
+                                    <span class="unit">/{priceUnit}</span>
+                                )}
+                            </div>
+                            {startingFromLabel && (
+                                <p class="note">{startingFromLabel}</p>
+                            )}
+                        </div>
+                    ) : (
+                        <div class="price-display">
+                            <span class="label">Custom Quote</span>
+                            <div class="amount text-3xl">Best Value</div>
+                        </div>
+                    )
+                }
+
+                <CTAButton
+                    href={`${import.meta.env.BASE_URL}/contact`}
+                    label="Get a Formal Quote"
+                    variant="primary"
+                    icon="quote"
+                    class="w-full justify-center"
+                />
+                <p class="final-note">We typically reply within 2 hours</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .pricing-section {
+        padding: 3rem 0;
+    }
+
+    .pricing-card {
+        background: var(--brand-dark);
+        border-radius: 2rem;
+        padding: 3rem 4rem;
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 4rem;
+        align-items: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .pricing-card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -20%;
+        width: 80%;
+        height: 200%;
+        background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.05) 0%,
+            transparent 60%
+        );
+        pointer-events: none;
+    }
+
+    .text-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .title {
+        font-family: "Montserrat", sans-serif;
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        color: white;
+    }
+
+    .desc {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        max-width: 450px;
+    }
+
+    .features {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .features li {
+        font-weight: 600;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 1.05rem;
+    }
+
+    .features .icon {
+        color: #a7f3d0;
+    }
+
+    /* Right Side Box */
+    .action-box {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 1.5rem;
+        color: var(--brand-dark);
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        position: relative;
+        z-index: 2;
+    }
+
+    .price-display {
+        margin-bottom: 2rem;
+    }
+
+    .label {
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        color: var(--text-muted);
+        font-weight: 700;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .amount {
+        font-size: 3rem;
+        font-weight: 800;
+        line-height: 1;
+        color: var(--brand-dark);
+    }
+
+    .currency {
+        font-size: 1.5rem;
+        vertical-align: top;
+        margin-right: 2px;
+    }
+
+    .unit {
+        font-size: 1.25rem;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+
+    .note {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 0.5rem;
+    }
+
+    .final-note {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+    }
+
+    @media (max-width: 900px) {
+        .pricing-card {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .features {
+            align-items: center; /* Center list items on mobile */
+        }
+    }
+</style>

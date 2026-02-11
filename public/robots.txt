@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://abbujo.github.io/gcc-melbourne-website/sitemap-index.xml
