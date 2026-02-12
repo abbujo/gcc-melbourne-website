@@ -1,102 +1,122 @@
-# GCC Melbourne — Commercial Cleaning Website
+# GCC Melbourne Website
 
-This is the official website for **GCC Melbourne**, built using **Astro** with component-based architecture, custom global CSS, and SEO-first structure.
+Official website for **Green Commercial Cleaning (GCC) Melbourne**, built to deliver high-performance lead generation, strong SEO foundations, and a premium user experience for commercial cleaning clients in Melbourne.
 
----
+## 🎯 About This Project
 
-## 🚀 Tech Stack
+This project maps the digital presence of a commercial cleaning business, focusing on:
+-   **Performance**: Static site generation (SSG) for ultra-fast load times.
+-   **SEO**: Structured data (Schema.org), canonical URL management, and optimized meta tags.
+-   **CRO**: Strategic call-to-action placement, trust strips, and mobile-optimized sticky actions.
 
-- **Astro**
-- **Tailwind (utility usage only)**
-- **Custom global CSS system**
-- **Component-based layout**
-- **SEO-friendly structure**
-- **Mobile-first responsive design**
+## ✨ Key Features
 
-# Astro Starter Kit: Minimal
+-   **Environment Awareness**: Distinct configurations for Dev, Staging (GitHub Pages), and Production.
+-   **Smart SEO**:
+    -   Automatic `noindex` on non-production environments.
+    -   Dynamic `robots.txt` generation.
+    -   `LocalBusiness` JSON-LD schema integration.
+-   **Robust Routing**: Handles base paths safely (e.g., for GitHub Pages subdirectories).
+-   **Design System**: Centralized CSS variables for brand colors, typography, and spacing combined with Tailwind CSS v4.
+-   **Optimized Assets**: Local font hosting (@fontsource) and optimized image handling.
 
-```sh
-npm create astro@latest -- --template minimal
+## 🏗️ Architecture Overview
+
+The site is built with **Astro v5** and **Tailwind CSS v4**.
+
+-   **Routing**: File-based routing in `src/pages`.
+-   **Layouts**: `BaseLayout.astro` wraps all pages, handling `TopHead` metadata, fonts, global headers, and footers.
+-   **Styling**: Hybrid approach using Tailwind utility classes + CSS variables defined in `src/styles/base/tokens.css`.
+-   **Configuration**: Centralized logic in `src/lib/site.ts` regulates URLs and indexing rules based on `.env` files.
+
+## 🎨 Brand & UI Theme
+
+The design system uses CSS variables exposed in `:root`.
+
+**Typography**
+-   Primary headers: **Montserrat**
+-   Body/UI: **Inter**
+
+**Color Palette**
+```css
+/* src/styles/base/tokens.css */
+:root {
+  --brand-green: #2e7d32; /* Primary action color */
+  --brand-teal: #006d75;  /* Secondary accent */
+  --brand-dark: #1f2933;  /* Text & Contrast */
+  --bg-surface: #f8fafc;  /* Light backgrounds */
+}
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+**UI Tokens**
+-   **Radius**: `1rem` (xl) for cards, `1.25rem` (2xl) for large containers.
+-   **Header Height**: `92px` (mobile) / `96px` (desktop).
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## 📂 Directory Structure
 
 ```text
-/
-├── public/
-├── src/
-│    ├── components/
-│    │ ├── Header.astro
-│    │ ├── Footer.astro
-│    │ ├── CTAButton.astro
-│    │
-│    ├── layouts/
-│    │ └── Layout.astro
-│    │
-│    ├── pages/
-│    │ ├── index.astro
-│    │ ├── services/
-│    │ ├── areas/
-│    │ └── pricing.astro
-│    │
-│    ├── styles/
-│    │ ├── base/
-│    │ │ └── base.css
-│    │ ├── components/
-│    │ │ ├── header.css
-│    │ │ └── buttons.css
-│    │ └── global.css
-│    │
-│    └── assets/
-└── package.json
+src/
+├── components/        # Reusable UI (Card.astro, CTAButton.astro)
+│   ├── home/          # Homepage-specific sections
+│   ├── SEO/           # Schema and Head components
+│   └── ...
+├── layouts/           # BaseLayout.astro, Layout.astro
+├── lib/               # Utilities (site.ts for config logic)
+├── pages/             # Route definitions
+│   ├── areas/         # Location-based landing pages
+│   ├── services/      # Service offerings
+│   ├── robots.txt.ts  # Dynamic robots generation
+│   └── index.astro    # Homepage
+└── styles/            # Global CSS and Design Tokens
+    ├── base/          # tokens.css, reset
+    └── global.css     # Main entry point
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🌍 Environments & URLs
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Configuration is managed via `.env` files and `src/lib/site.ts`.
 
-Any static assets, like images, can be placed in the `public/` directory.
+| Environment | URL | Indexing | Config File |
+| :--- | :--- | :--- | :--- |
+| **Development** | `http://localhost:4321` | Allowed | `.env.development` |
+| **Staging** | `https://abbujo.github.io/gcc-melbourne-website` | **NoIndex** | `.env.staging` |
+| **Production** | `https://www.gccmelbourne.com.au` | Allowed | `.env.production` |
 
-## 🧞 Commands
+**Note**: Canonical URLs automatically adjust to the correct hostname (`PUBLIC_CANONICAL_HOST`), ensuring no duplicate content issues.
 
-All commands are run from the root of the project, from a terminal:
+## 🚀 Getting Started
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Ensure you have **Node.js** installed.
 
-## 👀 Want to learn more?
+### 1. Install Dependencies
+```bash
+npm install
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### 2. Run Development Server
+```bash
+npm run dev
+```
 
----
+### 3. Build for Production
+```bash
+npm run build
+```
 
-## ✅ QA Checklist (Environment & SEO)
+### 4. Local Preview of Build
+```bash
+npm run preview
+```
 
-- [ ] **Development (`npm run dev`)**
-  - [ ] Canonical URL shows `http://localhost:4321/gcc-melbourne-website`
-  - [ ] Page source includes `<meta name="robots" content="noindex, nofollow" />`
-  - [ ] `robots.txt` at `/gcc-melbourne-website/robots.txt` shows `Disallow: /`
-  - [ ] Internal links prefix `/gcc-melbourne-website`
+## 📦 Deployment
 
-- [ ] **Staging (GitHub Pages)**
-  - [ ] Canonical URL shows `https://abbujo.github.io/gcc-melbourne-website`
-  - [ ] Page source includes `<meta name="robots" content="noindex, nofollow" />`
-  - [ ] `robots.txt` shows `Disallow: /`
-  - [ ] `og:image` is absolute (e.g. `https://abbujo.github.io/gcc-melbourne-website/og.jpg`)
+The project is configured for static output (`output: 'static'` in `astro.config.mjs`).
 
-- [ ] **Production (Cloudflare)**
-  - [ ] Canonical URL shows `https://www.gccmelbourne.com.au/`
-  - [ ] **NO** `noindex` meta tag present
-  - [ ] `robots.txt` shows `Allow: /` and links to sitemap
-  - [ ] JSON-LD Schema `@id` is `https://www.gccmelbourne.com.au`
-  - [ ] Redirects (apex -> www) are active via `_redirects`
+-   **Staging**: Deploys to **GitHub Pages**. The `base` path handling in `astro.config.mjs` ensures assets load correctly on subpaths (e.g., `/gcc-melbourne-website`).
+-   **Production**: Deploys to custom domain root.
+
+## 📝 Notes for Contributors
+
+-   **Linting**: Strict TypeScript config is enabled.
+-   **Style Changes**: Update design tokens in `src/styles/base/tokens.css` rather than hardcoding magic values.
+-   **SEO**: Global meta defaults are managed in `src/components/SEO.astro`.
