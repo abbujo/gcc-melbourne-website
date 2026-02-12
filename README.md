@@ -29,28 +29,66 @@ The site is built with **Astro v5** and **Tailwind CSS v4**.
 -   **Styling**: Hybrid approach using Tailwind utility classes + CSS variables defined in `src/styles/base/tokens.css`.
 -   **Configuration**: Centralized logic in `src/lib/site.ts` regulates URLs and indexing rules based on `.env` files.
 
-## 🎨 Brand & UI Theme
+## 🎨 Design Policy & Styling Guide
 
-The design system uses CSS variables exposed in `:root`.
+This project follows a strict design policy to ensure visual consistency, accessibility, and a premium "Corporate Clean" aesthetic. All new components must adhere to these rules.
 
-**Typography**
--   Primary headers: **Montserrat**
--   Body/UI: **Inter**
+### 1. Color System & Tokens
+**Source of Truth**: `src/styles/base/tokens.css`
 
-**Color Palette**
-```css
-/* src/styles/base/tokens.css */
-:root {
-  --brand-green: #2e7d32; /* Primary action color */
-  --brand-teal: #006d75;  /* Secondary accent */
-  --brand-dark: #1f2933;  /* Text & Contrast */
-  --bg-surface: #f8fafc;  /* Light backgrounds */
-}
-```
+*   **Brand Colors**:
+    *   `var(--brand-green)` (#2e7d32): Primary action color, trust indicators, checkmarks.
+    *   `var(--brand-teal)` (#006d75): Links, accents, slight gradient overlays.
+    *   `var(--brand-dark)` (#1f2933): Headings, heavy text, slate backgrounds.
 
-**UI Tokens**
--   **Radius**: `1rem` (xl) for cards, `1.25rem` (2xl) for large containers.
--   **Header Height**: `92px` (mobile) / `96px` (desktop).
+*   **Background Strategy (Alternating System)**:
+    Sections should alternate backgrounds to create rhythm (Rhythm: A-B-A-B).
+    *   **Background A (Main)**: `var(--bg-main)` (White). Used for content-heavy sections like Services, Why Us.
+    *   **Background B (Surface)**: `var(--bg-surface)` (Slate 50 / #f8fafc). Used for "break" sections like Testimonials, Areas, CTA.
+    *   **Highlight**: `var(--bg-green-subtle)` (#f0fdf4). Used for Heros or special call-out cards.
+
+### 2. Typography
+*   **Headings**: `Montserrat`, Weights 700/800. Color: `var(--brand-dark)`.
+    *   *Style*: Tight letter-spacing (-0.02em), high contrast.
+*   **Body**: `Inter` / System Sans. Color: `var(--text-muted)`.
+    *   *Style*: Line-height 1.6 for readability.
+*   **Eyebrows/Badges**: Uppercase, Bold (700), Tracking 0.05em. Color: `var(--brand-teal)`.
+
+### 3. Component Architecture
+
+#### Cards (Services, Features, Reviews)
+*   **Background**: Always White (`#ffffff`) regardless of section background.
+*   **Border**: `1px solid var(--border-soft)`.
+*   **Shadow**:
+    *   *Idle*: `0 4px 6px -1px rgba(0,0,0,0.05)` (Subtle).
+    *   *Hover*: Lift effect (`translateY(-4px)`) + Deeper Shadow.
+*   **Accents**:
+    *   **Desktop**: Top Border `4px solid var(--brand-green)` (e.g., Service Cards).
+    *   **Mobile**: Left Border `4px solid var(--brand-green)` (List View).
+
+#### Buttons
+*   **Primary**: Pill Shape (`rounded-full`), Background `var(--brand-green)`, Text White.
+    *   *Hover*: Darker Teal or Green mix.
+*   **Secondary/Outline**: Transparent, Border `1px solid var(--border-soft)`, Text `var(--brand-dark)`.
+*   **Text Link**: `var(--brand-teal)`, Underlined, Font Weight 600.
+
+#### Icons & Visuals
+*   **Icon Containers**: Square with rounded corners (`rounded-xl`), Background `var(--bg-green-subtle)`, Icon Color `var(--brand-green)`.
+*   **Images**: All functional images use `SmartImage.astro`.
+    *   *Radius*: `2rem` (32px) for large feature images.
+    *   *Overlays*: Gentle gradients (`rgba(0,0,0,0.2)`) to ensure text readability if overlaid.
+
+### 4. Spacing & Layout
+*   **Container**: `.gcc-container` (Max width 1280px, Padding 1.25rem).
+*   **Section Padding**: `2rem 0` (Mobile) / `4rem 0` (Desktop). Keep it compact but breathable.
+*   **Grids**:
+    *   *Features/Bento*: 2-column on Desktop, Stack on Mobile.
+    *   *Services*: Auto-fit Grid (`minmax(300px, 1fr)`).
+
+### 5. Mobile Responsiveness
+*   **Typography**: Headings scale down (~2rem).
+*   **Layouts**: Complex grids (Bento, Split) stack vertically.
+*   **Cards**: Switch from Vertical Cards to Horizontal List items for efficiency (`ServiceGrid`).
 
 ## 📂 Directory Structure
 

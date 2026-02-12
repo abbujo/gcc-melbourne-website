@@ -81,7 +81,7 @@
 <style>
   .how-it-works {
     padding: 5rem 0;
-    background: #f8fafc; /* Subtle contrast background */
+    background: var(--bg-surface); /* Subtle contrast background */
     overflow: hidden;
   }
 
@@ -114,7 +114,12 @@
     left: 15%;
     right: 15%;
     height: 2px;
-    background: linear-gradient(to right, #e2e8f0, var(--brand-teal), #e2e8f0);
+    background: linear-gradient(
+      to right,
+      var(--border-soft),
+      var(--brand-teal),
+      var(--border-soft)
+    );
     z-index: 1;
   }
 

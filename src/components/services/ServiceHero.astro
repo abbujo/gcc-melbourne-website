@@ -75,7 +75,11 @@ const { title, subtitle, imageName = "main_hero" } = Astro.props;
 
     .hero-section {
         padding: 3rem 0;
-        background: linear-gradient(to bottom, #f0fdf4 0%, #ffffff 100%);
+        background: linear-gradient(
+            to bottom,
+            var(--bg-green-subtle) 0%,
+            var(--bg-main) 100%
+        );
         overflow: hidden;
     }
 
@@ -116,7 +120,7 @@ const { title, subtitle, imageName = "main_hero" } = Astro.props;
     }
 
     .rating-pill .stars {
-        color: #fbbc04;
+        color: var(--accent-amber);
         letter-spacing: -2px;
         font-size: 1rem;
     }

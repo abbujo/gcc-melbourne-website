@@ -242,8 +242,8 @@ import { withBase } from "../lib/site";
 
 <style>
   .footer-dark {
-    background-color: #0f172a; /* Slate 900 */
-    color: #e2e8f0; /* Slate 200 */
+    background-color: var(--brand-dark); /* Slate 900 */
+    color: var(--text-ondark-main); /* Slate 200 */
     padding: 5rem 0 2rem;
     font-family: "Inter", sans-serif;
   }
@@ -265,7 +265,7 @@ import { withBase } from "../lib/site";
   }
 
   .cta-text p {
-    color: #94a3b8;
+    color: var(--text-ondark-muted);
     font-size: 1.1rem;
   }
 
@@ -285,7 +285,7 @@ import { withBase } from "../lib/site";
   }
 
   .btn-primary:hover {
-    background: #00796b;
+    background: var(--brand-green-hover);
   }
 
   .btn-secondary {
@@ -341,7 +341,7 @@ import { withBase } from "../lib/site";
   }
 
   .brand-desc {
-    color: #94a3b8; /* Slate 400 */
+    color: var(--text-ondark-muted); /* Slate 400 */
     line-height: 1.6;
     margin-bottom: 1.5rem;
     font-size: 0.95rem;
@@ -361,7 +361,7 @@ import { withBase } from "../lib/site";
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #cbd5e1;
+    color: var(--text-ondark-muted);
     transition: all 0.2s;
   }
 
@@ -383,7 +383,7 @@ import { withBase } from "../lib/site";
   }
 
   .footer-links a {
-    color: #cbd5e1; /* Slate 300 */
+    color: var(--text-ondark-muted); /* Slate 300 */
     text-decoration: none;
     font-size: 0.95rem;
     transition: color 0.2s;
@@ -406,7 +406,7 @@ import { withBase } from "../lib/site";
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    color: #cbd5e1; /* Slate 300 */
+    color: var(--text-ondark-muted); /* Slate 300 */
     text-decoration: none;
     font-size: 0.95rem;
     transition: color 0.2s;
@@ -425,7 +425,7 @@ import { withBase } from "../lib/site";
   }
 
   .address-line {
-    color: #94a3b8;
+    color: var(--text-ondark-muted);
     margin-bottom: 1rem;
     line-height: 1.5;
   }
@@ -462,7 +462,7 @@ import { withBase } from "../lib/site";
 
   .area-tags span {
     background: rgba(255, 255, 255, 0.05);
-    color: #94a3b8;
+    color: var(--text-ondark-muted);
     font-size: 0.75rem;
     padding: 0.25rem 0.6rem;
     border-radius: 4px;
@@ -472,7 +472,7 @@ import { withBase } from "../lib/site";
   .footer-bottom {
     display: flex;
     justify-content: space-between;
-    color: #64748b; /* Slate 500 */
+    color: var(--text-subtle); /* Slate 500 */
     font-size: 0.85rem;
   }
 
@@ -482,16 +482,16 @@ import { withBase } from "../lib/site";
   }
 
   .bottom-links a {
-    color: #64748b;
+    color: var(--text-subtle);
     text-decoration: none;
   }
 
   .bottom-links a:hover {
-    color: #94a3b8;
+    color: var(--text-ondark-muted);
   }
 
   .dot {
-    color: #475569;
+    color: var(--text-muted);
   }
 
   /* Responsive */

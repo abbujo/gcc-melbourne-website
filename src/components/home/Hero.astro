@@ -187,7 +187,11 @@ import SmartImage from "../SmartImage.astro";
 
   .hero-section {
     padding: 2rem 0 2rem; /* Compact padding */
-    background: linear-gradient(to bottom, #f0fdf4 0%, #ffffff 100%);
+    background: linear-gradient(
+      to bottom,
+      var(--bg-green-subtle) 0%,
+      var(--bg-main) 100%
+    );
     overflow: hidden;
   }
 
@@ -287,7 +291,7 @@ import SmartImage from "../SmartImage.astro";
   .icon-box {
     width: 3.5rem;
     height: 3.5rem;
-    background: #f0fdf4;
+    background: var(--bg-green-subtle);
     border-radius: 12px; /* Soft square */
     display: flex;
     align-items: center;
@@ -347,7 +351,7 @@ import SmartImage from "../SmartImage.astro";
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--brand-teal);
-    background: #e0f2f1;
+    background: var(--bg-teal-subtle);
     padding: 0.5rem 1rem;
     border-radius: 999px;
     border: 1px solid rgba(0, 137, 123, 0.15);
@@ -434,7 +438,7 @@ import SmartImage from "../SmartImage.astro";
     box-shadow:
       0 4px 6px -1px rgba(0, 0, 0, 0.1),
       0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-soft);
     transition:
       transform 0.2s,
       box-shadow 0.2s;
@@ -459,14 +463,14 @@ import SmartImage from "../SmartImage.astro";
   }
 
   .rating {
-    color: #fbbc04; /* Google Star Color */
+    color: var(--accent-amber); /* Google Star Color */
     font-weight: 700;
     font-size: 0.95rem;
     letter-spacing: 0.02em;
   }
 
   .source {
-    color: #64748b;
+    color: var(--text-subtle);
     font-size: 0.75rem;
     font-weight: 500;
   }
@@ -567,7 +571,7 @@ import SmartImage from "../SmartImage.astro";
     }
 
     .highlight {
-      color: #6ee7b7; /* Lighter teal for contrast against dark */
+      color: var(--brand-teal); /* Lighter teal for contrast against dark */
     }
 
     .highlight::after {
@@ -613,7 +617,7 @@ import SmartImage from "../SmartImage.astro";
     }
 
     .source {
-      color: #e2e8f0; /* Light text on mobile */
+      color: var(--text-ondark-main); /* Light text on mobile */
     }
 
     /* Hide CTA on Mobile (per request) */
@@ -653,7 +657,7 @@ import SmartImage from "../SmartImage.astro";
     }
 
     .trust-text strong {
-      color: #a7f3d0; /* Soft green-white */
+      color: var(--icon-green-light); /* Soft green-white */
       font-size: 0.85rem;
       font-weight: 600;
       white-space: nowrap;
@@ -665,7 +669,7 @@ import SmartImage from "../SmartImage.astro";
       height: auto;
       background: transparent;
       border-radius: 0;
-      color: #a7f3d0;
+      color: var(--icon-green-light);
     }
 
     .icon-circle svg {

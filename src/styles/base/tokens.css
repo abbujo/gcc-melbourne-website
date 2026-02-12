@@ -29,6 +29,21 @@
 
   /* Sticky header height for drawer offset (tweak if needed) */
   --gcc-header-h: 92px;
+
+  /* Tints (Derived from brand) */
+  --bg-green-subtle: #f0fdf4;
+  --bg-green-soft: #dcfce7;
+  --bg-teal-subtle: #e0f2f1;
+  --bg-slate-subtle: #f1f5f9;
+
+  /* Accents */
+  --accent-amber: #fbbc04;
+  --icon-green-light: #a7f3d0;
+  
+  /* Additional Text Colors */
+  --text-subtle: #64748b;
+  --text-ondark-main: #e2e8f0;
+  --text-ondark-muted: #94a3b8;
 }
 
 @media (min-width: 420px) {

@@ -39,14 +39,16 @@ import SmartImage from "../SmartImage.astro";
 <style>
     .mini-about-section {
         padding: 2rem 0;
-        background-color: #f8fafc; /* Gray background for alternation */
+        background-color: var(
+            --bg-surface
+        ); /* Gray background for alternation */
     }
 
     /* Matching StrongCTA card style */
     .split-card {
         display: grid;
         grid-template-columns: 1.25fr 0.75fr;
-        background: #f0fdf4; /* Light green background */
+        background: var(--bg-green-subtle); /* Light green background */
         border-radius: 2rem;
         overflow: hidden;
         box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
