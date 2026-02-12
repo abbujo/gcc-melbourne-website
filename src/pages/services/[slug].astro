@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 // New Components
-import ServiceHero from "../../components/services/ServiceHero.astro";
+import HeroBento from "../../components/sections/HeroBento.astro";
 import ServiceTrustStrip from "../../components/services/ServiceTrustStrip.astro";
 import ServicePricing from "../../components/services/ServicePricing.astro";
 import ServiceInclusions from "../../components/services/ServiceInclusions.astro";
@@ -36,6 +36,7 @@ const {
   areas, 
   faqs,
   highlights,
+  highlight,
   startingFrom,
   startingFromLabel,
   priceUnit,
@@ -47,7 +48,7 @@ const canonical = `https://www.gccmelbourne.com.au/services/${entry.slug}`;
 // Areas that include THIS service slug in their frontmatter `services: [...]`
 const allAreas = await getCollection("areas");
 const areasForThisService: AreaEntry[] = allAreas
-  .filter((a) => (a.data.services ?? []).includes(entry.slug))
+  .filter((a) => (a.data.servicesInArea ?? []).some(s => s.href.includes(`/${entry.slug}`)))
   .slice(0, 12);
 
 const serviceJsonLd = {
@@ -80,6 +81,30 @@ const faqJsonLd =
     : null;
 
 const { Content } = await entry.render();
+
+// --- Compute Safe Highlight for HeroBento ---
+const fullHeroTitle = heroTitle ?? title;
+const explicitHighlight = highlight; // From frontmatter
+
+// Strategy:
+// 1. Try explicit frontmatter 'highlight' (Strict containment)
+// 2. Try 'title' (e.g. "Office Cleaning Melbourne")
+// 3. Try 'title' minus " Melbourne"
+
+let safeHighlight = undefined;
+
+if (explicitHighlight && fullHeroTitle.toLowerCase().includes(explicitHighlight.toLowerCase())) {
+  safeHighlight = explicitHighlight;
+} else if (fullHeroTitle.toLowerCase().includes(title.toLowerCase())) {
+  safeHighlight = title;
+} else {
+  // Fallback: Try stripping " Melbourne"
+  const bareTitle = title.replace(/ Melbourne$/i, "").trim();
+  if (fullHeroTitle.toLowerCase().includes(bareTitle.toLowerCase())) {
+      safeHighlight = bareTitle;
+  }
+}
+// --------------------------------------------
 ---
 
 <Layout title={`${heroTitle ?? title} | GCC Melbourne`} description={description}>
@@ -91,14 +116,43 @@ const { Content } = await entry.render();
 
   <main>
     <!-- 1) Hero Section -->
-    <ServiceHero 
-      title={heroTitle ?? title} 
-      subtitle={heroSubtitle ?? description} 
+    <!-- 1) Hero Section (Bento Pattern) -->
+    <HeroBento
+      title={fullHeroTitle}
+      titleHighlight={safeHighlight}
+      subtitle={heroSubtitle ?? description}
       imageName={entry.slug === "commercial-cleaning" ? "main_hero" : undefined}
+      bentoItems={[
+        {
+          title: "Trusted",
+          subtitle: "5-Star Rated",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-500"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.005Z" clip-rule="evenodd" /></svg>`
+        },
+        {
+          title: "Insured",
+          subtitle: "$20M Liability",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-green-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.477 2 12 2s10 4.477 10 10z" /></svg>`
+        },
+        {
+          title: "Melbourne",
+          subtitle: "Local Team",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-blue-600"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>`
+        },
+        {
+          title: "Quality",
+          subtitle: "Guaranteed",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-purple-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c.552 0 1.055.448 1.055 1s-.448 1-1.055 1-1.055-.448-1.055-1 .448-1 1.055-1z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-5l4 2.5-4 2.5z" /></svg>` 
+        },
+        {
+          title: "Fast",
+          subtitle: "Response",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-orange-500"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`
+        }
+      ]}
     />
 
     <!-- 2) Trust Strip -->
-    <ServiceTrustStrip />
+    <!-- 2) Trust Strip (Removed as per Bento unification) -->
 
     <!-- 3) Heavy Narrative Intro -->
     <section class="intro-section">
@@ -202,7 +256,7 @@ const { Content } = await entry.render();
 
   .intro-section {
     padding: 6rem 0;
-    background: linear-gradient(to bottom, var(--bg-main), var(--bg-surface)); /* Very subtle gradient */
+    background: var(--bg-surface);
     position: relative;
   }
 
@@ -401,5 +455,10 @@ const { Content } = await entry.render();
   .areas-footer {
       margin-top: 1.5rem;
       text-align: right;
+  }
+
+  /* Force Strong CTA to alternate (Main) since Areas is Surface */
+  :global(#cta-split) {
+      background-color: var(--bg-main) !important;
   }
 </style>

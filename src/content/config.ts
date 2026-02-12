@@ -25,6 +25,7 @@ const services = defineCollection({
     minHours: z.number().optional(),
     frequencyHint: z.string().optional(), // e.g. "Weekly / Fortnightly"
     highlights: z.array(z.string()).default([]), // e.g. ["Checklist-based", "After-hours available"]
+    highlight: z.string().optional(), // Specific text to highlight in H1
   }),
 });
 

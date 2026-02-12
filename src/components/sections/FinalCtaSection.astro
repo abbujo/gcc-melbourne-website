@@ -1,0 +1,184 @@
+---
+import CTAButton from "../CTAButton.astro";
+
+interface Props {
+    title?: string;
+    subtitle?: string;
+    eyebrow?: string;
+}
+
+const {
+    title = "Ready for a Cleaner Workplace?",
+    subtitle = "Join Melbourne businesses that rely on Green Commercial Cleaning for consistent, high-quality results.",
+    eyebrow = "Professional Commercial Cleaning",
+} = Astro.props;
+---
+
+<section class="cta-section" id="cta-split">
+    <div class="gcc-container">
+        <div class="split-card">
+            <div class="split-content">
+                {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+                <h2>{title}</h2>
+                <p>{subtitle}</p>
+                <div class="btn-group">
+                    <CTAButton
+                        href="/contact"
+                        label="Get a Quote"
+                        variant="primary"
+                        class="cta-main"
+                    />
+                    <CTAButton
+                        href="/pricing"
+                        label="View Pricing"
+                        variant="outline"
+                        tone="dark"
+                    />
+                </div>
+            </div>
+            <div class="split-image">
+                <!-- 
+             Ideally use SmartImage if available, but for generic usage 
+             we might need a prop or fallback. 
+             Reusing the same placeholder logic or a partial component invocation 
+             might be complex without SmartImage access context. 
+             Assuming we can't easily reuse SmartImage's exact logic without the file being local props.
+             We'll use a standard img tag with a filler for now, 
+             OR copy the SmartImage import if we know where it is.
+             Looking at imports: `import SmartImage from "../SmartImage.astro";`
+          -->
+                <img
+                    src="/images/cleaner-vacuuming-office.jpg"
+                    alt="Office cleaning"
+                    loading="lazy"
+                    class="object-cover w-full h-full"
+                />
+                <div class="overlay-gradient"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .cta-section {
+        padding: 2rem 0; /* Compact padding */
+        position: relative;
+        background-color: var(--bg-surface);
+    }
+
+    /* Font */
+    h2 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        line-height: 1.1;
+    }
+
+    .split-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background: var(--bg-green-subtle);
+        border-radius: 2rem;
+        overflow: hidden;
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
+    }
+
+    .split-content {
+        padding: 4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .eyebrow {
+        color: var(--brand-green);
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        font-size: 0.875rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .split-content h2 {
+        font-size: 2.75rem;
+        color: var(--brand-dark);
+        margin-bottom: 1.5rem;
+    }
+
+    .split-content p {
+        font-size: 1.125rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
+        max-width: 90%;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .split-image {
+        position: relative;
+        overflow: hidden;
+        min-height: 400px;
+        background-color: #ddd; /* Fallback */
+    }
+
+    .split-image :global(img) {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.7s ease;
+    }
+
+    .split-card:hover .split-image :global(img) {
+        transform: scale(1.05);
+    }
+
+    .overlay-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to right,
+            rgba(240, 253, 244, 0.8),
+            transparent 20%
+        );
+        pointer-events: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .split-card {
+            grid-template-columns: 1fr;
+        }
+
+        .split-image {
+            height: 300px;
+            order: -1;
+        }
+
+        .split-content {
+            padding: 2.5rem;
+            align-items: center;
+            text-align: center;
+        }
+
+        .split-content h2 {
+            font-size: 2rem;
+        }
+
+        .split-content p {
+            font-size: 1rem;
+        }
+
+        .overlay-gradient {
+            background: linear-gradient(
+                to bottom,
+                rgba(240, 253, 244, 1),
+                transparent 10%
+            );
+        }
+    }
+</style>

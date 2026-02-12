@@ -3,6 +3,7 @@ title: "Medical Centre Cleaning Melbourne"
 description: "Specialized medical centre cleaning in Melbourne. We adhere to strict hygiene protocols for clinics, dental practices, and healthcare facilities. fully insured & compliant."
 heroTitle: "Hygienic Cleaning for Medical Centres"
 heroSubtitle: "Ensure the highest standards of infection control and patient safety with our specialized healthcare cleaning services."
+highlight: "Medical Centres"
 serviceType: "MedicalCleaning"
 areas: ["Melbourne CBD", "Box Hill", "Caulfield", "Glen Waverley", "Camberwell", "Toorak"]
 startingFrom: 65

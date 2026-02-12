@@ -3,6 +3,7 @@ title: "Warehouse Cleaning Melbourne"
 description: "Professional warehouse cleaning in Melbourne. We remove dust, scrub floors, and ensure OH&S compliance for your industrial space. Reliable and fully insured."
 heroTitle: "Industrial Cleaning That Gets Results"
 heroSubtitle: "Keep your warehouse safe, compliant, and operational with our specialized industrial cleaning services."
+highlight: "Industrial Cleaning"
 serviceType: "WarehouseCleaning"
 areas: ["Dandenong", "Truganina", "Laverton", "Campbellfield", "Epping", "Braeside"]
 startingFrom: 250

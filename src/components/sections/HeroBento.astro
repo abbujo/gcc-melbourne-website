@@ -1,0 +1,465 @@
+---
+import CTAButton from "../CTAButton.astro";
+import SmartImage from "../SmartImage.astro";
+
+interface BentoItem {
+    icon?: string; // HTML string for SVG
+    iconImage?: string; // URL/Path for image icon (e.g. logo)
+    title: string;
+    subtitle?: string;
+    href?: string;
+}
+
+interface Props {
+    title: string;
+    titleHighlight?: string;
+    subtitle: string;
+    imageName?: string; // Local smart image
+    heroImage?: string; // External/CMS image URL
+    primaryBtn?: { label: string; href: string };
+    secondaryBtn?: { label: string; href: string };
+    bentoItems?: BentoItem[];
+}
+
+const {
+    title,
+    titleHighlight,
+    subtitle,
+    imageName,
+    heroImage,
+    primaryBtn = { label: "Get a Free Quote", href: "/contact" },
+    secondaryBtn = { label: "0422 780 703", href: "tel:+61422780703" },
+    bentoItems = [],
+} = Astro.props;
+
+// Default icons if not provided in items (fallback logic)
+const defaultIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-green-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.477 2 12 2s10 4.477 10 10z" /></svg>`;
+---
+
+<section class="hero-section" id="hero-bento">
+    <div class="gcc-container">
+        <div class="hero-main-layout">
+            <!-- 1. TEXT CONTENT AREA -->
+            <div class="hero-text fade-in-up">
+                <h1 class="headline">
+                    {
+                        titleHighlight &&
+                        title
+                            .toLowerCase()
+                            .includes(titleHighlight.toLowerCase()) ? (
+                            <Fragment
+                                set:html={title.replace(
+                                    new RegExp(titleHighlight, "gi"),
+                                    (match) =>
+                                        `<span class="hero-title__highlight">${match}</span>`,
+                                )}
+                            />
+                        ) : (
+                            title
+                        )
+                    }
+                </h1>
+
+                <p class="subheadline">
+                    {subtitle}
+                </p>
+
+                <div class="cta-group">
+                    <CTAButton
+                        href={primaryBtn.href}
+                        label={primaryBtn.label}
+                        variant="primary"
+                        icon="quote"
+                        class="cta-main shadow-lg hover:shadow-xl transition-shadow"
+                    />
+                    <CTAButton
+                        href={secondaryBtn.href}
+                        label={secondaryBtn.label}
+                        variant="outline"
+                        icon="phone"
+                    />
+                </div>
+            </div>
+
+            <!-- 2. IMAGE AREA -->
+            <div class="hero-image">
+                {
+                    imageName ? (
+                        <SmartImage
+                            name={imageName}
+                            alt={`${title} in Melbourne`}
+                            width={800}
+                            height={600}
+                            loading="eager"
+                            decoding="async"
+                            fetchpriority="high"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                    ) : heroImage ? (
+                        <img
+                            src={heroImage}
+                            alt={`${title}`}
+                            class="w-full h-full object-cover"
+                            loading="eager"
+                            decoding="async"
+                        />
+                    ) : (
+                        <div class="w-full h-full bg-slate-200 flex items-center justify-center text-slate-400">
+                            Image Placeholder
+                        </div>
+                    )
+                }
+                <div class="image-overlay"></div>
+            </div>
+
+            <!-- 3. TRUST/BENTO AREA -->
+            <div class="hero-trust fade-in-up delay-200">
+                <div class="trust-grid">
+                    {
+                        bentoItems.map((item) => (
+                            <a
+                                href={item.href || "#"}
+                                class={`trust-item ${item.href ? "hover-scale" : "cursor-default"}`}
+                                onclick={!item.href ? "return false;" : ""}
+                            >
+                                <div
+                                    class={`icon-box ${item.iconImage ? "wide-logo" : ""}`}
+                                >
+                                    {item.iconImage ? (
+                                        <img
+                                            src={item.iconImage}
+                                            alt={item.title}
+                                            class="trust-img"
+                                        />
+                                    ) : (
+                                        <Fragment
+                                            set:html={item.icon || defaultIcon}
+                                        />
+                                    )}
+                                </div>
+                                <div class="trust-text">
+                                    <strong>{item.title}</strong>
+                                    {item.subtitle && (
+                                        <span class="trust-sub">
+                                            {item.subtitle}
+                                        </span>
+                                    )}
+                                </div>
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* =========================================
+       BASE & DESKTOP STYLES
+       Reuse of Hero.astro styles
+       ========================================= */
+
+    .hero-section {
+        padding: 2rem 0 2rem;
+        background: linear-gradient(
+            to bottom,
+            var(--bg-green-subtle) 0%,
+            var(--bg-main) 100%
+        );
+        overflow: hidden;
+    }
+
+    /* Grid Layout System */
+    .hero-main-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "text image"
+            "trust trust";
+        gap: 2rem;
+        align-items: stretch;
+    }
+
+    /* --- 1. Text Area --- */
+    .hero-text {
+        grid-area: text;
+        background: white;
+        padding: 3.5rem;
+        border-radius: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.03);
+        position: relative;
+        z-index: 2;
+    }
+
+    /* --- 2. Image Area --- */
+    .hero-image {
+        grid-area: image;
+        position: relative;
+        border-radius: 2rem;
+        overflow: hidden;
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+        min-height: 500px;
+    }
+
+    .hero-image :global(img) {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.7s ease;
+    }
+
+    .hero-image:hover :global(img) {
+        transform: scale(1.03);
+    }
+
+    .image-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent);
+        pointer-events: none;
+    }
+
+    /* --- 3. Trust Area --- */
+    .hero-trust {
+        grid-area: trust;
+        background: white;
+        border-radius: 1.5rem;
+        padding: 2rem;
+        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .trust-grid {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .trust-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex: 1;
+        justify-content: center;
+        text-decoration: none;
+        transition: transform 0.2s ease;
+        min-width: 180px;
+    }
+
+    .hover-scale:hover {
+        transform: translateY(-2px);
+    }
+
+    .icon-box {
+        width: 3.5rem;
+        height: 3.5rem;
+        background: var(--bg-green-subtle);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        padding: 0.5rem;
+    }
+
+    .icon-box.wide-logo {
+        width: auto;
+        min-width: 3.5rem;
+        padding: 0.5rem 1rem;
+        aspect-ratio: auto;
+    }
+
+    .icon-box :global(svg) {
+        width: 1.75rem;
+        height: 1.75rem;
+        color: var(--brand-green);
+    }
+
+    .trust-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .trust-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .trust-text strong {
+        color: var(--brand-dark);
+        font-weight: 700;
+        font-size: 1.05rem;
+    }
+
+    .trust-sub {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        font-weight: 500;
+        display: block;
+    }
+
+    /* Typography */
+    .headline {
+        font-family: "Montserrat", sans-serif;
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        font-weight: 800;
+        line-height: 1.1;
+        color: var(--brand-dark);
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.02em;
+    }
+
+    /* Use :global() because the span is injected via set:html and lacks Astro's scoped data attribute */
+    .headline :global(.hero-title__highlight) {
+        color: var(--brand-green);
+        white-space: nowrap;
+        position: relative;
+        display: inline-block;
+    }
+
+    .headline :global(.hero-title__highlight::after) {
+        content: "";
+        position: absolute;
+        bottom: 4px;
+        left: 0;
+        width: 100%;
+        height: 10px;
+        background: rgba(0, 137, 123, 0.15);
+        z-index: -1;
+        transform: rotate(-1deg);
+    }
+
+    .subheadline {
+        font-size: 1.125rem;
+        line-height: 1.6;
+        color: var(--text-muted);
+        margin-bottom: 2.5rem;
+        max-width: 95%;
+    }
+
+    .cta-group {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: auto;
+    }
+
+    /* =========================================
+       MOBILE STYLES (Max-width: 900px)
+       The "Immersive" Transformation
+       ========================================= */
+    @media (max-width: 900px) {
+        .hero-section {
+            padding: 1rem 0 3rem;
+        }
+
+        .hero-main-layout {
+            position: relative;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr auto;
+            grid-template-areas: "stack";
+            gap: 0;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            min-height: 550px;
+            align-items: end;
+        }
+
+        .hero-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .image-overlay {
+            background: linear-gradient(
+                to top,
+                rgba(0, 20, 15, 0.95) 0%,
+                rgba(0, 20, 15, 0.6) 50%,
+                rgba(0, 0, 0, 0) 100%
+            );
+        }
+
+        .hero-text {
+            grid-column: 1;
+            grid-row: 1;
+            z-index: 2;
+            background: transparent;
+            box-shadow: none;
+            border: none;
+            padding: 2rem 1.5rem 1rem;
+            align-self: end;
+            justify-content: flex-end;
+            color: white;
+        }
+
+        .headline {
+            color: white;
+            font-size: 2rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .headline :global(.hero-title__highlight) {
+            color: var(--brand-teal);
+        }
+
+        .headline :global(.hero-title__highlight::after) {
+            display: none;
+        }
+
+        .subheadline {
+            display: none; /* Hide on mobile per original design */
+        }
+
+        .cta-group {
+            display: none; /* Hide on mobile per original design */
+        }
+
+        /* Trust Grid on Mobile: Logos hidden, features shown */
+        .hero-trust {
+            display: none; /* Original hides trust container */
+            /* BUT user might 'bento cards' visible. 
+         Original Code: .hero-trust { display: none; }
+         So I will respect that. The immersive view handles the bento mainly via visual overlap?
+         Wait, checking Hero.astro: 
+         ".hero-trust { display: none; }" inside mobile media query.
+         So mobile view effectively REMOVES the bento grid.
+         I will keep this behavior to match "Homepage Hero" exact pattern.
+      */
+        }
+    }
+
+    /* Animations */
+    .fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .delay-200 {
+        animation-delay: 0.2s;
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

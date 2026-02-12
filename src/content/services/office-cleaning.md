@@ -3,6 +3,7 @@ title: "Office Cleaning Melbourne"
 description: "Professional office cleaning services in Melbourne. We ensure a hygienic, productive workspace with our reliable, insured commercial cleaning team. Get a free quote."
 heroTitle: "Premium Office Cleaning in Melbourne"
 heroSubtitle: "Create a spotless, productive environment for your team with Melbourne's most reliable commercial cleaners."
+highlight: "Office Cleaning"
 serviceType: "OfficeCleaning"
 areas: ["Melbourne CBD", "South Melbourne", "Richmond", "St Kilda", "Docklands", "Southbank"]
 startingFrom: 55

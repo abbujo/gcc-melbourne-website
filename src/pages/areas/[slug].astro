@@ -2,6 +2,10 @@
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import CTAButton from "../../components/CTAButton.astro";
+import HeroBento from "../../components/sections/HeroBento.astro";
+import FinalCtaSection from "../../components/sections/FinalCtaSection.astro";
+import SmartImage from "../../components/SmartImage.astro";
+import { withBase } from "../../lib/site";
 
 // --- Types ---
 type AreaEntry = CollectionEntry<"areas">;
@@ -28,7 +32,6 @@ const {
   pricingNote,
   reassurancePoints = [],
   servicesInArea = [],
-  inclusionsHighlights = [],
   processSteps = [],
   qualityAssurancePoints = [],
   nearby = [],
@@ -45,6 +48,38 @@ const pageDescription = seoDescription || description;
 const canonical = `https://www.gccmelbourne.com.au/areas/${entry.slug}`;
 const shareImage = ogImage || heroImage || "/images/default-og.jpg";
 
+// --- Helpers for New Features ---
+
+// 1. Service Image Mapping (Matches Homepage ServicesGrid)
+const serviceImageMap: Record<string, string> = {
+  "office-cleaning": "office_cleaning_card",
+  "end-of-lease-cleaning": "end_of_lease_card",
+  "builders-cleaning": "builders_clean_card",
+  "carpet-cleaning": "carpet_cleaning_card", // Handle variations
+  "carpet-steam-cleaning": "carpet_cleaning_card",
+  "window-cleaning": "window_cleaning_card",
+  "pressure-washing": "pressure_washing_card",
+  "medical-cleaning": "office_cleaning_card", // Fallback
+  "warehouse-cleaning": "pressure_washing_card", // Fallback
+  "childcare-cleaning": "office_cleaning_card", // Fallback
+};
+
+const getServiceImage = (href: string) => {
+  // href might be "/services/office-cleaning"
+  const slug = href.split("/").filter(Boolean).pop() || "";
+  return serviceImageMap[slug] || "office_cleaning_card"; // Default
+};
+
+// 2. Nearby Areas Linking
+// Fetch all areas to build a lookup map: Suburb Name -> Slug
+const allAreas = await getCollection("areas");
+const suburbToSlugMap = new Map<string, string>();
+allAreas.forEach((a) => {
+  if (a.data.suburb) {
+    suburbToSlugMap.set(a.data.suburb.trim(), a.slug);
+  }
+});
+
 // Icon Assets (Inline for performance/simplicity)
 const CheckIcon = `<svg class="w-5 h-5 text-[var(--brand-teal)] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`;
 const ShieldIcon = `<svg class="w-6 h-6 text-[var(--brand-teal)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`;
@@ -58,118 +93,91 @@ const ShieldIcon = `<svg class="w-6 h-6 text-[var(--brand-teal)]" fill="none" vi
 
   <main>
     <!-- 1. HERO -->
-    <section class="relative bg-slate-50 border-b border-slate-200">
-      <div
-        class="gcc-container py-12 md:py-20 lg:py-24 grid md:grid-cols-2 gap-10 items-center"
-      >
-        <div>
-          <span
-            class="text-sm font-bold tracking-wider uppercase text-[var(--brand-teal)]"
-          >
-            Commercial Cleaning {suburb}
-          </span>
-          <h1
-            class="mt-4 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.1]"
-          >
-            {title}
-          </h1>
-          <p
-            class="mt-6 text-lg md:text-xl text-slate-600 leading-relaxed max-w-lg"
-          >
-            {description}
-          </p>
-
-          <div class="mt-8 flex flex-wrap gap-4">
-            <CTAButton
-              href="/contact"
-              label="Get a Quote"
-              variant="primary"
-              icon="quote"
-            />
-            <CTAButton
-              href="tel:+61422780703"
-              label="Call Us: 0422 780 703"
-              variant="outline"
-              icon="phone"
-            />
-          </div>
-
-          <!-- Trust Indicator (Small) -->
-          <div
-            class="mt-6 flex items-center gap-2 text-sm font-medium text-slate-700"
-          >
-            <div class="flex text-yellow-400">★★★★★</div>
-            <span>Trusted by Melbourne businesses</span>
-          </div>
-        </div>
-
-        <!-- Hero Image -->
-        <div
-          class="relative aspect-[4/3] md:aspect-square lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl bg-slate-200"
-        >
-          {
-            heroImage ? (
-              <img
-                src={heroImage}
-                alt={heroImageAlt || title}
-                class="w-full h-full object-cover"
-              />
-            ) : (
-              <div class="w-full h-full flex items-center justify-center text-slate-400 bg-slate-100">
-                <span class="text-lg font-medium">Map/Image Placeholder</span>
-              </div>
-            )
-          }
-        </div>
-      </div>
-    </section>
+    <HeroBento
+      title={title}
+      titleHighlight={title.includes(suburb) ? suburb : undefined}
+      subtitle={description}
+      heroImage={heroImage}
+      bentoItems={[
+        {
+          title: "Local",
+          subtitle: `To ${suburb}`,
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-green-600"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>`,
+        },
+        {
+          title: "Rated 4.7",
+          subtitle: "On Google",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-500"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.005Z" clip-rule="evenodd" /></svg>`,
+        },
+        {
+          title: "Insured",
+          subtitle: "Public Liability",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-blue-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.477 2 12 2s10 4.477 10 10z" /></svg>`,
+        },
+        {
+          title: "Fast",
+          subtitle: "Turnaround",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-orange-500"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
+        },
+        {
+          title: "Reliable",
+          subtitle: "Consistent",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-purple-600"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c.552 0 1.055.448 1.055 1s-.448 1-1.055 1-1.055-.448-1.055-1 .448-1 1.055-1z" /></svg>`,
+        },
+      ]}
+    />
 
     <!-- 2. TRUST STRIP -->
-    <section class="border-b border-slate-100 bg-white py-6">
-      <div class="gcc-container">
-        <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 md:gap-x-12">
-          {
-            trustItems.map((item) => (
-              <div class="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                <Fragment set:html={ShieldIcon} />
-                <span>{item}</span>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    </section>
+    <!-- 2. TRUST STRIP (Removed as per Bento unification) -->
 
     <!-- 3. NARRATIVE INTRO -->
-    <section class="gcc-section bg-white">
+    <section class="gcc-section bg-[var(--bg-surface)]">
       <div class="gcc-container">
-        <article
-          class="prose prose-lg prose-slate max-w-3xl mx-auto text-center md:text-left"
-        >
+        <article class="area-content">
           <Content />
         </article>
       </div>
     </section>
 
     <!-- 4. VISIBLE PRICING BLOCK -->
-    <section class="gcc-section bg-slate-50">
+    <section class="gcc-section bg-[var(--bg-main)]">
       <div class="gcc-container max-w-4xl">
         <div
-          class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 md:p-10 flex flex-col md:flex-row items-center gap-8"
+          class="bg-[var(--brand-dark)] rounded-3xl shadow-xl overflow-hidden p-8 md:p-12 flex flex-col md:flex-row items-center gap-10 relative"
         >
-          <div class="flex-1 text-center md:text-left">
-            <h2 class="text-2xl font-bold text-slate-900">
+          <!-- Decorative Background (matches ServicePricing) -->
+          <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.05),transparent_40%)] pointer-events-none"
+          >
+          </div>
+
+          <div class="flex-1 text-center md:text-left relative z-10">
+            <h2 class="text-2xl md:text-3xl font-bold text-white">
               Transparent Pricing for {suburb}
             </h2>
-            <p class="mt-2 text-slate-600">
+            <p class="mt-4 text-slate-300 text-lg">
               No hidden fees. Just clear, honest rates for premium service.
             </p>
-            <div class="mt-4 flex flex-col gap-2">
+            <div class="mt-6 flex flex-col gap-3">
               {
                 reassurancePoints.map((point) => (
-                  <div class="flex items-center gap-2 text-sm text-slate-700 justify-center md:justify-start">
-                    <Fragment set:html={CheckIcon} />
-                    <span>{point}</span>
+                  <div class="flex items-center gap-3 text-slate-200 justify-center md:justify-start">
+                    <span class="text-[var(--brand-green)] bg-white/10 rounded-full p-1">
+                      <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="3"
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </span>
+                    <span class="font-medium">{point}</span>
                   </div>
                 ))
               }
@@ -177,16 +185,18 @@ const ShieldIcon = `<svg class="w-6 h-6 text-[var(--brand-teal)]" fill="none" vi
           </div>
 
           <div
-            class="w-full md:w-auto bg-[var(--brand-dark)] text-white p-6 rounded-xl text-center min-w-[250px]"
+            class="w-full md:w-auto bg-white text-[var(--brand-dark)] p-8 rounded-2xl text-center min-w-[280px] shadow-2xl relative z-10"
           >
             {
               pricingStartingFrom && (
-                <div class="text-sm font-medium opacity-90 uppercase tracking-wide">
+                <div class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest mb-2">
                   Starting from
                 </div>
               )
             }
-            <div class="text-4xl font-extrabold mt-1">
+            <div
+              class="text-5xl font-extrabold text-[var(--brand-dark)] tracking-tight"
+            >
               {
                 typeof pricingStartingFrom === "number"
                   ? `$${pricingStartingFrom}`
@@ -195,15 +205,16 @@ const ShieldIcon = `<svg class="w-6 h-6 text-[var(--brand-teal)]" fill="none" vi
             </div>
             {
               pricingNote && (
-                <div class="text-sm opacity-80 mt-1">{pricingNote}</div>
+                <div class="text-sm font-medium text-[var(--text-muted)] mt-2">
+                  {pricingNote}
+                </div>
               )
             }
             <div class="mt-4">
               <CTAButton
-                href="/contact"
+                href={withBase("/contact")}
                 label="Get Custom Quote"
-                variant="outline"
-                tone="dark"
+                variant="primary"
                 class="w-full justify-center"
               />
             </div>
@@ -212,90 +223,79 @@ const ShieldIcon = `<svg class="w-6 h-6 text-[var(--brand-teal)]" fill="none" vi
       </div>
     </section>
 
-    <!-- 5. SERVICES GRID -->
+    <!-- 5. SERVICES GRID (Homepage Style) -->
     {
       servicesInArea.length > 0 && (
-        <section class="gcc-section bg-white">
+        <section class="gcc-section bg-[var(--bg-main)]">
           <div class="gcc-container">
             <div class="text-center max-w-2xl mx-auto mb-12">
-              <h2 class="text-3xl font-bold tracking-tight text-slate-900">
+              <h2
+                class="text-3xl font-bold tracking-tight text-[var(--brand-dark)]"
+                style="font-family: 'Montserrat', sans-serif;"
+              >
                 Cleaning Services in {suburb}
               </h2>
-              <p class="mt-4 text-lg text-slate-600">
+              <p class="mt-4 text-lg text-[var(--text-muted)] font-medium">
                 Tailored cleaning solutions for your specific industry.
               </p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {servicesInArea.map((service) => (
-                <a
-                  href={service.href}
-                  class="group block p-6 bg-slate-50 rounded-xl border border-slate-100 hover:border-[var(--brand-teal)] hover:shadow-md transition-all"
-                >
-                  <h3 class="text-xl font-bold text-slate-900 group-hover:text-[var(--brand-teal)] transition-colors">
-                    {service.title} →
-                  </h3>
-                  <p class="mt-3 text-slate-600 leading-relaxed">
-                    {service.summary}
-                  </p>
+            <div class="services-grid">
+              {servicesInArea.slice(0, 3).map((service) => (
+                <a href={withBase(service.href)} class="service-card group">
+                  <div class="image-box">
+                    <SmartImage
+                      name={getServiceImage(service.href)}
+                      alt={service.title}
+                      width={400}
+                      height={300}
+                    />
+                    <div class="overlay" />
+                  </div>
+
+                  <div class="content">
+                    <div class="text-wrap">
+                      <h3>{service.title}</h3>
+                      <p>{service.summary}</p>
+                    </div>
+
+                    <span class="link-text">
+                      View Details
+                      <span class="arrow-circle">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="2.5"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </div>
                 </a>
               ))}
+            </div>
+
+            <div class="flex justify-center mt-12">
+              <CTAButton
+                href={withBase("/services")}
+                label="Explore All Services"
+                variant="outline"
+              />
             </div>
           </div>
         </section>
       )
     }
 
-    <!-- 6. WHAT'S INCLUDED (HIGHLIGHTS) -->
-    <section class="gcc-section bg-[var(--brand-teal)] text-white">
-      <div class="gcc-container">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 class="text-3xl font-bold tracking-tight">
-              What’s included in our service?
-            </h2>
-            <p class="mt-4 text-lg opacity-90">
-              We don't cut corners. Our standard service includes the details
-              others miss.
-            </p>
-
-            <div class="mt-8 grid sm:grid-cols-2 gap-4">
-              {
-                inclusionsHighlights.map((item) => (
-                  <div class="flex items-start gap-3">
-                    <span class="bg-white/20 p-1 rounded-full mt-0.5">
-                      <svg
-                        class="w-4 h-4 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="3"
-                      >
-                        <path d="M5 13l4 4L19 7" />
-                      </svg>
-                    </span>
-                    <span class="font-medium">{item}</span>
-                  </div>
-                ))
-              }
-            </div>
-          </div>
-          <div class="hidden md:block">
-            <!-- Decorative visuals/pattern could go here -->
-            <div class="bg-white/10 rounded-2xl p-8 border border-white/20">
-              <div class="text-xl font-bold mb-4">The GCC Standard</div>
-              <p class="opacity-80">
-                Every clean is verified against a digital checklist. If it’s not
-                right, we return and fix it immediately.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- 7. HOW IT WORKS -->
-    <section class="gcc-section bg-white">
+    <section class="gcc-section bg-[var(--bg-surface)]">
       <div class="gcc-container">
         <div class="text-center max-w-2xl mx-auto mb-12">
           <h2 class="text-3xl font-bold text-slate-900">
@@ -330,18 +330,18 @@ const ShieldIcon = `<svg class="w-6 h-6 text-[var(--brand-teal)]" fill="none" vi
     </section>
 
     <!-- 8. QUALITY ASSURANCE -->
-    <section class="gcc-section bg-slate-900 text-white">
+    <section class="gcc-section bg-[var(--bg-main)] text-slate-900">
       <div class="gcc-container grid md:grid-cols-2 gap-12 items-center">
         <div>
           <div
-            class="inline-block px-3 py-1 bg-green-500/20 text-green-400 text-xs font-bold uppercase tracking-wider rounded-full mb-4"
+            class="inline-block px-3 py-1 bg-green-100 text-[var(--brand-green)] text-xs font-bold uppercase tracking-wider rounded-full mb-4"
           >
             Reliability
           </div>
-          <h2 class="text-3xl font-bold mb-6">
+          <h2 class="text-3xl font-bold mb-6 text-slate-900">
             We don't just say we clean.<br />We prove it.
           </h2>
-          <p class="text-slate-300 text-lg mb-8">
+          <p class="text-slate-600 text-lg mb-8">
             Operational consistency is what separates us from the rest. We use
             technology and active supervision to ensure your site is ready for
             business every morning.
@@ -350,8 +350,8 @@ const ShieldIcon = `<svg class="w-6 h-6 text-[var(--brand-teal)]" fill="none" vi
           <div class="space-y-4">
             {
               qualityAssurancePoints.map((point) => (
-                <div class="flex items-center gap-4 p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                  <span class="text-green-400">
+                <div class="flex items-center gap-4 p-4 rounded-lg bg-slate-50 border border-slate-100 hover:border-[var(--brand-teal)] transition-colors">
+                  <span class="text-[var(--brand-green)]">
                     <svg
                       class="w-6 h-6"
                       fill="none"
@@ -366,7 +366,7 @@ const ShieldIcon = `<svg class="w-6 h-6 text-[var(--brand-teal)]" fill="none" vi
                       />
                     </svg>
                   </span>
-                  <span class="font-medium text-slate-200">{point}</span>
+                  <span class="font-medium text-slate-700">{point}</span>
                 </div>
               ))
             }
@@ -385,54 +385,365 @@ const ShieldIcon = `<svg class="w-6 h-6 text-[var(--brand-teal)]" fill="none" vi
     </section>
 
     <!-- 9. NEARBY AREAS -->
-    <section class="gcc-section bg-slate-50 border-t border-slate-200">
+    <section
+      class="gcc-section bg-[var(--bg-surface)] border-t border-slate-200"
+    >
       <div class="gcc-container text-center">
         <h2 class="text-2xl font-bold text-slate-900 mb-8">
           Also servicing businesses near {suburb}
         </h2>
         <div class="flex flex-wrap justify-center gap-3">
           {
-            nearby.map((area) => (
-              <span class="inline-block px-4 py-2 bg-white border border-slate-200 rounded-full text-slate-600 text-sm font-medium shadow-sm">
-                {area}
-              </span>
-            ))
+            nearby.map((areaName) => {
+              const slug = suburbToSlugMap.get(areaName.trim());
+              if (slug) {
+                return (
+                  <a
+                    href={withBase(`/areas/${slug}`)}
+                    class="inline-block px-4 py-2 bg-white border border-slate-200 rounded-full text-slate-600 text-sm font-medium shadow-sm hover:bg-[var(--brand-green)] hover:text-white hover:border-[var(--brand-green)] transition-all"
+                  >
+                    {areaName}
+                  </a>
+                );
+              } else {
+                return (
+                  <span class="inline-block px-4 py-2 bg-slate-50 border border-slate-200 rounded-full text-slate-500 text-sm font-medium shadow-sm">
+                    {areaName}
+                  </span>
+                );
+              }
+            })
           }
         </div>
       </div>
     </section>
 
     <!-- 10. FINAL CTA -->
-    <section class="py-20 bg-[var(--brand-dark)] text-white text-center">
-      <div class="gcc-container max-w-3xl">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6">
-          Ready to upgrade your cleaning service?
-        </h2>
-        <p class="text-xl text-slate-300 mb-10">
-          Get a free, transparent proposal for your {suburb} business. No lock-in
-          contracts, just great service.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <CTAButton
-            href="/contact"
-            label="Get a Quote"
-            variant="primary"
-            icon="quote"
-            class="w-full sm:w-auto text-lg py-3 px-8"
-          />
-          <CTAButton
-            href="tel:+61422780703"
-            label="Call Now"
-            variant="outline"
-            tone="dark"
-            icon="phone"
-            class="w-full sm:w-auto text-lg py-3 px-8"
-          />
-        </div>
-        <p class="mt-6 text-sm opacity-60">
-          Fast response time. 100% obligation free.
-        </p>
-      </div>
-    </section>
+    <FinalCtaSection
+      title="Ready to upgrade your cleaning service?"
+      subtitle={`Get a free, transparent proposal for your ${suburb} business. No lock-in contracts, just great service.`}
+      eyebrow="Fast response time"
+    />
   </main>
 </Layout>
+
+<style>
+  /* 
+     Structural Styling
+  */
+
+  /* Content Styling - "Heavy Narrative Intro" - Matching Service Page */
+  .area-content {
+    max-width: 900px; /* Wider to accommodate columns */
+    margin: 0 auto;
+  }
+
+  .area-content :global(p) {
+    margin-bottom: 2em;
+    line-height: 1.8;
+    font-size: 1.05rem; /* Slightly smaller for columns refinement */
+    color: var(--text-muted);
+    font-family: "Inter", sans-serif;
+    text-align: justify; /* Optional: cleaner edges in columns */
+  }
+
+  /* Desktop Multi-column Layout */
+  @media (min-width: 768px) {
+    .area-content {
+      column-count: 2;
+      column-gap: 4rem;
+      column-fill: balance;
+    }
+  }
+
+  /* Lead Paragraph - spans all columns */
+  .area-content :global(p:first-of-type) {
+    column-span: all; /* Important: breaks the flow */
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: var(--brand-dark);
+    font-weight: 500;
+    border-left: 4px solid var(--brand-teal);
+    padding-left: 1.5rem;
+    margin-bottom: 3rem; /* Extra space after lead */
+    display: block; /* Ensure span works */
+  }
+
+  .area-content :global(h2) {
+    column-span: all; /* Headings break columns */
+    font-family: "Montserrat", sans-serif;
+    color: var(--brand-dark);
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+    position: relative;
+    border-bottom: 1px solid var(--border-soft);
+    padding-bottom: 1rem;
+    width: 100%;
+  }
+
+  .area-content :global(h2)::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--brand-green);
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    border-radius: 2px;
+  }
+
+  .area-content :global(h3) {
+    font-family: "Montserrat", sans-serif;
+    color: var(--brand-dark);
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-top: 2rem; /* Keep h3 inside columns */
+    margin-bottom: 1rem;
+    break-after: avoid; /* Keep with text */
+  }
+
+  .area-content :global(ul) {
+    margin-bottom: 2.5rem;
+    padding-left: 0;
+    list-style: none;
+    break-inside: avoid; /* Try to keep lists together */
+  }
+
+  .area-content :global(li) {
+    margin-bottom: 0.75rem;
+    padding-left: 2rem;
+    position: relative;
+    font-size: 1rem;
+    color: var(--brand-dark);
+  }
+
+  /* Custom Checkmark Bullet */
+  .area-content :global(li)::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--brand-green);
+    font-weight: 900;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  /* Blockquote styling */
+  .area-content :global(blockquote) {
+    column-span: all; /* Let impactful quotes span roughly */
+    font-style: italic;
+    border-left: 4px solid var(--brand-teal);
+    padding: 2rem;
+    color: var(--brand-dark);
+    background: var(--bg-slate-subtle);
+    border-radius: 1rem;
+    margin: 3rem 0;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+  }
+  /* Services Grid Styling (Copied & Adapted from ServicesGrid.astro) */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    position: relative;
+    border-radius: 6px;
+    border-top: 4px solid var(--brand-green);
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.05),
+      0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .image-box {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+    background: var(--bg-slate-subtle);
+  }
+
+  .image-box :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+
+  .service-card:hover .image-box :global(img) {
+    transform: scale(1.08); /* Gentle cinematic zoom */
+  }
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.4) 0%,
+      transparent 100%
+    );
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+
+  .service-card:hover .overlay {
+    opacity: 0.2;
+  }
+
+  .content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+  }
+
+  .text-wrap {
+    margin-bottom: 1.5rem;
+  }
+
+  .content h3 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .content p {
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  .link-text {
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--brand-green);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-green-subtle);
+    padding: 0.5rem 1rem;
+    border-radius: 99px;
+    align-self: flex-start;
+    transition: all 0.3s ease;
+  }
+
+  .link-text svg {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .service-card:hover .link-text {
+    background: var(--brand-green);
+    color: white;
+    padding-right: 1.25rem;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+  }
+
+  .service-card:hover .link-text svg {
+    transform: translateX(3px);
+  }
+
+  /* Mobile Layout for Services Grid (List View) */
+  @media (max-width: 900px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .service-card {
+      flex-direction: row;
+      align-items: flex-start;
+      min-height: auto;
+      border-top: none;
+      border-left: 5px solid var(--brand-green);
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      border-right: 1px solid rgba(0, 0, 0, 0.03);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .service-card:active {
+      background: var(--bg-surface);
+      transform: scale(0.99);
+    }
+
+    .image-box {
+      width: 85px;
+      height: 85px;
+      margin: 0.75rem 0 0.75rem 0.75rem;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .image-box :global(img) {
+      border-radius: 6px;
+    }
+
+    .overlay {
+      display: none;
+    }
+
+    .content {
+      padding: 0.75rem 1rem;
+      background: transparent;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .text-wrap {
+      margin-bottom: 0;
+      width: 100%;
+    }
+
+    .content h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.25rem;
+      line-height: 1.25;
+    }
+
+    .content p {
+      display: block;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      margin-bottom: 0;
+      opacity: 0.9;
+    }
+
+    .link-text {
+      display: none;
+    }
+  }
+</style>

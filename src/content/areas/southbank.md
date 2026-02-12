@@ -1,39 +1,53 @@
 ---
 suburb: "Southbank"
-title: "Commercial Cleaning in Southbank"
-description: "Professional commercial cleaning in Southbank for offices, apartments, and medical facilities."
+title: "Commercial Cleaning Southbank"
+description: "Commercial office cleaning in Southbank for business and mixed-use buildings."
 heroImage: "/images/areas/southbank-hero.jpg"
+heroImageAlt: "Office cleaning in Southbank Melbourne"
 trustItems:
   - "Fully Insured"
   - "Police Checked"
-  - "Quality Audits"
-
-# Pricing (Minimal)
-pricingStartingFrom: "Custom"
-pricingNote: "tailored to your site spec"
-
-# Services
+  - "ISO 9001 Aligned"
+  - "Same Day Quote"
+pricingStartingFrom: "45"
+pricingNote: "per hour (min 3 hours)"
+reassurancePoints:
+  - "Free walkthrough"
+  - "No contracts"
+  - "First clean guarantee"
 servicesInArea:
   - title: "Office Cleaning"
     href: "/services/office-cleaning"
-    summary: "Professional office cleaning for Southbank towers and suites."
-  - title: "Medical Cleaning"
-    href: "/services/medical-centre-cleaning"
-    summary: "Hygiene-first cleaning for clinics and healthcare suites."
-  - title: "Strata Cleaning"
-    href: "/services/strata-cleaning"
-    summary: "Common area cleaning for residential and commercial strata."
-
-# Nearby
+    summary: "Commercial office cleaning."
+  - title: "Window Cleaning"
+    href: "/services/window-cleaning"
+    summary: "Glass cleaning."
+  - title: "Carpet Cleaning"
+    href: "/services/carpet-cleaning"
+    summary: "Carpet maintenance."
+processSteps:
+  - title: "Walkthrough"
+    description: "Assess Southbank site."
+  - title: "Proposal"
+    description: "Transparent scope."
+  - title: "First Clean"
+    description: "Supervisor verified."
+  - title: "Ongoing Service"
+    description: "Scheduled cleaning."
+qualityAssurancePoints:
+  - "Digital checklist system"
+  - "Monthly audits"
+  - "Clear reporting"
+  - "Hygiene compliance"
 nearby:
   - "Melbourne CBD"
   - "Docklands"
   - "South Melbourne"
-  - "Port Melbourne"
+seoTitle: "Commercial Cleaning Southbank | Professional Office Cleaning"
+seoDescription: "Reliable commercial cleaning in Southbank for offices and mixed-use buildings."
+ogImage: "/images/areas/southbank-og.jpg"
 ---
 
-## Commercial cleaning services in Southbank
+## Professional cleaning in Southbank
 
-We provide dependable commercial cleaning for businesses across Southbank, tailored to site size and operating hours.
-
-Our team services offices, clinics, and shared commercial spaces with a strong focus on consistency and quality control. Whether you manage a high-rise office or a boutique studio, we have the experience to keep it pristine.
+Southbank businesses rely on dependable cleaning to maintain presentation and hygiene. Our structured system ensures consistent service.
