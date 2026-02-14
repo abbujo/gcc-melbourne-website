@@ -1,128 +1,493 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import CTAButton from "../components/CTAButton.astro";
-const base = import.meta.env.BASE_URL;
+import { withBase } from "../lib/site";
 
-const services = await getCollection("services");
+// Fetch and filter services that have pricing data
+const allServices = await getCollection("services");
+const servicesWithPricing = allServices.filter(
+  (service) => service.data.pricing?.display?.from,
+);
 
-// Optional sort: priced services first, then alphabetically
-services.sort((a, b) => {
-  const ap = a.data.startingFrom ?? Number.POSITIVE_INFINITY;
-  const bp = b.data.startingFrom ?? Number.POSITIVE_INFINITY;
-  if (ap !== bp) return ap - bp;
-  return (a.data.heroTitle ?? a.data.title).localeCompare(
-    b.data.heroTitle ?? b.data.title,
-  );
-});
+const pricingFactors = [
+  "Site size (sqm)",
+  "Cleaning frequency",
+  "Type of facility",
+  "Access hours",
+  "Compliance requirements",
+  "Equipment needs",
+  "Consumables supply",
+];
 
-function formatPrice(s: (typeof services)[number]) {
-  // If user provided custom label, use it
-  if (s.data.startingFromLabel) return s.data.startingFromLabel;
+const faqs = [
+  {
+    question: "Do you require contracts?",
+    answer:
+      "No, we generally operate on a service agreement basis without long-term lock-in contracts. We believe our quality should be the reason you stay.",
+  },
+  {
+    question: "Is GST included?",
+    answer:
+      "All our quotes are typically provided ex-GST unless stated otherwise. The final invoice will include GST as per Australian tax law.",
+  },
+  {
+    question: "Do you offer one-off cleans?",
+    answer:
+      "Yes, we perform forensic, vacate, and deep cleans. However, our core business is regular scheduled commercial maintenance.",
+  },
+  {
+    question: "How soon can services begin?",
+    answer:
+      "Depending on the site size and induction requirements, we can often mobilize a team within 48-72 hours of approval.",
+  },
+  {
+    question: "Do you supply consumables?",
+    answer:
+      "Yes, we can manage the supply and restocking of toilet paper, hand towels, and soap for your facility so you never run out.",
+  },
+  {
+    question: "Can pricing change?",
+    answer:
+      "Our rates are fixed for the term of our agreement. Any changes (e.g. Award wage increases) are communicated well in advance.",
+  },
+];
 
-  // If numeric price exists, format it
-  if (typeof s.data.startingFrom === "number") {
-    const unit = s.data.priceUnit ? ` / ${s.data.priceUnit}` : "";
-    return `Starting from $${s.data.startingFrom}${unit}`;
-  }
-
-  // Default
-  return "Starting from —";
-}
+// Schema for FAQ
+const schemaFaqs = faqs.map((f) => ({
+  question: f.question,
+  answer: f.answer,
+}));
 ---
 
-<Layout
-  title="Pricing | GCC Melbourne"
-  description="Transparent starting prices for our commercial cleaning services across Melbourne."
+<BaseLayout
+  title="Commercial Cleaning Pricing Melbourne | GCC Melbourne"
+  description="Transparent commercial cleaning pricing in Melbourne with clear hourly rates and custom quotes available."
+  faqItems={schemaFaqs}
 >
-  <main class="gcc-section">
-    <div class="gcc-container">
-      <header class="max-w-3xl">
-        <h1 class="text-4xl font-bold tracking-tight md:text-5xl">Pricing</h1>
-        <p class="mt-3 text-lg gcc-muted">
-          Indicative starting prices. Final pricing depends on site size,
-          access, frequency, and scope.
-        </p>
-      </header>
-
-      <section class="mt-10 grid gap-4 md:grid-cols-3">
-        {
-          services.map((s) => (
-            <article class="gcc-card">
-              <div
-                class="text-sm font-semibold"
-                style="color: var(--brand-teal);"
-              >
-                {formatPrice(s)}
-              </div>
-
-              <h2 class="mt-2 text-xl font-bold">
-                {s.data.heroTitle ?? s.data.title}
-              </h2>
-
-              <p class="mt-2 text-sm gcc-muted">{s.data.description}</p>
-
-              {s.data.frequencyHint || s.data.minHours ? (
-                <div class="mt-4 flex flex-wrap gap-2">
-                  {s.data.frequencyHint ? (
-                    <span class="gcc-chip">{s.data.frequencyHint}</span>
-                  ) : null}
-                  {typeof s.data.minHours === "number" ? (
-                    <span class="gcc-chip">Min {s.data.minHours} hrs</span>
-                  ) : null}
-                </div>
-              ) : null}
-
-              {s.data.highlights?.length ? (
-                <ul class="mt-4 space-y-2 text-sm">
-                  {s.data.highlights.slice(0, 4).map((h) => (
-                    <li class="gcc-muted">✓ {h}</li>
-                  ))}
-                </ul>
-              ) : null}
-
-              <div class="mt-6 flex flex-wrap gap-3">
-                <CTAButton
-                  href={`${base}/services/${s.slug}`}
-                  label="View details"
-                  variant="outline"
-                  icon="quote"
-                />
-                <CTAButton
-                  href={`${base}/contact`}
-                  label="Get a Quote"
-                  variant="primary"
-                  icon="quote"
-                />
-              </div>
-            </article>
-          ))
-        }
-      </section>
-
-      <section class="gcc-cta-dark mt-14 rounded-3xl p-8 md:p-10">
-        <h2 class="text-2xl font-bold">Want an accurate quote?</h2>
-        <p class="mt-2">
-          Share your suburb, site type, and preferred schedule — we’ll respond
-          with a clear scope and price.
-        </p>
-
-        <div class="mt-6 flex flex-wrap gap-3">
-          <CTAButton
-            href="/contact"
-            label="Get a Quote"
-            variant="primary"
-            icon="quote"
-          />
-          <CTAButton
-            href="tel:+61422780703"
-            label="Call Us"
-            variant="outline"
-            icon="phone"
-            tone="dark"
-          />
+  <main class="pricing-page">
+    <!-- SECTION 1: HERO -->
+    <section class="pricing-hero">
+      <div class="gcc-container">
+        <div class="hero-content fade-in-up">
+          <span class="hero-eyebrow">Pricing Guide</span>
+          <h1 class="hero-title">
+            Transparent Commercial Cleaning Pricing in <span class="highlight"
+              >Melbourne</span
+            >
+          </h1>
+          <p class="hero-subtitle">
+            Clear hourly rates. No hidden fees. Custom quotes available.
+          </p>
+          <div class="hero-actions">
+            <CTAButton
+              href={withBase("/contact")}
+              label="Request Free Site Inspection"
+              variant="primary"
+              icon="quote"
+            />
+            <CTAButton
+              href={withBase("/contact")}
+              label="Get a Fast Quote"
+              variant="outline"
+              icon="arrow-right"
+            />
+          </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: DYNAMIC SERVICE PRICING GRID -->
+    <section class="pricing-grid-section">
+      <div class="gcc-container">
+        <div class="services-grid">
+          {
+            servicesWithPricing.map((service) => {
+              const p = service.data.pricing!.display!;
+              return (
+                <article class="pricing-card">
+                  <div class="card-header">
+                    <h3 class="service-title">
+                      {service.data.title.replace(/ Melbourne$/i, "")}
+                    </h3>
+                    <div class="price-block">
+                      <span class="from-label">From</span>
+                      <div class="price-value">
+                        <span class="currency">$</span>
+                        <span class="amount">{p.from}</span>
+                      </div>
+                      <span class="unit">{p.unit}</span>
+                    </div>
+                  </div>
+
+                  <div class="card-body">
+                    {p.minimumHours && (
+                      <div class="detail-row">
+                        <span class="detail-icon">⏱</span>
+                        <span>Min. {p.minimumHours} hours</span>
+                      </div>
+                    )}
+                    {service.data.pricing?.notes &&
+                      service.data.pricing.notes.length > 0 && (
+                        <p class="pricing-note">
+                          {service.data.pricing.notes[0]}
+                        </p>
+                      )}
+                  </div>
+
+                  <div class="card-footer">
+                    <a
+                      href={withBase(`/services/${service.slug}`)}
+                      class="view-service-link"
+                    >
+                      View Service details &rarr;
+                    </a>
+                  </div>
+                </article>
+              );
+            })
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: WHAT AFFECTS PRICING -->
+    <section class="factors-section">
+      <div class="gcc-container">
+        <div class="factors-wrapper">
+          <div class="factors-text">
+            <h2 class="section-heading">What Affects Cleaning Costs?</h2>
+            <p>
+              Commercial cleaning is customized to your specific site needs. The
+              final quote will depend on:
+            </p>
+          </div>
+          <ul class="factors-list">
+            {
+              pricingFactors.map((factor) => (
+                <li class="factor-item">
+                  <span class="check-icon">✓</span>
+                  {factor}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: FAQ SECTION -->
+    <section class="faq-section">
+      <div class="gcc-container">
+        <h2 class="section-heading center">Pricing FAQ</h2>
+        <div class="faq-list">
+          {
+            faqs.map((f) => (
+              <details class="faq-item">
+                <summary class="faq-question">
+                  {f.question}
+                  <span class="icon">+</span>
+                </summary>
+                <div class="faq-answer">
+                  <p>{f.answer}</p>
+                </div>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </section>
   </main>
-</Layout>
+</BaseLayout>
+
+<style>
+  /* --- SHARED TOKENS & UTILITIES --- */
+  :root {
+    --spacing-section: 4rem;
+    --spacing-card: 2rem;
+  }
+
+  .center {
+    text-align: center;
+  }
+  .highlight {
+    color: var(--brand-green);
+  }
+
+  /* --- PAGE STRUCTURE --- */
+  .pricing-page {
+    /* Create rhythm */
+  }
+
+  /* --- HERO SECTION --- */
+  .pricing-hero {
+    padding: 6rem 0 4rem;
+    background: linear-gradient(to bottom, var(--bg-green-subtle), white);
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--brand-teal);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: var(--brand-dark);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* --- PRICING GRID SECTION --- */
+  .pricing-grid-section {
+    padding: var(--spacing-section) 0;
+    background: white;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .pricing-card {
+    background: white;
+    border: 1px solid var(--border-soft);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    border-top: 4px solid var(--brand-green);
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .service-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin-bottom: 1rem;
+  }
+
+  .price-block {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .from-label {
+    font-size: 0.875rem;
+    color: var(--text-subtle);
+    font-weight: 500;
+  }
+
+  .price-value {
+    display: flex;
+    align-items: flex-start;
+    color: var(--brand-dark);
+    font-weight: 800;
+  }
+
+  .currency {
+    font-size: 1rem;
+    margin-top: 0.2em;
+  }
+
+  .amount {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  .unit {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .card-body {
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .detail-row {
+    display: flex;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .pricing-note {
+    font-size: 0.9rem;
+    color: var(--text-subtle);
+    font-style: italic;
+    background: var(--bg-surface);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .view-service-link {
+    color: var(--brand-teal);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+    display: inline-block;
+  }
+
+  .view-service-link:hover {
+    text-decoration: underline;
+  }
+
+  /* --- FACTORS SECTION --- */
+  .factors-section {
+    padding: var(--spacing-section) 0;
+    background: var(--bg-surface);
+  }
+
+  .factors-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .section-heading {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--brand-dark);
+    margin-bottom: 1rem;
+  }
+
+  .factors-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .factor-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+    color: var(--brand-dark);
+  }
+
+  .check-icon {
+    color: var(--brand-green);
+    font-weight: bold;
+  }
+
+  /* --- FAQ SECTION --- */
+  .faq-section {
+    padding: var(--spacing-section) 0;
+  }
+
+  .faq-list {
+    max-width: 800px;
+    margin: 3rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    border: 1px solid var(--border-soft);
+    border-radius: 0.75rem;
+    background: white;
+    overflow: hidden;
+  }
+
+  .faq-question {
+    padding: 1.25rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none; /* Hide default marker */
+    color: var(--brand-dark);
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-answer {
+    padding: 0 1.25rem 1.25rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .icon {
+    font-weight: 400;
+    color: var(--brand-green);
+    font-size: 1.5rem;
+  }
+
+  details[open] .icon {
+    transform: rotate(45deg);
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 768px) {
+    .factors-wrapper {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .factors-list {
+      grid-template-columns: 1fr;
+    }
+
+    .from-label {
+      display: block;
+      width: 100%;
+      margin-bottom: 0.25rem;
+    }
+    .price-block {
+      flex-wrap: wrap;
+    }
+  }
+</style>
