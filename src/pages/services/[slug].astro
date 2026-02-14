@@ -11,10 +11,11 @@ import ServiceQualityAssurance from "../../components/services/ServiceQualityAss
 import ServiceFAQ from "../../components/services/ServiceFAQ.astro";
 
 // Existing Reused Components
+import { withBase } from "../../lib/site";
+
+// Existing Reused Components
 import HowItWorks from "../../components/home/HowItWorks.astro";
 import StrongCTA from "../../components/home/StrongCTA.astro";
-
-const base = import.meta.env.BASE_URL;
 
 type ServiceEntry = CollectionEntry<"services">;
 type AreaEntry = CollectionEntry<"areas">;
@@ -225,7 +226,7 @@ if (explicitHighlight && fullHeroTitle.toLowerCase().includes(explicitHighlight.
               <div class="suburb-list">
                 {areasForThisService.map((a) => (
                   <a
-                    href={`${base}/areas/${a.slug}`}
+                    href={withBase(`/areas/${a.slug}`)}
                     class="suburb-link"
                   >
                     {a.data.suburb}
@@ -233,7 +234,7 @@ if (explicitHighlight && fullHeroTitle.toLowerCase().includes(explicitHighlight.
                 ))}
               </div>
               <div class="areas-footer">
-                  <a href={`${base}/areas`} class="areas-link-all">
+                  <a href={withBase("/areas")} class="areas-link-all">
                     View all locations &rarr;
                   </a>
               </div>

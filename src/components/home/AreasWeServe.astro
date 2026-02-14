@@ -3,6 +3,7 @@ const melbImg =
   "https://images.unsplash.com/photo-1514395462725-fb4566210144?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
 
 import SmartImage from "../SmartImage.astro";
+import { withBase } from "../../lib/site";
 
 const areas = [
   "Melbourne CBD",
@@ -36,7 +37,9 @@ const areas = [
           {
             areas.map((area) => (
               <a
-                href={`${import.meta.env.BASE_URL}/areas/${area.toLowerCase().replace(/\s+/g, "-")}`}
+                href={withBase(
+                  `/areas/${area.toLowerCase().replace(/\s+/g, "-")}`,
+                )}
                 class="suburb-link"
               >
                 {area}

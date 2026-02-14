@@ -1,6 +1,7 @@
 ---
 import CTAButton from "../CTAButton.astro";
 import SmartImage from "../SmartImage.astro";
+import { withBase } from "../../lib/site";
 ---
 
 <section class="hero-section" id="hero">
@@ -21,7 +22,7 @@ import SmartImage from "../SmartImage.astro";
 
         <div class="cta-group">
           <CTAButton
-            href={`${import.meta.env.BASE_URL}/contact`}
+            href={withBase("/contact")}
             label="Get a Free Quote"
             variant="primary"
             icon="quote"
@@ -96,7 +97,7 @@ import SmartImage from "../SmartImage.astro";
           <div class="trust-item">
             <div class="icon-box wide-logo">
               <img
-                src={`${import.meta.env.BASE_URL}/images/generated/logo/WSV_logo.png`}
+                src={withBase("/images/generated/logo/WSV_logo.png")}
                 alt="WorkSafe Victoria"
                 class="trust-img"
               />
@@ -111,7 +112,7 @@ import SmartImage from "../SmartImage.astro";
           <div class="trust-item">
             <div class="icon-box wide-logo">
               <img
-                src={`${import.meta.env.BASE_URL}/images/generated/logo/LHA_logo.png`}
+                src={withBase("/images/generated/logo/LHA_logo.png")}
                 alt="Labour Hire Authority"
                 class="trust-img"
               />

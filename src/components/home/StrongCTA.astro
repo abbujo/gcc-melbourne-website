@@ -1,5 +1,6 @@
 ---
 import SmartImage from "../SmartImage.astro";
+import { withBase } from "../../lib/site";
 ---
 
 <section class="cta-section" id="cta-split">
@@ -15,13 +16,11 @@ import SmartImage from "../SmartImage.astro";
                     Cleaning for consistent, high-quality results.
                 </p>
                 <div class="btn-group">
-                    <a
-                        href={`${import.meta.env.BASE_URL}/contact`}
-                        class="btn-split">Get a Quote</a
+                    <a href={withBase("/contact")} class="btn-split"
+                        >Get a Quote</a
                     >
-                    <a
-                        href={`${import.meta.env.BASE_URL}/pricing`}
-                        class="btn-split-outline">View Pricing</a
+                    <a href={withBase("/pricing")} class="btn-split-outline"
+                        >View Pricing</a
                     >
                 </div>
             </div>

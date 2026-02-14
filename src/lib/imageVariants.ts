@@ -42,7 +42,7 @@ export function buildSrcSet(name: string): string {
     const widths = VARIANTS[kind];
     const folder = KIND_DIRECTORIES[kind]; // e.g. "hero"
 
-    const base = import.meta.env.BASE_URL;
+    const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     return widths
         .map((w) => `${base}/images/generated/${folder}/${name}-${w}.avif ${w}w`)
         .join(', ');
@@ -65,7 +65,7 @@ export function buildDefaultSrc(name: string): string {
         // 800 is index 2. Math.floor(5/2) = 2. So that works out.
     }
 
-    const base = import.meta.env.BASE_URL;
+    const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     return `${base}/images/generated/${folder}/${name}-${defaultWidth}.avif`;
 }
 

@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-const base = import.meta.env.BASE_URL;
+import { withBase } from "../../lib/site";
 ---
 
 <Layout
@@ -22,7 +22,7 @@ const base = import.meta.env.BASE_URL;
       <!-- Services grid -->
       <section class="mt-10 grid gap-4 md:grid-cols-3">
         <a
-          href={`${base}/services/office-cleaning`}
+          href={withBase("/services/office-cleaning")}
           class="gcc-card gcc-card-link"
         >
           <div class="text-sm font-semibold" style="color: var(--brand-teal);">
@@ -42,7 +42,7 @@ const base = import.meta.env.BASE_URL;
         </a>
 
         <a
-          href={`${base}/services/medical-centre-cleaning`}
+          href={withBase("/services/medical-centre-cleaning")}
           class="gcc-card gcc-card-link"
         >
           <div class="text-sm font-semibold" style="color: var(--brand-teal);">
@@ -62,7 +62,7 @@ const base = import.meta.env.BASE_URL;
         </a>
 
         <a
-          href={`${base}/services/warehouse-cleaning`}
+          href={withBase("/services/warehouse-cleaning")}
           class="gcc-card gcc-card-link"
         >
           <div class="text-sm font-semibold" style="color: var(--brand-teal);">
@@ -97,7 +97,7 @@ const base = import.meta.env.BASE_URL;
           </div>
 
           <div class="flex flex-wrap gap-3 md:justify-end">
-            <a href={`${base}/contact`} class="gcc-btn gcc-btn-primary">
+            <a href={withBase("/contact")} class="gcc-btn gcc-btn-primary">
               Get a Quote
             </a>
             <a href="tel:+61422780703" class="gcc-btn gcc-btn-outline">

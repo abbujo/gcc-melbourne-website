@@ -26,6 +26,31 @@ const services = defineCollection({
     frequencyHint: z.string().optional(), // e.g. "Weekly / Fortnightly"
     highlights: z.array(z.string()).default([]), // e.g. ["Checklist-based", "After-hours available"]
     highlight: z.string().optional(), // Specific text to highlight in H1
+
+    // ✅ NEW: Structured Pricing
+    pricing: z
+      .object({
+        display: z
+          .object({
+            from: z.number().optional(),
+            currency: z.string().optional(),
+            unit: z.string().optional(),
+            minimumHours: z.number().optional(),
+          })
+          .optional(),
+        tiers: z
+          .array(
+            z.object({
+              label: z.string(),
+              from: z.number(),
+              unit: z.string().optional(),
+            })
+          )
+          .optional(),
+        notes: z.array(z.string()).optional(),
+        factors: z.array(z.string()).optional(),
+      })
+      .optional(),
   }),
 });
 

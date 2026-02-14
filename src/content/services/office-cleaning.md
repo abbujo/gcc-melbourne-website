@@ -11,6 +11,24 @@ startingFromLabel: "Per hour (min 3 hours)"
 priceUnit: "hour"
 minHours: 3
 frequencyHint: "Daily / Weekly / Fortnightly"
+pricing:
+  display:
+    from: 45
+    currency: "AUD"
+    unit: "per hour"
+    minimumHours: 2
+  tiers:
+    - label: "Small Office (Under 150 sqm)"
+      from: 120
+      unit: "per visit"
+    - label: "Medium Office (150-300 sqm)"
+      from: 180
+      unit: "per visit"
+  notes:
+    - "Discounts for daily cleaning."
+  factors:
+    - "Frequency of service"
+    - "Kitchen branding requirements"
 highlights:
   - "Desks & Workstations Sanitized"
   - "Kitchens & Breakrooms Deep Cleaned"

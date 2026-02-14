@@ -11,6 +11,25 @@ startingFromLabel: "Per hour (specialized)"
 priceUnit: "hour"
 minHours: 3
 frequencyHint: "Daily / After-Hours"
+pricing:
+  display:
+    from: 55
+    currency: "AUD"
+    unit: "per hour"
+    minimumHours: 3
+  tiers:
+    - label: "Small Clinic (Under 150 sqm)"
+      from: 140
+      unit: "per visit"
+    - label: "Large Medical Centre"
+      from: 280
+      unit: "per visit"
+  notes:
+    - "Includes sterile wipe-downs."
+    - "Compliance detailed reporting included."
+  factors:
+    - "Compliance level required"
+    - "Waste disposal needs"
 highlights:
   - "Infection Control Protocols"
   - "Waiting Room Sanitization"

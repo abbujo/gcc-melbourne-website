@@ -1,5 +1,6 @@
 ---
 import CTAButton from "../CTAButton.astro";
+import { withBase } from "../../lib/site";
 
 interface Props {
     startingFrom?: number;
@@ -7,7 +8,7 @@ interface Props {
     priceUnit?: "visit" | "hour" | "week" | "month";
     minHours?: number;
 }
-
+// ... (rest of imports/props)
 const { startingFrom, startingFromLabel, priceUnit, minHours } = Astro.props;
 
 // If no pricing data is provided, we can either hide this section or show a generic "Get a Quote" block.
@@ -67,7 +68,7 @@ const hasPricing = startingFrom !== undefined;
                 }
 
                 <CTAButton
-                    href={`${import.meta.env.BASE_URL}/contact`}
+                    href={withBase("/contact")}
                     label="Get a Formal Quote"
                     variant="primary"
                     icon="quote"

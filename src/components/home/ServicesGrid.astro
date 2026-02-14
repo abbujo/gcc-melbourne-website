@@ -1,41 +1,43 @@
 ---
 import SmartImage from "../SmartImage.astro";
 import CTAButton from "../CTAButton.astro";
+import { withBase } from "../../lib/site";
+
 const services = [
     {
         title: "Office Cleaning",
         desc: "Professional office cleaning for Melbourne workplaces. Flexible schedules with clear checklists and consistent results.",
-        href: `${import.meta.env.BASE_URL}/services/office-cleaning`,
+        href: withBase("/services/office-cleaning"),
         imageName: "office_cleaning_card",
     },
     {
         title: "End of Lease Cleaning",
         desc: "Detailed end-of-lease cleaning for business relocations, property managers, and lease handovers.",
-        href: `${import.meta.env.BASE_URL}/services/end-of-lease-cleaning`,
+        href: withBase("/services/end-of-lease-cleaning"),
         imageName: "end_of_lease_card",
     },
     {
         title: "Builders Cleaning",
         desc: "Final cleans for new builds, renovations, and fit-outs — inspection-ready from day one.",
-        href: `${import.meta.env.BASE_URL}/services/builders-cleaning`,
+        href: withBase("/services/builders-cleaning"),
         imageName: "builders_clean_card",
     },
     {
         title: "Carpet & Steam Cleaning",
         desc: "Deep steam cleaning for carpets, upholstery, and hard floors in commercial spaces.",
-        href: `${import.meta.env.BASE_URL}/services/carpet-steam-cleaning`,
+        href: withBase("/services/carpet-steam-cleaning"),
         imageName: "carpet_cleaning_card",
     },
     {
         title: "Window Cleaning",
         desc: "Internal and external window cleaning for offices, retail, and commercial buildings.",
-        href: `${import.meta.env.BASE_URL}/services/window-cleaning`,
+        href: withBase("/services/window-cleaning"),
         imageName: "window_cleaning_card",
     },
     {
         title: "Pressure Washing",
         desc: "High-pressure cleaning for exteriors, car parks, walkways, and hard surfaces.",
-        href: `${import.meta.env.BASE_URL}/services/pressure-washing`,
+        href: withBase("/services/pressure-washing"),
         imageName: "pressure_washing_card",
     },
 ];
@@ -92,7 +94,7 @@ const services = [
 
         <div class="view-all-container">
             <CTAButton
-                href={`${import.meta.env.BASE_URL}/services`}
+                href={withBase("/services")}
                 label="View All Services"
                 variant="outline"
                 class="view-all-btn"

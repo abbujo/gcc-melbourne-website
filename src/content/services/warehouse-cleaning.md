@@ -11,6 +11,21 @@ startingFromLabel: "Per visit (min charge)"
 priceUnit: "visit"
 minHours: 4
 frequencyHint: "Weekly / Monthly"
+pricing:
+  display:
+    from: 50
+    currency: "AUD"
+    unit: "per hour"
+    minimumHours: 4
+  tiers:
+    - label: "Small Warehouse"
+      from: 200
+      unit: "per visit"
+  notes:
+    - "Machinery scrubbing available."
+  factors:
+    - "Floor scrubbing needs"
+    - "High dusting requirements"
 highlights:
   - "Machine Floor Scrubbing"
   - "High-Dusting & Spiderweb Removal"
